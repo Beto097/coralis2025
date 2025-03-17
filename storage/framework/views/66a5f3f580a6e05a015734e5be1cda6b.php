@@ -1,0 +1,45 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="editarPantallaModal<?php echo e($fila->id); ?>" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title" id="myLargeModalLabel">Editar Pantalla</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="form-wrap">
+                            <form action="<?php echo e(route('pantalla.save')); ?>" method="POST" role="form" autocomplete="off">  
+                                <?php echo csrf_field(); ?>                            
+                                <?php if (isset($component)) { $__componentOriginal5e6e20c62c2ac87b59182b47ef6cd8ce = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5e6e20c62c2ac87b59182b47ef6cd8ce = $attributes; } ?>
+<?php $component = App\View\Components\EditarPantalla::resolve(['resultado' => $fila] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('editar-pantalla'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\EditarPantalla::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal5e6e20c62c2ac87b59182b47ef6cd8ce)): ?>
+<?php $attributes = $__attributesOriginal5e6e20c62c2ac87b59182b47ef6cd8ce; ?>
+<?php unset($__attributesOriginal5e6e20c62c2ac87b59182b47ef6cd8ce); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal5e6e20c62c2ac87b59182b47ef6cd8ce)): ?>
+<?php $component = $__componentOriginal5e6e20c62c2ac87b59182b47ef6cd8ce; ?>
+<?php unset($__componentOriginal5e6e20c62c2ac87b59182b47ef6cd8ce); ?>
+<?php endif; ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<?php /**PATH D:\Escritorio\Importante\Clientes\clinica nueva\clinicaNueva\resources\views/modals/editarPantallaModals.blade.php ENDPATH**/ ?>
