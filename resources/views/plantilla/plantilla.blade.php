@@ -48,10 +48,10 @@
         <!-- Main Content -->
 		<div class="page-wrapper">
             <!--añadir dashboard-->
-			@if (Auth::user()->accesoRuta('/sucursal/actualizar'))  			
+						
 				
-				@include('modals.actualizarSucursalModals')
-			@endif		
+			@include('modals.actualizarSucursalModals')
+				
 			@yield('contenido')
 			<!-- Footer -->
 			@include('plantilla.footer')

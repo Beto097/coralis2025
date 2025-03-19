@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\consulta;
 use App\Models\paciente;
 
+use Session;
+
 class consultaController extends Controller
 {
     public function index(){
@@ -116,5 +118,44 @@ class consultaController extends Controller
 
             return view('consulta.iniciar',['consulta'=>$consulta,'paciente'=>$paciente]);
         }
+    }
+
+    public function save(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/consulta/registrar')){               
+
+
+            $consulta = consulta::find($request->txtConsultaId);
+            $consulta->medico_id = Auth::user()->id;
+            $consulta->fecha_consulta = $request->txtFecha;
+            $consulta->frecuencia_respiratoria = $request->txtFrecR;
+            $consulta->frecuencia_cardiaca = $request->txtFrecC;
+            $consulta->presion_arterial = $request->txtPresA;
+            $consulta->temperatura = $request->txtTemp;
+            $consulta->saturacion_oxigeno = $request->txtSatO;
+            $consulta->historia_clinica = $request->txtHistoriaClinica;
+            $consulta->examen_fisico = $request->txtExamenFisico;
+            $consulta->talla = $request->txtTalla;
+            $consulta->peso = $request->txtPeso;
+            $consulta->laboratorios_examenes = $request->txtLaboratoriosExamenes;
+            $consulta->alergias = $request->txtAlergias;
+            $consulta->medicinas = $request->txtMedicamentos;
+            $consulta->diagnostico = $request->txtDiagnostico;
+            $consulta->recomendaciones = $request->txtRecomendaciones;
+
+            $consulta->estado_consulta = 'EN CURSO';
+            $consulta->save();
+
+            return redirect()->back()->withErrors(['status' => "Se ha guardo la consulta correctamente"]);
+
+        }
+
+        return redirect(route('index'));
     }
 }

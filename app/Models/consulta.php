@@ -34,4 +34,9 @@ class consulta extends Model
             
         }
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo('App\Models\User','medico_id');
+    }
 }

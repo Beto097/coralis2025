@@ -9,23 +9,27 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form action="{{route('sucursal.actualizar')}}" method="POST" role="form" autocomplete="off">
-                                @csrf
-                                <div class="form-group col-md-2 col-sm-12 col-xs-12"> 
+                            @if (Auth::user()->accesoRuta('/sucursal/actualizar'))  
+                                <form action="{{route('sucursal.actualizar')}}" method="POST" role="form" autocomplete="off">
+                                    @csrf
+                                    <div class="form-group col-md-2 col-sm-12 col-xs-12"> 
 
-                                </div>
-                                <div class="form-group col-md-8 col-sm-12 col-xs-12">                                        
-                                    
+                                    </div>
+                                    <div class="form-group col-md-8 col-sm-12 col-xs-12">                                        
                                         
-                                    <x-lista-sucursales />
+                                            
+                                        <x-lista-sucursales2 />
 
-                                </div>
-                                <div class="modal-footer">                                        
-                                    <button type="submit" id="btnCrearMedicoModal"  class="btn btn-primary text-left">Guardar</button>
-                                </div>
-                                
-                
-                            </form>
+                                    </div>
+                                    <div class="modal-footer">                                        
+                                        <button type="submit" id="btnCrearMedicoModal"  class="btn btn-primary text-left">Guardar</button>
+                                    </div>
+                                    
+                    
+                                </form>
+                            @else
+                                <h6 class="text-center text-danger">!!No tienes permisos para cambiar tu sucursal!!</h6>
+                            @endif
                         </div>
                     </div>
                 </div>              

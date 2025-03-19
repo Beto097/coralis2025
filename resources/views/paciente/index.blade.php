@@ -6,6 +6,7 @@
 
 @section('css')    
     @include('scripts.validaciones')
+    @include('scripts.menorEdad')
 @endsection
 
 @section('contenido')
