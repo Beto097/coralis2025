@@ -65,7 +65,7 @@ class pacienteController extends Controller
         $existe = paciente::where('identificacion_paciente',$cedula)->count();
         if($existe ==1){
             $paciente = paciente::where('identificacion_paciente',$cedula)->first();
-            $edad = Carbon::parse($paciente->fecha_nacimiento_paciente)->age;
+            $edad = $paciente->edad();
             $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente,"edad"=>$edad); 
             
         }

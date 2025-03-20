@@ -76,6 +76,45 @@ class consultaController extends Controller
 
     }
 
+    public function insert(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/consulta/create')){  
+            
+            $paciente = paciente::where('identificacion_paciente',$request->txtCedula)->first();
+
+            $edad = $paciente->edad();
+
+            if ($edad<18) {
+
+                $obj_consulta->responsable_menor = $request->txtNombre;
+                $obj_consulta->parentesco_menor = $request->txtParentesco;
+ 
+            }
+
+            $obj_consulta = new consulta();        
+            $obj_consulta->paciente_id=$paciente->id;
+            $obj_consulta->estado_consulta = 'Pendiente';
+            $obj_consulta->usuario_id = Auth::user()->id;
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;  
+
+            $obj_consulta->save();
+
+
+
+            return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
+
+        }
+
+
+
+    }
+
     public function menor(Request $request){
 
         if (!Auth::user()) {
