@@ -14,6 +14,20 @@
                             
                                 
                                 <div class="row" style="pointer-events: none;">
+                                    @isset($fila->responsable_menor)                                        
+                                    
+                                        <div class="col-md-6 col-sm-6 col-xs-6">                                    
+                                            <label class="control-label text-left">Nombre del Responsable</label>
+                                            <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
+                                                value={{$fila->responsable_menor}}  >
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">                                    
+                                            <label class="control-label text-left">Parentesco</label>
+                                            <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
+                                                value={{$fila->parentesco_menor}}  >
+                                        </div>  
+                                    @endif
+                                    
                                     
                                     <div class="col-md-4 col-sm-12 col-xs-12">
                                         <label class="control-label text-left">Fecha</label>

@@ -64,7 +64,7 @@
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
                                                     @if (\Carbon\Carbon::parse($fila->fecha_nacimiento_paciente)->age>=18)
 
-                                                        <a class="btn btn-primary btn-sm btnIcono @if ($fila->consultaActiva()) disabled @endif" title="Crear Orden" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-file"></i></a>
+                                                        <a class="btn btn-primary btn-sm btnIcono @if ($fila->consultaActiva()) disabled @endif" title="Crear Consulta" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-file"></i></a>
 
                                                     @else
                                                         <button type="button" title="Crear Consulta" class="btn btn-primary btn-sm btnIcono" id="crearConsulta"                
@@ -74,14 +74,12 @@
                                                         @include('modals.CrearConsultaMenorModals')
                                                     @endif
                                                 @endif 
+                                             
+                                                @if (Auth::user()->accesoRuta('/paciente/historia/clinica'))
 
-                                                @if (Auth::user()->accesoRuta('/orden_laboratorio/create'))  
+                                                    <a class="btn btn-info btn-sm btnIcono" title="ver Historial" href="{{route('paciente.verHistorial', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-files-o"></i></a>
 
-                                                    {{-- <a class="btn btn-primary btn-sm btnIcono" title="Crear Orden" href="{{route('orden_laboratorio.create2', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-file"></i></a> --}}
-                                                    <a class="btn btn-primary btn-sm btnIcono" title="Crear Orden" href="" class=""><i id="iconoBoton" class="fa fa-file"></i></a>
-
-                                                @endif     
-                                                <a class="btn btn-info btn-sm btnIcono" title="ver Historial" href="{{route('paciente.verHistorial', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-files-o"></i></a>
+                                                @endif  
                                                 @if (Auth::user()->accesoRuta('/paciente/update')) 
                                                     {{-- <a class="btn btn-success btn-sm " title="Modificar paciente" href="{{route('paciente.update', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fas fa-user-edit"></i></a> --}}
                                                     <button type="button" class="btn btn-success btn-sm btnIcono " id="editPaciente"                

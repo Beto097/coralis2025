@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\paciente;
+use App\Models\consulta;
 
 use Carbon\Carbon;
 
@@ -158,6 +159,37 @@ class pacienteController extends Controller
                 }
                 return redirect()->back()->withErrors(['status' => "Se Agregó el Nuevo Paciente " .$obj_paciente->identificacion_paciente]); 
             }
+
+        }
+        
+            
+        return redirect(route('index'));          
+       
+
+        
+    }
+
+    public function verHistorial($id){
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+
+        if(Auth::user()->accesoRuta('/paciente/historia/clinica')){//solo modificar la ruta buscar las rutas en web.php o el la tabla pantallas
+
+            $paciente = paciente::find($id);
+
+            if ($paciente->consultaActiva()) {
+
+
+                $consulta = consulta::whereIn('estado_consulta', ['Pendiente', 'EN CURSO'])->where('paciente_id',$paciente->id)->first();
+
+                return view('paciente.historial',['consulta'=>$consulta,'paciente'=>$paciente]);
+            }
+
+            return view('paciente.historial',['paciente'=>$paciente]);
 
         }
         
