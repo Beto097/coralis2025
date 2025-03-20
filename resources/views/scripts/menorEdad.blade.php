@@ -18,16 +18,14 @@
 
     function validarEdad() {
         let fechaNacimiento = document.getElementById("txtfecnac").value;
-        console.log(fechaNacimiento);
 
         let contenido = document.getElementById("contenidoMayor");
-        console.log(contenido);
-        
+      
         let edad = calcularEdad(fechaNacimiento);
-        console.log(edad);
+
         if (edad >= 18) {
             contenido.classList.remove("disabled-div", "hidden");
-            console.log('soy mayor de edad');
+
         } else {
             contenido.classList.add("hidden");
         }

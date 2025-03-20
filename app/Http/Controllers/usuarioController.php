@@ -275,4 +275,33 @@ class usuarioController extends Controller
 
     }
 
+    public function updatePassword(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        $m5PasswordViejo = md5($request->txtOld);
+
+        if ($request->txtNew != $request->txtReNew) {
+            
+            return redirect()->back()->withErrors(['danger' => "no coinciden la nueva contraseña con la confirmacion." ]);
+
+        }
+
+        if (Auth::user()->password_usuario != $m5PasswordViejo) {
+
+            return redirect()->back()->withErrors(['danger' => "no esta ingresando correctamente la contraseña anterior" ]);
+            
+        }
+
+        $usuario = Auth::user();
+        $usuario->password_usuario = md5($request->txtReNew);
+        $usuario->save();
+     
+        return redirect()->back()->withErrors(['status' => "se ha actualizado correctamente la contraseña" ]);
+    }
+
 }

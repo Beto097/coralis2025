@@ -5,38 +5,8 @@
 @endsection
 
 @section('css')
-    <script>
-       
-        var app_url ='{{env('APP_URL')}}'; 
-        function validar(){           
-          const url = app_url+'/consultar/'+document.getElementById('txtCedula').value;
-          fetch(url)
-            .then(respuesta => respuesta.json() )
-            .then(respuesta => {let cedula=respuesta.cedula ;
-                if (cedula == document.getElementById('txtCedula').value ){
-                    document.getElementById('AlertaCedula').innerHTML ='Este paciente ya existe';                    
-                    document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-error"
-
-                    
-                    
-                }
-                else{
-                    document.getElementById('AlertaCedula').innerHTML =""
-                    document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-success"
-                    
-                    
-                }
-                if(document.getElementById("cedulaDiv").className == "form-group col-md-6 col-sm-12 col-xs-12 has-error"){
-                    document.getElementById("btnCrear").disabled =true;
-                }else{
-                    document.getElementById("btnCrear").disabled =false;
-                    
-                }
-            });
-          
-        }
-        
-    </script>
+    @include('scripts.validaciones')
+    @include('scripts.menorEdad')
 @endsection
 
 
@@ -63,12 +33,13 @@
                         
                         <form action="{{route('paciente.insert')}}" method="POST" role="form" autocomplete="off">
                             @csrf
-                            <div class="row">
+                            
+                                
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12" id="cedulaDiv">                                    
                                     <label class="control-label mb-10 text-left">Cédula</label>
-                                    <input type="text" class="form-control"  name="txtCedula" id="txtCedula" placeholder="Ejemplo:8-888-8888"  onfocusout="validar()"
+                                    <input type="text" class="form-control"  name="txtCedula" id="txtCedula2" placeholder="Ejemplo:8-888-8888"  onfocusout="validar2()"
                                         value="{{old ('txtcedula')}}" required>
-                                    <small id="AlertaCedula" class="form-text text-muted"></small>
+                                    <small id="AlertaCedula2" class="form-text text-muted"></small>
                                 </div>
                                 <div class="form-group mb-30 col-md-6 col-sm-12 col-xs-12">
                                     <label class="control-label mb-10 text-left">Sexo</label>
@@ -97,13 +68,37 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label class="control-label mb-10 text-left">Fecha de Nacimiento</label>
-                                    <input type="date" class="form-control" id="inputfecnac" name="txtfecnac"
+                                    <input type="date" class="form-control" id="txtfecnac" name="txtfecnac"  onchange="validarEdad()"
                                         value="{{old ('txtfecnac')}}" required>
+                                </div>
+                                <div id="contenidoMayor" class="hidden">
+
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">  
+                                        <label class="control-label mb-10 text-left">Estado Civil</label>
+                                        <select class="form-control" name="txtEstadoCivil" id="">                                            
+                                            
+                                            <option value="Soltero/a">Soltero/a</option>
+                                            <option value="Casado/a">Casado/a</option>
+                                            <option value="Unido/a">Unido/a</option>                   
+                                        
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label class="control-label mb-10 text-left">Lugar de Trabajo</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputtrabajo" placeholder="Ejemplo: Contruccion" name="txtTrabajo" 
+                                            value="{{old ('txtTrabajo')}}" >
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                                     <label class="control-label mb-10 text-left">Telefono</label>
                                     <input type="text" class="form-control form-control-sm" id="inputtelefono" placeholder="Ejemplo:66666666" name="txttelefono" 
                                         value="{{old ('txttelefono')}}"  >
+                                </div>
+                                
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <label class="control-label mb-10 text-left">Direccion</label>
+                                    <input type="text" class="form-control form-control-sm" id="inputdireccion" placeholder="Ejemplo: Carrasquilla" name="txtDireccion" 
+                                        value="{{old ('txtDireccion')}}" >
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <label class="control-label mb-10 text-left" for="example-email">Correo</label>
@@ -117,11 +112,14 @@
                                     <label class="control-label mb-10 text-left">Comentarios</label>
                                     <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1" name="txtComentario" rows="2">{{old ('txtComentario')}}</textarea>
                                 </div>
-                                <div class="modal-footer">
+                                    
+                                
+                                
+                            
+                            <div class="modal-footer">
                                                                     
-                                    <a href="{{route('paciente.index')}}" id="btnCrearModal"  class="btn btn-danger text-rigth">Cancelar</a>
-                                    <button type="submit" id="btnCrear"  class="btn btn-primary text-left">Agregar Paciente</button>
-                                </div>
+                                <a href="{{route('paciente.index')}}" id="btnCrearModal"  class="btn btn-danger text-rigth">Cancelar</a>
+                                <button type="submit" id="btnCrear"  class="btn btn-primary text-left">Agregar Paciente</button>
                             </div>
                         </form>
                         
