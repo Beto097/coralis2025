@@ -28,7 +28,7 @@ Route::post("/paciente/update", [pacienteController::class, 'save'])->name("paci
 Route::get("/paciente/delete/{id}", [pacienteController::class, 'eliminar'])->name("paciente.delete");
 Route::get("/paciente/desbloquear/{id}", [pacienteController::class, 'desbloquear'])->name("paciente.desbloquear");
 Route::get("/paciente/verPassword/{id}", [pacienteController::class, 'verPassword'])->name("paciente.verPassword");
-Route::get("/paciente/historial/{id}", [ordenLaboratorioController::class, 'verHistorial'])->name("paciente.verHistorial");
+Route::get("/paciente/historial/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
 Route::get("/paciente/buscar", [pacienteController::class, 'buscar'])->name("paciente.buscar");
 Route::post("/paciente/buscar", [pacienteController::class, 'search'])->name("paciente.search");
 
