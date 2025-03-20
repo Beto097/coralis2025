@@ -9,14 +9,14 @@
             if (cedula != document.getElementById('txtCedula').value ){
                 document.getElementById('AlertaCedula2').innerHTML ="esta cedula no existe debe crear el paciente";                    
                 document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-error";                    
-                document.getElementById("btnCrearModal").disabled = true; 
+                document.getElementById("divBtn").classList.add("hidden"); 
                
                
             }
             else{
                 document.getElementById('AlertaCedula2').innerHTML =""
                 document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-success";                   
-                document.getElementById("btnCrearModal").disabled = false;
+                document.getElementById("divBtn").classList.remove("hidden");
 
 
                 

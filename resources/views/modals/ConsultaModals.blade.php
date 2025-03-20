@@ -29,18 +29,20 @@
                                         
                                         <div class="form-group col-md-6">
                                             <label for="">Nombre del Responsable</label>
-                                            <input type="text" class="form-control" id="" placeholder="Ejemplo: Jose Ramos"  value="{{old('txtNombre')}}" name="txtNombre" required>
+                                            <input type="text" class="form-control" id="" placeholder="Ejemplo: Jose Ramos"  value="{{old('txtNombre')}}" name="txtNombre" >
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Parentesco</label>
-                                            <input type="text" class="form-control" id="" placeholder="Ejemplo: Padre" value="{{old('txtParentesco')}}" name="txtParentesco" required>
+                                            <input type="text" class="form-control" id="" placeholder="Ejemplo: Padre" value="{{old('txtParentesco')}}" name="txtParentesco">
                                         </div>   
                                     </div>
                                 </div>
-                                
-                                <div class="modal-footer">                                        
-                                    <button type="submit" id="btnCrearModal" class="btn btn-primary text-left">Crear Consulta</button>
+                                <div id="divBtn" class="hidden">
+                                    <div  class="modal-footer ">                                        
+                                        <button  type="submit" id="btnCrearModal2" class="btn btn-primary text-left">Crear Consulta</button>
+                                    </div>
                                 </div>
+                               
                             </form>
                         </div>
                     </div>

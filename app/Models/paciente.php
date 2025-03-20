@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class paciente extends Model
 {
     protected $table = "paciente";
@@ -21,5 +23,12 @@ class paciente extends Model
         }
 
         return false;
+    }
+
+    public function edad(){
+
+        $edad = Carbon::parse($this->fecha_nacimiento_paciente)->age;
+
+        return $edad;
     }
 }
