@@ -5,6 +5,12 @@
 @endsection
 
 
+@section('css')    
+
+    @include('scripts.consulta')
+    
+@endsection
+
 @section('contenido')
     				
     <div class="row">
@@ -13,13 +19,13 @@
             <p>Este listado muestra todos los consultas que estan registrados en el sistema.</p>
         </div>
         <div class="col-sm-2">
-          @if(Auth::user()->accesoRuta('/pantalla/create'))
-            <button class="btn btn-primary btn-lable-wrap left-label" id="addNewPantalla" data-toggle="modal" data-target="#addNewPantallaModal"> 
+          @if(Auth::user()->accesoRuta('/consulta/create'))
+            <button class="btn btn-primary btn-lable-wrap left-label" id="addNewConsulta" data-toggle="modal" data-target="#addNewConsultaModal"> 
               <span class="btn-label"><i class="fa fa-folder-o"></i> </span><span class="btn-text">
-                Agregar Pantalla
+                Agregar Consulta
               </span>
             </button>
-            @include('modals.PantallaModals')  
+            @include('modals.ConsultaModals')  
              
           @endif
 

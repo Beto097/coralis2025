@@ -195,12 +195,10 @@
                     
                 </a>
                 <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
-                    <li>
-                        <a href="profile.html"><i class="zmdi zmdi-account"></i><span>Profile</span></a>
-                    </li>
+
                     @if (Auth::user())
                         <li>
-                            <a href="{{route('usuario.update.password', ['id' => Auth::user()->id])}}"><i class="zmdi zmdi-lock"></i><span>Cambiar Contraseña</span></a>
+                            <a  data-toggle="modal" data-target="#actualizarPasswordModal"><i class="zmdi zmdi-lock"></i><span>Cambiar Contraseña</span></a>                            
                         </li>
                         @if (Auth::user()->sucursal)
                             <li>
@@ -210,33 +208,10 @@
                         @endif
                                                              
                     @endif
-                    <li>
-                        <a href="#"><i class="zmdi zmdi-card"></i><span>my balance</span></a>
-                    </li>
-                    <li>
-                        <a href="inbox.html"><i class="zmdi zmdi-email"></i><span>Inbox</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="zmdi zmdi-settings"></i><span>Settings</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="sub-menu show-on-hover">
-                        <a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="zmdi zmdi-check text-success"></i> available</a>
-                        <ul class="dropdown-menu open-left-side">
-                            <li>
-                                <a href="#"><i class="zmdi zmdi-check text-success"></i><span>available</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="zmdi zmdi-circle-o text-warning"></i><span>busy</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="zmdi zmdi-minus-circle-outline text-danger"></i><span>offline</span></a>
-                            </li>
-                        </ul>	
-                    </li>
+                  
                     <li class="divider"></li>
                     <li>
-                        <a href="{{route('login.cerrar')}}"><i class="zmdi zmdi-power"></i><span>Log Out</span></a>
+                        <a href="{{route('login.cerrar')}}"><i class="zmdi zmdi-power"></i><span>Cerrar</span></a>
                     </li>
                 </ul>
             </li>

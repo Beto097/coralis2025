@@ -11,107 +11,28 @@
     <div class="container-fluid pt-25">
         <!-- Row -->
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{$nuevos_pacientes}}</span></span>
-                                            <span class="weight-500 uppercase-font block font-13">Nuevos Pacientes</span>
-                                        </div>
-                                        <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                            <i class="icon-user-following data-right-rep-icon txt-light-grey"></i>
-                                        </div>
-                                    </div>		
+            <x-dashboard-pacientes />
+            @if (Auth::user()->accesoRuta('#'))
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-heading">
+                            <div class="pull-left">
+                                <h6 class="panel-title txt-dark">Ordenes por Doctor</h6>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="flot-container" style="height:250px">
+                                    <div id="flot_pie_chart" class="demo-placeholder"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>	
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{$ordenes_totales_mes}}</span></span>
-                                            <span class="weight-500 uppercase-font block">Nuevas Ordenes</span>
-                                        </div>
-                                        <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                            <i class="icon-control-rewind data-right-rep-icon txt-light-grey"></i>
-                                        </div>
-                                    </div>		
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{$examenes_totales_mes}}</span></span>
-                                            <span class="weight-500 uppercase-font block">Examenes Realizados</span>
-                                        </div>
-                                        <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                            <i class="icon-layers data-right-rep-icon txt-light-grey"></i>
-                                        </div>
-                                    </div>		
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{$total_pacientes}}</span></span>
-                                            <span class="weight-500 uppercase-font block">Total Pacientes</span>
-                                        </div>
-                                        <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                            <i class="icon-people data-right-rep-icon txt-light-grey"></i>
-                                        </div>
-                                    </div>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <div class="panel panel-default card-view">
-                    <div class="panel-heading">
-                        <div class="pull-left">
-                            <h6 class="panel-title txt-dark">Ordenes por Doctor</h6>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body">
-                            <div class="flot-container" style="height:250px">
-                                <div id="flot_pie_chart" class="demo-placeholder"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>	
-            </div>
+            @endif
+                        
+{{-- 
             <div class="col-lg-9 col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default card-view">
                     
@@ -174,12 +95,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- /Row -->
         
         <!-- Row -->
-        <div class="row">
+{{--         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default card-view">
                     <div class="panel-wrapper collapse in">
@@ -259,7 +180,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- /Row -->
     </div>
 @endsection
@@ -273,8 +194,8 @@
     
         /***Pie Chart***/
         if( $('#flot_pie_chart').length > 0 ){
-            var pie_data = [ @foreach($examenes as $examen) {
-                label: '{{$examen->medico->nombre_medico}}',
+            var pie_data = [ @foreach($consultas as $examen) {
+                label: '{{$examen->doctor->nombre_usuario}}',
                 data: {{$examen->total}},
                 color: "rgba(50,{{$examen->B}},{{$examen->A}} ,1)",
                 

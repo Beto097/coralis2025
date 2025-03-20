@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\paciente;
 
+use Carbon\Carbon;
+
 use Session;
 
 class pacienteController extends Controller
@@ -35,6 +37,24 @@ class pacienteController extends Controller
         return redirect(route('index'));
     }
 
+    public function create(){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/paciente/create')){
+                        
+
+            return view ("paciente.create");
+            
+        }
+
+        return redirect(route('index'));
+    }
+
     public function consultar($cedula){
 
         if (!Auth::user()) {
@@ -45,7 +65,8 @@ class pacienteController extends Controller
         $existe = paciente::where('identificacion_paciente',$cedula)->count();
         if($existe ==1){
             $paciente = paciente::where('identificacion_paciente',$cedula)->first();
-            $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente); 
+            $edad = Carbon::parse($paciente->fecha_nacimiento_paciente)->age;
+            $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente,"edad"=>$edad); 
             
         }
 

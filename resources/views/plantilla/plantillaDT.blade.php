@@ -38,6 +38,7 @@
 		<div class="page-wrapper">
             <!--añadir dashboard-->
 			@include('modals.actualizarSucursalModals')
+			@include('modals.actualizarPasswordModals')
 			@yield('contenido')
 			<!-- Footer -->
 			@include('plantilla.footer')

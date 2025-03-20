@@ -51,7 +51,8 @@
 						
 				
 			@include('modals.actualizarSucursalModals')
-				
+			@include('modals.actualizarPasswordModals')
+			@include('plantilla.errores')	
 			@yield('contenido')
 			<!-- Footer -->
 			@include('plantilla.footer')

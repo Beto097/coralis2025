@@ -18,8 +18,8 @@
 @include('plantilla.errores')
 <!-- fin del error-->
 <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
         <div class="panel panel-default card-view">
             <div class="panel-heading">
                 <div class="pull-left">

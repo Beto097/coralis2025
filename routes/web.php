@@ -53,6 +53,7 @@ Route::get("/sucursal/delete/{id}", [sucursalController::class, 'delete'])->name
 
 /*Consultas*/
 Route::get("/consulta", [consultaController::class, 'index'])->name("consulta.index");
+Route::Post("/consulta/iniciar", [consultaController::class, 'insert'])->name("consulta.insert");
 Route::get("/paciente/iniciar/consulta/{id}", [consultaController::class, 'iniciar'])->name("consulta.iniciar");
 Route::get("/paciente/consulta/{id}", [consultaController::class, 'create2'])->name("consulta.create2");
 Route::POST("/consulta/guardar", [consultaController::class, 'save'])->name("consulta.save");
@@ -99,8 +100,7 @@ Route::post("/usuario/update", [usuarioController::class, 'save'])->name("usuari
 Route::get("/usuario/delete/{id}", [usuarioController::class, 'delete'])->name("usuario.delete");
 Route::get("/usuario/desbloquear/{id}", [usuarioController::class, 'desbloquear'])->name("usuario.desbloquear");
 Route::get("/usuario/bloquear/{id}", [usuarioController::class, 'bloquear'])->name("usuario.bloquear");
-Route::get("/usuario/nuevaPassword/{id}", [usuarioController::class, 'updatePassword'])->name("usuario.update.password");
-Route::post("/usuario/nuevaPassword/{id}", [usuarioController::class, 'updatePasswordSave'])->name("usuario.update.password.save");
+Route::post("/usuario/nuevaPassword/", [usuarioController::class, 'updatePassword'])->name("password.update");
 Route::get("/userName/{usuario}", [usuarioController::class, 'userName'])->name("userName.usuario");
 Route::get("/email/{correo}", [usuarioController::class, 'Correo'])->name("Correo.usuario");
 
