@@ -43,41 +43,42 @@
                 <div class="row">
                   <div class="col-md-3">
                     <ul class="list-unstyled mb-0">
-                      <li class="" style="font-size: 130%"><i class="mdi mdi-card-account-details me-2 text-success font-size-18"></i> <b>
+                      <li class="" style="font-size: 130%"><i class="zmdi zmdi-card me-2 text-success font-size-18"></i>
+                        <b>
                       Cédula</b> : {{$paciente->identificacion_paciente}}</li>
-                      <li class="" style="font-size: 130%"><i class="mdi mdi-account me-2 text-success font-size-18"></i> <b>
+                      <li class="" style="font-size: 130%"><i class="zmdi zmdi-account me-2 text-success font-size-18"></i> <b>
                         Nombre</b> : {{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}} </li>
-                      <li class="" style="font-size: 130%"><i class="mdi mdi-gender-male-female me-2 text-success font-size-18"></i> <b>
+                      <li class="" style="font-size: 130%"><i class="zmdi zmdi-male-female me-2 text-success font-size-18"></i> <b>
                               Sexo </b> : @if ($paciente->sexo_paciente=='m')
                                   Masculino
                               @else
                                   Femenino
                               @endif</li>
                       <li class="" style="font-size: 130%"><i
-                              class="mdi mdi-cake-variant text-success font-size-18 mt-2 me-2"></i>
+                              class="zmdi zmdi-cake text-success font-size-18 mt-2 me-2"></i>
                           <b> Edad </b> : {{\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age}}
                       </li>
-                      <li class="" style="font-size: 130%"><i class="mdi mdi-phone me-2 text-success font-size-18"></i> <b>
+                      <li class="" style="font-size: 130%"><i class="zmdi zmdi-phone-end me-2 text-success font-size-18"></i> <b>
                         Telefono</b> : {{$paciente->telefono_paciente}}</li>
                       @if (\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age>18)
-                        <li class="" style="font-size: 130%"><i class="mdi mdi-human-male-female me-2 text-success font-size-18"></i> <b>
+                        <li class="" style="font-size: 130%"><i class="zmdi zmdi-male-female me-2 text-success font-size-18"></i> <b>
                             Estado Civil</b> : {{$paciente->estado_civil_paciente}}</li>
                         <li class="" style="font-size: 130%"><i
-                              class="mdi mdi-city text-success font-size-18 mt-2 me-2"></i>
+                              class="zmdi zmdi-city-alt text-success font-size-18 mt-2 me-2"></i>
                           <b>Lugar de Trabajo</b> : {{$paciente->lugar_trabajo}}
                         </li>
                       @endif
                       <li class="" style="font-size: 130%"><i
-                              class="mdi mdi-map-marker text-success font-size-18 mt-2 me-2"></i>
+                              class="zmdi zmdi-google-maps text-success font-size-18 mt-2 me-2"></i>
                           <b>Direccion</b> : {{$paciente->direccion_paciente}}
                       </li>
                       @if (\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age<18)
                                     <li class="" style="font-size: 130%"><i
-                                      class="mdi mdi-account-multiple text-success font-size-18 mt-2 me-2"></i>
+                                      class="zmdi zmdi-accounts-alt text-success font-size-18 mt-2 me-2"></i>
                                   <b>Responsable</b> : {{$consulta->responsable_menor}}
                               </li>
                               <li class="" style="font-size: 130%"><i
-                                class="mdi mdi-account-multiple text-success font-size-18 mt-2 me-2"></i>
+                                class="zmdi zmdi-accounts-alt text-success font-size-18 mt-2 me-2"></i>
                             <b>Parentesco</b> : {{$consulta->parentesco_menor}}
                         </li>
                       @endif
