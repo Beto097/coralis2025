@@ -30,9 +30,9 @@ class loginController extends Controller
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();
 
+        consulta::actualizarEstados();  
         return view('index',['consultas'=>$consultas]);
-
-
+        
     }
 
     Public function index() {
