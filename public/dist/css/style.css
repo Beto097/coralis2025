@@ -638,7 +638,7 @@ code {
 
 .bg-pink,
 .bg-info {
-  background: #e11d8e !important; }
+  background: #1ab0dd !important; }
 
 .bg-purple {
   background: #ac235c !important; }
@@ -665,7 +665,8 @@ code {
   background: #00aced !important; }
 
 .txt-dark {
-  color: #212121 !important; }
+  color: #212121 !important;
+  font-family: 'Arial'; }
 
 .txt-light {
   color: #fff !important; }
@@ -678,7 +679,7 @@ code {
 
 .txt-info,
 .text-info {
-  color: #e11d8e !important; }
+  color: #1ab0dd !important; }
 
 .txt-warning,
 .text-warning {
@@ -957,8 +958,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .btn.btn-info, .wizard > .actions a.btn-info, .dt-buttons .btn-info.dt-button, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info, .sweet-alert button.btn-info, .owl-theme .owl-nav .btn-info[class*="owl-"], button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right,
   button.btn-info.fc-month-button.fc-state-default.fc-corner-left,
   button.btn-info.fc-agendaWeek-button, .btn-info.fc-prev-button, .btn-info.fc-next-button, .btn-info.fc-today-button {
-    background: #e11d8e;
-    border: solid 1px #e11d8e; }
+    background: #1ab0dd;
+    border: solid 1px #1ab0dd; }
     .btn.btn-info:hover, .wizard > .actions a.btn-info:hover, .dt-buttons .btn-info.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:hover, .sweet-alert button.btn-info:hover, .owl-theme .owl-nav .btn-info[class*="owl-"]:hover, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
     button.btn-info.fc-month-button.fc-state-default.fc-corner-left:hover,
     button.btn-info.fc-agendaWeek-button:hover, .btn-info.fc-prev-button:hover, .btn-info.fc-next-button:hover, .btn-info.fc-today-button:hover, .btn.btn-info:active, .wizard > .actions a.btn-info:active, .dt-buttons .btn-info.dt-button:active, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:active, .sweet-alert button.btn-info:active, .owl-theme .owl-nav .btn-info[class*="owl-"]:active, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:active,
@@ -966,7 +967,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
     button.btn-info.fc-agendaWeek-button:active, .btn-info.fc-prev-button:active, .btn-info.fc-next-button:active, .btn-info.fc-today-button:active, .btn.btn-info:focus, .wizard > .actions a.btn-info:focus, .dt-buttons .btn-info.dt-button:focus, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:focus, .sweet-alert button.btn-info:focus, .owl-theme .owl-nav .btn-info[class*="owl-"]:focus, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:focus,
     button.btn-info.fc-month-button.fc-state-default.fc-corner-left:focus,
     button.btn-info.fc-agendaWeek-button:focus, .btn-info.fc-prev-button:focus, .btn-info.fc-next-button:focus, .btn-info.fc-today-button:focus {
-      background: rgba(225, 29, 142, 0.85);
+      background: rgb(151 222 233 / 85%);
       border: solid 1px rgba(225, 29, 142, 0.1); }
   .btn.btn-primary, .wizard > .actions .disabled a, .wizard > .actions .disabled a:hover, .wizard > .actions .disabled a:active, .wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active, .dt-buttons .dt-button, .tablesaw-sortable th.tablesaw-sortable-head button.btn-primary, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button, .sweet-alert button.btn-primary, .owl-theme .owl-nav .btn-primary[class*="owl-"], .owl-theme .owl-nav .wizard > .actions a[class*="owl-"], .wizard > .actions .owl-theme .owl-nav a[class*="owl-"], .owl-theme .owl-nav .dt-buttons [class*="owl-"].dt-button, .dt-buttons .owl-theme .owl-nav [class*="owl-"].dt-button, button.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right, .dt-buttons button.fc-agendaDay-button.fc-state-default.fc-corner-right.dt-button,
   button.btn-primary.fc-month-button.fc-state-default.fc-corner-left,
@@ -1207,7 +1208,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
     button.btn-info.fc-month-button.fc-state-default.fc-corner-left,
     button.btn-info.fc-agendaWeek-button, .btn-outline.btn-info.fc-prev-button, .btn-outline.btn-info.fc-next-button, .btn-outline.btn-info.fc-today-button {
       border: solid 1px rgba(225, 29, 142, 0.5);
-      color: #e11d8e; }
+      color: #1ab0dd; }
       .btn.btn-outline.btn-info:hover, .wizard > .actions a.btn-outline.btn-info:hover, .wizard > .actions .note-editor a.btn-info.note-btn.btn-sm:hover, .note-editor .wizard > .actions a.btn-info.note-btn.btn-sm:hover, ul.wysihtml5-toolbar a.btn.btn-info:hover, ul.wysihtml5-toolbar .wizard > .actions a.btn-info:hover, .wizard > .actions ul.wysihtml5-toolbar a.btn-info:hover, ul.wysihtml5-toolbar .dt-buttons a.btn-info.dt-button:hover, .dt-buttons ul.wysihtml5-toolbar a.btn-info.dt-button:hover, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-info[class*="owl-"]:hover, .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-info[class*="owl-"]:hover, ul.wysihtml5-toolbar a.btn-info.fc-prev-button:hover, ul.wysihtml5-toolbar a.btn-info.fc-next-button:hover, ul.wysihtml5-toolbar a.btn-info.fc-today-button:hover, .note-editor .btn.btn-info.note-btn.btn-sm:hover, .note-editor .dt-buttons .btn-info.note-btn.btn-sm.dt-button:hover, .dt-buttons .note-editor .btn-info.note-btn.btn-sm.dt-button:hover, .note-editor .sweet-alert button.btn-info.note-btn.btn-sm:hover, .sweet-alert .note-editor button.btn-info.note-btn.btn-sm:hover, .note-editor .owl-theme .owl-nav .btn-info.note-btn.btn-sm[class*="owl-"]:hover, .owl-theme .owl-nav .note-editor .btn-info.note-btn.btn-sm[class*="owl-"]:hover, .note-editor .btn-info.note-btn.btn-sm.fc-prev-button:hover, .note-editor .btn-info.note-btn.btn-sm.fc-next-button:hover, .note-editor .btn-info.note-btn.btn-sm.fc-today-button:hover, .dt-buttons .btn-outline.btn-info.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:hover, .sweet-alert button.btn-outline.btn-info:hover, .owl-theme .owl-nav .btn-outline.btn-info[class*="owl-"]:hover, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
       button.btn-info.fc-month-button.fc-state-default.fc-corner-left:hover,
       button.btn-info.fc-agendaWeek-button:hover, .btn-outline.btn-info.fc-prev-button:hover, .btn-outline.btn-info.fc-next-button:hover, .btn-outline.btn-info.fc-today-button:hover, .btn.btn-outline.btn-info:focus, .wizard > .actions a.btn-outline.btn-info:focus, .wizard > .actions .note-editor a.btn-info.note-btn.btn-sm:focus, .note-editor .wizard > .actions a.btn-info.note-btn.btn-sm:focus, ul.wysihtml5-toolbar a.btn.btn-info:focus, ul.wysihtml5-toolbar .wizard > .actions a.btn-info:focus, .wizard > .actions ul.wysihtml5-toolbar a.btn-info:focus, ul.wysihtml5-toolbar .dt-buttons a.btn-info.dt-button:focus, .dt-buttons ul.wysihtml5-toolbar a.btn-info.dt-button:focus, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-info[class*="owl-"]:focus, .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-info[class*="owl-"]:focus, ul.wysihtml5-toolbar a.btn-info.fc-prev-button:focus, ul.wysihtml5-toolbar a.btn-info.fc-next-button:focus, ul.wysihtml5-toolbar a.btn-info.fc-today-button:focus, .note-editor .btn.btn-info.note-btn.btn-sm:focus, .note-editor .dt-buttons .btn-info.note-btn.btn-sm.dt-button:focus, .dt-buttons .note-editor .btn-info.note-btn.btn-sm.dt-button:focus, .note-editor .sweet-alert button.btn-info.note-btn.btn-sm:focus, .sweet-alert .note-editor button.btn-info.note-btn.btn-sm:focus, .note-editor .owl-theme .owl-nav .btn-info.note-btn.btn-sm[class*="owl-"]:focus, .owl-theme .owl-nav .note-editor .btn-info.note-btn.btn-sm[class*="owl-"]:focus, .note-editor .btn-info.note-btn.btn-sm.fc-prev-button:focus, .note-editor .btn-info.note-btn.btn-sm.fc-next-button:focus, .note-editor .btn-info.note-btn.btn-sm.fc-today-button:focus, .dt-buttons .btn-outline.btn-info.dt-button:focus, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:focus, .sweet-alert button.btn-outline.btn-info:focus, .owl-theme .owl-nav .btn-outline.btn-info[class*="owl-"]:focus, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:focus,
@@ -1215,7 +1216,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
       button.btn-info.fc-agendaWeek-button:focus, .btn-outline.btn-info.fc-prev-button:focus, .btn-outline.btn-info.fc-next-button:focus, .btn-outline.btn-info.fc-today-button:focus, .btn.btn-outline.btn-info:active, .wizard > .actions a.btn-outline.btn-info:active, .wizard > .actions .note-editor a.btn-info.note-btn.btn-sm:active, .note-editor .wizard > .actions a.btn-info.note-btn.btn-sm:active, ul.wysihtml5-toolbar a.btn.btn-info:active, ul.wysihtml5-toolbar .wizard > .actions a.btn-info:active, .wizard > .actions ul.wysihtml5-toolbar a.btn-info:active, ul.wysihtml5-toolbar .dt-buttons a.btn-info.dt-button:active, .dt-buttons ul.wysihtml5-toolbar a.btn-info.dt-button:active, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-info[class*="owl-"]:active, .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-info[class*="owl-"]:active, ul.wysihtml5-toolbar a.btn-info.fc-prev-button:active, ul.wysihtml5-toolbar a.btn-info.fc-next-button:active, ul.wysihtml5-toolbar a.btn-info.fc-today-button:active, .note-editor .btn.btn-info.note-btn.btn-sm:active, .note-editor .dt-buttons .btn-info.note-btn.btn-sm.dt-button:active, .dt-buttons .note-editor .btn-info.note-btn.btn-sm.dt-button:active, .note-editor .sweet-alert button.btn-info.note-btn.btn-sm:active, .sweet-alert .note-editor button.btn-info.note-btn.btn-sm:active, .note-editor .owl-theme .owl-nav .btn-info.note-btn.btn-sm[class*="owl-"]:active, .owl-theme .owl-nav .note-editor .btn-info.note-btn.btn-sm[class*="owl-"]:active, .note-editor .btn-info.note-btn.btn-sm.fc-prev-button:active, .note-editor .btn-info.note-btn.btn-sm.fc-next-button:active, .note-editor .btn-info.note-btn.btn-sm.fc-today-button:active, .dt-buttons .btn-outline.btn-info.dt-button:active, .tablesaw-sortable th.tablesaw-sortable-head button.btn-info:active, .sweet-alert button.btn-outline.btn-info:active, .owl-theme .owl-nav .btn-outline.btn-info[class*="owl-"]:active, button.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:active,
       button.btn-info.fc-month-button.fc-state-default.fc-corner-left:active,
       button.btn-info.fc-agendaWeek-button:active, .btn-outline.btn-info.fc-prev-button:active, .btn-outline.btn-info.fc-next-button:active, .btn-outline.btn-info.fc-today-button:active {
-        border: solid 1px #e11d8e; }
+        border: solid 1px #1ab0dd; }
     .btn.btn-outline.btn-primary, .wizard > .actions .disabled a.btn-outline, ul.wysihtml5-toolbar .wizard > .actions .disabled a, .wizard > .actions .disabled ul.wysihtml5-toolbar a, .wizard > .actions ul.wysihtml5-toolbar .disabled a, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm, .wizard > .actions .disabled a.btn-outline:hover, ul.wysihtml5-toolbar .wizard > .actions .disabled a:hover, .wizard > .actions .disabled ul.wysihtml5-toolbar a:hover, .wizard > .actions ul.wysihtml5-toolbar .disabled a:hover, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm:hover, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm:hover, .wizard > .actions .disabled a.btn-outline:active, ul.wysihtml5-toolbar .wizard > .actions .disabled a:active, .wizard > .actions .disabled ul.wysihtml5-toolbar a:active, .wizard > .actions ul.wysihtml5-toolbar .disabled a:active, .wizard > .actions .disabled .note-editor a.note-btn.btn-sm:active, .note-editor .wizard > .actions .disabled a.note-btn.btn-sm:active, .wizard > .actions a.btn-outline, ul.wysihtml5-toolbar .wizard > .actions a, .wizard > .actions ul.wysihtml5-toolbar a, .wizard > .actions .note-editor a.note-btn.btn-sm, .note-editor .wizard > .actions a.note-btn.btn-sm, .wizard > .actions a.btn-outline:hover, ul.wysihtml5-toolbar .wizard > .actions a:hover, .wizard > .actions ul.wysihtml5-toolbar a:hover, .wizard > .actions .note-editor a.note-btn.btn-sm:hover, .note-editor .wizard > .actions a.note-btn.btn-sm:hover, .wizard > .actions a.btn-outline:active, ul.wysihtml5-toolbar .wizard > .actions a:active, .wizard > .actions ul.wysihtml5-toolbar a:active, .wizard > .actions .note-editor a.note-btn.btn-sm:active, .note-editor .wizard > .actions a.note-btn.btn-sm:active, ul.wysihtml5-toolbar a.btn.btn-primary, ul.wysihtml5-toolbar .dt-buttons a.dt-button, .dt-buttons ul.wysihtml5-toolbar a.dt-button, ul.wysihtml5-toolbar .owl-theme .owl-nav a.btn-primary[class*="owl-"], .owl-theme .owl-nav ul.wysihtml5-toolbar a.btn-primary[class*="owl-"], ul.wysihtml5-toolbar a.btn-primary.fc-prev-button, ul.wysihtml5-toolbar a.btn-primary.fc-next-button, ul.wysihtml5-toolbar a.btn-primary.fc-today-button, .note-editor .btn.btn-primary.note-btn.btn-sm, .note-editor .dt-buttons .note-btn.btn-sm.dt-button, .dt-buttons .note-editor .note-btn.btn-sm.dt-button, .note-editor .tablesaw-sortable th.tablesaw-sortable-head button.btn-primary.note-btn.btn-sm, .tablesaw-sortable th.tablesaw-sortable-head .note-editor button.btn-primary.note-btn.btn-sm, .note-editor .sweet-alert button.btn-primary.note-btn.btn-sm, .sweet-alert .note-editor button.btn-primary.note-btn.btn-sm, .note-editor .owl-theme .owl-nav .btn-primary.note-btn.btn-sm[class*="owl-"], .owl-theme .owl-nav .note-editor .btn-primary.note-btn.btn-sm[class*="owl-"], .note-editor button.btn-primary.note-btn.btn-sm.fc-agendaDay-button.fc-state-default.fc-corner-right,
     .note-editor button.btn-primary.note-btn.btn-sm.fc-month-button.fc-state-default.fc-corner-left,
     .note-editor button.btn-primary.note-btn.btn-sm.fc-agendaWeek-button, .note-editor .btn-primary.note-btn.btn-sm.fc-prev-button, .note-editor .btn-primary.note-btn.btn-sm.fc-next-button, .note-editor .btn-primary.note-btn.btn-sm.fc-today-button, .dt-buttons .btn-outline.dt-button, .dt-buttons .tablesaw-sortable th.tablesaw-sortable-head button.dt-button, .tablesaw-sortable th.tablesaw-sortable-head .dt-buttons button.dt-button, .dt-buttons button.dt-button.fc-agendaDay-button.fc-state-default.fc-corner-right,
@@ -1647,15 +1648,15 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
     .btn.btn-icon-anim.btn-info:before, .wizard > .actions a.btn-icon-anim.btn-info:before, .dt-buttons .btn-icon-anim.btn-info.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-info:before, .sweet-alert button.btn-icon-anim.btn-info:before, .owl-theme .owl-nav .btn-icon-anim.btn-info[class*="owl-"]:before, button.btn-icon-anim.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
     button.btn-icon-anim.btn-info.fc-month-button.fc-state-default.fc-corner-left:before,
     button.btn-icon-anim.btn-info.fc-agendaWeek-button:before, .btn-icon-anim.btn-info.fc-prev-button:before, .btn-icon-anim.btn-info.fc-next-button:before, .btn-icon-anim.btn-info.fc-today-button:before {
-      box-shadow: 0 0 0 35px #e11d8e inset; }
+      box-shadow: 0 0 0 35px #1ab0dd inset; }
     .btn.btn-icon-anim.btn-info:hover, .wizard > .actions a.btn-icon-anim.btn-info:hover, .dt-buttons .btn-icon-anim.btn-info.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-info:hover, .sweet-alert button.btn-icon-anim.btn-info:hover, .owl-theme .owl-nav .btn-icon-anim.btn-info[class*="owl-"]:hover, button.btn-icon-anim.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
     button.btn-icon-anim.btn-info.fc-month-button.fc-state-default.fc-corner-left:hover,
     button.btn-icon-anim.btn-info.fc-agendaWeek-button:hover, .btn-icon-anim.btn-info.fc-prev-button:hover, .btn-icon-anim.btn-info.fc-next-button:hover, .btn-icon-anim.btn-info.fc-today-button:hover {
-      color: #e11d8e !important; }
+      color: #1ab0dd !important; }
       .btn.btn-icon-anim.btn-info:hover:before, .wizard > .actions a.btn-icon-anim.btn-info:hover:before, .dt-buttons .btn-icon-anim.btn-info.dt-button:hover:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-info:hover:before, .sweet-alert button.btn-icon-anim.btn-info:hover:before, .owl-theme .owl-nav .btn-icon-anim.btn-info[class*="owl-"]:hover:before, button.btn-icon-anim.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:hover:before,
       button.btn-icon-anim.btn-info.fc-month-button.fc-state-default.fc-corner-left:hover:before,
       button.btn-icon-anim.btn-info.fc-agendaWeek-button:hover:before, .btn-icon-anim.btn-info.fc-prev-button:hover:before, .btn-icon-anim.btn-info.fc-next-button:hover:before, .btn-icon-anim.btn-info.fc-today-button:hover:before {
-        box-shadow: 0 0 0 1px #e11d8e inset; }
+        box-shadow: 0 0 0 1px #1ab0dd inset; }
     .btn.btn-icon-anim.btn-primary:before, .wizard > .actions a.btn-icon-anim:before, .dt-buttons .btn-icon-anim.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.btn-icon-anim.btn-primary:before, .sweet-alert button.btn-icon-anim.btn-primary:before, .owl-theme .owl-nav .btn-icon-anim.btn-primary[class*="owl-"]:before, button.btn-icon-anim.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
     button.btn-icon-anim.btn-primary.fc-month-button.fc-state-default.fc-corner-left:before,
     button.btn-icon-anim.btn-primary.fc-agendaWeek-button:before, .btn-icon-anim.btn-primary.fc-prev-button:before, .btn-icon-anim.btn-primary.fc-next-button:before, .btn-icon-anim.btn-primary.fc-today-button:before {
@@ -1911,7 +1912,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .btn.fancy-button.btn-info.btn-0:before, .wizard > .actions a.fancy-button.btn-info.btn-0:before, .dt-buttons .fancy-button.btn-info.btn-0.dt-button:before, .tablesaw-sortable th.tablesaw-sortable-head button.fancy-button.btn-info.btn-0:before, .sweet-alert button.fancy-button.btn-info.btn-0:before, .owl-theme .owl-nav .fancy-button.btn-info.btn-0[class*="owl-"]:before, button.fancy-button.btn-info.btn-0.fc-agendaDay-button.fc-state-default.fc-corner-right:before,
   button.fancy-button.btn-info.btn-0.fc-month-button.fc-state-default.fc-corner-left:before,
   button.fancy-button.btn-info.btn-0.fc-agendaWeek-button:before, .fancy-button.btn-info.btn-0.fc-prev-button:before, .fancy-button.btn-info.btn-0.fc-next-button:before, .fancy-button.btn-info.btn-0.fc-today-button:before {
-    background: #e11d8e; }
+    background: #1ab0dd; }
   .btn.fancy-button.btn-info.btn-0:hover, .wizard > .actions a.fancy-button.btn-info.btn-0:hover, .dt-buttons .fancy-button.btn-info.btn-0.dt-button:hover, .tablesaw-sortable th.tablesaw-sortable-head button.fancy-button.btn-info.btn-0:hover, .sweet-alert button.fancy-button.btn-info.btn-0:hover, .owl-theme .owl-nav .fancy-button.btn-info.btn-0[class*="owl-"]:hover, button.fancy-button.btn-info.btn-0.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
   button.fancy-button.btn-info.btn-0.fc-month-button.fc-state-default.fc-corner-left:hover,
   button.fancy-button.btn-info.btn-0.fc-agendaWeek-button:hover, .fancy-button.btn-info.btn-0.fc-prev-button:hover, .fancy-button.btn-info.btn-0.fc-next-button:hover, .fancy-button.btn-info.btn-0.fc-today-button:hover {
@@ -1970,8 +1971,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
 .open .dropdown-toggle.btn.btn-info, .open .wizard > .actions a.dropdown-toggle.btn-info, .wizard > .actions .open a.dropdown-toggle.btn-info, .open .dt-buttons .dropdown-toggle.btn-info.dt-button, .dt-buttons .open .dropdown-toggle.btn-info.dt-button, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-info, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-info, .open .sweet-alert button.dropdown-toggle.btn-info, .sweet-alert .open button.dropdown-toggle.btn-info, .open .owl-theme .owl-nav .dropdown-toggle.btn-info[class*="owl-"], .owl-theme .owl-nav .open .dropdown-toggle.btn-info[class*="owl-"], .open button.dropdown-toggle.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right,
 .open button.dropdown-toggle.btn-info.fc-month-button.fc-state-default.fc-corner-left,
 .open button.dropdown-toggle.btn-info.fc-agendaWeek-button, .open .dropdown-toggle.btn-info.fc-prev-button, .open .dropdown-toggle.btn-info.fc-next-button, .open .dropdown-toggle.btn-info.fc-today-button {
-  background: #e11d8e;
-  border: solid 1px #e11d8e; }
+  background: #1ab0dd;
+  border: solid 1px #1ab0dd; }
   .open .dropdown-toggle.btn.btn-info:hover, .open .wizard > .actions a.dropdown-toggle.btn-info:hover, .wizard > .actions .open a.dropdown-toggle.btn-info:hover, .open .dt-buttons .dropdown-toggle.btn-info.dt-button:hover, .dt-buttons .open .dropdown-toggle.btn-info.dt-button:hover, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-info:hover, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-info:hover, .open .sweet-alert button.dropdown-toggle.btn-info:hover, .sweet-alert .open button.dropdown-toggle.btn-info:hover, .open .owl-theme .owl-nav .dropdown-toggle.btn-info[class*="owl-"]:hover, .owl-theme .owl-nav .open .dropdown-toggle.btn-info[class*="owl-"]:hover, .open button.dropdown-toggle.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:hover,
   .open button.dropdown-toggle.btn-info.fc-month-button.fc-state-default.fc-corner-left:hover,
   .open button.dropdown-toggle.btn-info.fc-agendaWeek-button:hover, .open .dropdown-toggle.btn-info.fc-prev-button:hover, .open .dropdown-toggle.btn-info.fc-next-button:hover, .open .dropdown-toggle.btn-info.fc-today-button:hover, .open .dropdown-toggle.btn.btn-info:active, .open .wizard > .actions a.dropdown-toggle.btn-info:active, .wizard > .actions .open a.dropdown-toggle.btn-info:active, .open .dt-buttons .dropdown-toggle.btn-info.dt-button:active, .dt-buttons .open .dropdown-toggle.btn-info.dt-button:active, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-info:active, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-info:active, .open .sweet-alert button.dropdown-toggle.btn-info:active, .sweet-alert .open button.dropdown-toggle.btn-info:active, .open .owl-theme .owl-nav .dropdown-toggle.btn-info[class*="owl-"]:active, .owl-theme .owl-nav .open .dropdown-toggle.btn-info[class*="owl-"]:active, .open button.dropdown-toggle.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:active,
@@ -1979,7 +1980,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .open button.dropdown-toggle.btn-info.fc-agendaWeek-button:active, .open .dropdown-toggle.btn-info.fc-prev-button:active, .open .dropdown-toggle.btn-info.fc-next-button:active, .open .dropdown-toggle.btn-info.fc-today-button:active, .open .dropdown-toggle.btn.btn-info:focus, .open .wizard > .actions a.dropdown-toggle.btn-info:focus, .wizard > .actions .open a.dropdown-toggle.btn-info:focus, .open .dt-buttons .dropdown-toggle.btn-info.dt-button:focus, .dt-buttons .open .dropdown-toggle.btn-info.dt-button:focus, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-info:focus, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-info:focus, .open .sweet-alert button.dropdown-toggle.btn-info:focus, .sweet-alert .open button.dropdown-toggle.btn-info:focus, .open .owl-theme .owl-nav .dropdown-toggle.btn-info[class*="owl-"]:focus, .owl-theme .owl-nav .open .dropdown-toggle.btn-info[class*="owl-"]:focus, .open button.dropdown-toggle.btn-info.fc-agendaDay-button.fc-state-default.fc-corner-right:focus,
   .open button.dropdown-toggle.btn-info.fc-month-button.fc-state-default.fc-corner-left:focus,
   .open button.dropdown-toggle.btn-info.fc-agendaWeek-button:focus, .open .dropdown-toggle.btn-info.fc-prev-button:focus, .open .dropdown-toggle.btn-info.fc-next-button:focus, .open .dropdown-toggle.btn-info.fc-today-button:focus {
-    background: rgba(225, 29, 142, 0.85);
+    background: rgb(151 222 233 / 85%);
     border: solid 1px rgba(225, 29, 142, 0.1); }
 .open .dropdown-toggle.btn.btn-primary, .open .wizard > .actions a.dropdown-toggle, .wizard > .actions .open a.dropdown-toggle, .open .dt-buttons .dropdown-toggle.dt-button, .dt-buttons .open .dropdown-toggle.dt-button, .open .tablesaw-sortable th.tablesaw-sortable-head button.dropdown-toggle.btn-primary, .tablesaw-sortable th.tablesaw-sortable-head .open button.dropdown-toggle.btn-primary, .open .sweet-alert button.dropdown-toggle.btn-primary, .sweet-alert .open button.dropdown-toggle.btn-primary, .open .owl-theme .owl-nav .dropdown-toggle.btn-primary[class*="owl-"], .owl-theme .owl-nav .open .dropdown-toggle.btn-primary[class*="owl-"], .open button.dropdown-toggle.btn-primary.fc-agendaDay-button.fc-state-default.fc-corner-right,
 .open button.dropdown-toggle.btn-primary.fc-month-button.fc-state-default.fc-corner-left,
@@ -2187,8 +2188,8 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
   .open button.dropdown-toggle.btn-info.fc-prev-button.fc-agendaWeek-button, .open .dropdown-toggle.btn-outline.btn-info.fc-next-button,
   .open button.dropdown-toggle.btn-info.fc-next-button.fc-agendaWeek-button, .open .dropdown-toggle.btn-outline.btn-info.fc-today-button,
   .open button.dropdown-toggle.btn-info.fc-today-button.fc-agendaWeek-button {
-    color: #e11d8e;
-    border: solid 1px #e11d8e; }
+    color: #1ab0dd;
+    border: solid 1px #1ab0dd; }
   .open .dropdown-toggle.btn.btn-outline.btn-danger, .open .wizard > .actions a.dropdown-toggle.btn-outline.btn-danger, .wizard > .actions .open a.dropdown-toggle.btn-outline.btn-danger, .open .wizard > .actions .note-editor a.dropdown-toggle.btn-danger.note-btn.btn-sm, .wizard > .actions .note-editor .open a.dropdown-toggle.btn-danger.note-btn.btn-sm, .open .note-editor .wizard > .actions a.dropdown-toggle.btn-danger.note-btn.btn-sm, .note-editor .wizard > .actions .open a.dropdown-toggle.btn-danger.note-btn.btn-sm, .open ul.wysihtml5-toolbar a.dropdown-toggle.btn.btn-danger, ul.wysihtml5-toolbar .open a.dropdown-toggle.btn.btn-danger, .open ul.wysihtml5-toolbar .wizard > .actions a.dropdown-toggle.btn-danger, ul.wysihtml5-toolbar .wizard > .actions .open a.dropdown-toggle.btn-danger, .open .wizard > .actions ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger, .wizard > .actions ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger, .open ul.wysihtml5-toolbar .dt-buttons a.dropdown-toggle.btn-danger.dt-button, ul.wysihtml5-toolbar .dt-buttons .open a.dropdown-toggle.btn-danger.dt-button, .open .dt-buttons ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger.dt-button, .dt-buttons ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger.dt-button, .open ul.wysihtml5-toolbar .owl-theme .owl-nav a.dropdown-toggle.btn-danger[class*="owl-"], ul.wysihtml5-toolbar .owl-theme .owl-nav .open a.dropdown-toggle.btn-danger[class*="owl-"], .open .owl-theme .owl-nav ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger[class*="owl-"], .owl-theme .owl-nav ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger[class*="owl-"], .open ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger.fc-prev-button, ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger.fc-prev-button, .open ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger.fc-next-button, ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger.fc-next-button, .open ul.wysihtml5-toolbar a.dropdown-toggle.btn-danger.fc-today-button, ul.wysihtml5-toolbar .open a.dropdown-toggle.btn-danger.fc-today-button, .open .note-editor .dropdown-toggle.btn.btn-danger.note-btn.btn-sm, .note-editor .open .dropdown-toggle.btn.btn-danger.note-btn.btn-sm, .open .note-editor .dt-buttons .dropdown-toggle.btn-danger.note-btn.btn-sm.dt-button, .note-editor .dt-buttons .open .dropdown-toggle.btn-danger.note-btn.btn-sm.dt-button, .open .dt-buttons .note-editor .dropdown-toggle.btn-danger.note-btn.btn-sm.dt-button, .dt-buttons .note-editor .open .dropdown-toggle.btn-danger.note-btn.btn-sm.dt-button, .open .note-editor .sweet-alert button.dropdown-toggle.btn-danger.note-btn.btn-sm, .note-editor .sweet-alert .open button.dropdown-toggle.btn-danger.note-btn.btn-sm, .open .sweet-alert .note-editor button.dropdown-toggle.btn-danger.note-btn.btn-sm, .sweet-alert .note-editor .open button.dropdown-toggle.btn-danger.note-btn.btn-sm, .open .note-editor .owl-theme .owl-nav .dropdown-toggle.btn-danger.note-btn.btn-sm[class*="owl-"], .note-editor .owl-theme .owl-nav .open .dropdown-toggle.btn-danger.note-btn.btn-sm[class*="owl-"], .open .owl-theme .owl-nav .note-editor .dropdown-toggle.btn-danger.note-btn.btn-sm[class*="owl-"], .owl-theme .owl-nav .note-editor .open .dropdown-toggle.btn-danger.note-btn.btn-sm[class*="owl-"],
   .open .note-editor button.dropdown-toggle.btn-danger.note-btn.btn-sm.fc-agendaWeek-button,
   .note-editor .open button.dropdown-toggle.btn-danger.note-btn.btn-sm.fc-agendaWeek-button, .open .note-editor .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-prev-button, .note-editor .open .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-prev-button, .open .note-editor .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-next-button, .note-editor .open .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-next-button, .open .note-editor .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-today-button, .note-editor .open .dropdown-toggle.btn-danger.note-btn.btn-sm.fc-today-button, .open .dt-buttons .dropdown-toggle.btn-outline.btn-danger.dt-button, .dt-buttons .open .dropdown-toggle.btn-outline.btn-danger.dt-button,
@@ -2376,7 +2377,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
 a.toggle-left-nav-btn,
 a#toggle_mobile_nav,
 a#toggle_mobile_search {
-  color: #878787;
+  color: #000000;
   position: relative;
   line-height: 66px; }
   a.toggle-left-nav-btn i,
@@ -2728,13 +2729,13 @@ a#toggle_mobile_nav {
   .wrapper.theme-1-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-red .fixed-sidebar-left .side-nav > li > a.active {
     color: #f33923; }
   .wrapper.theme-1-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-blue .fixed-sidebar-left .side-nav > li > a.active {
-    color: #0fc5bb; }
+    color: #212121; }
   .wrapper.theme-1-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-green .fixed-sidebar-left .side-nav > li > a.active {
     color: #8BC34A; }
   .wrapper.theme-1-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-yellow .fixed-sidebar-left .side-nav > li > a.active {
     color: #f8b32d; }
   .wrapper.theme-1-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-pink .fixed-sidebar-left .side-nav > li > a.active {
-    color: #e11d8e; }
+    color: #1ab0dd; }
   .wrapper.theme-1-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-orange .fixed-sidebar-left .side-nav > li > a.active {
     color: #ff6300; }
   .wrapper.theme-1-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-2-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-3-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-4-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-5-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active, .wrapper.theme-6-active.pimary-color-gold .fixed-sidebar-left .side-nav > li > a.active {
@@ -2828,14 +2829,14 @@ a#toggle_mobile_nav {
             .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > .btn i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .wizard > .actions .input-group-btn > a i, .wizard > .actions .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > a i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .dt-buttons .input-group-btn > .dt-button i, .dt-buttons .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > .dt-button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .tablesaw-sortable th.tablesaw-sortable-head .input-group-btn > button i, .tablesaw-sortable th.tablesaw-sortable-head .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .sweet-alert .input-group-btn > button i, .sweet-alert .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .owl-theme .owl-nav .input-group-btn > [class*="owl-"] i, .owl-theme .owl-nav .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > [class*="owl-"] i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > button.fc-agendaDay-button.fc-state-default.fc-corner-right i,
             .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > button.fc-month-button.fc-state-default.fc-corner-left i,
             .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > button.fc-agendaWeek-button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > .fc-prev-button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > .fc-next-button i, .navbar.navbar-inverse.navbar-fixed-top .top-nav-search .input-group .input-group-btn > .fc-today-button i {
-              color: #878787;
+              color: #dd4768;
               font-size: 20px; }
     .navbar.navbar-inverse.navbar-fixed-top .nav > li.dropdown {
       position: relative; }
     .navbar.navbar-inverse.navbar-fixed-top .nav > li.full-width-drp {
       position: static; }
     .navbar.navbar-inverse.navbar-fixed-top .nav > li > a {
-      color: #878787;
+      color: #ffffff;
       background: transparent !important;
       -webkit-transition: 0.3s ease;
       -moz-transition: 0.3s ease;
@@ -3202,7 +3203,7 @@ footer {
 .app-search .select2-container--default .select2-selection--single:focus,
 .select2-container--default .app-search .select2-selection--single:focus, .app-search .select2-selection.select2-selection--multiple:focus, .app-search .mce-floatpanel .mce-textbox:focus, .mce-floatpanel .app-search .mce-textbox:focus, .app-search .mce-floatpanel .mce-btn:focus, .mce-floatpanel .app-search .mce-btn:focus, .app-search .dataTables_wrapper .dataTables_filter input:focus, .dataTables_wrapper .dataTables_filter .app-search input:focus, .app-search .dataTables_wrapper .dataTables_length select:focus, .dataTables_wrapper .dataTables_length .app-search select:focus, .app-search .jsgrid-cell input:focus, .jsgrid-cell .app-search input:focus, .app-search .jsgrid-cell select:focus, .jsgrid-cell .app-search select:focus, .app-search .tablesaw-bar .btn-select select:focus, .tablesaw-bar .btn-select .app-search select:focus, .app-search .dd-handle:focus, .app-search .dd3-content:focus {
   border: 1px solid rgba(33, 33, 33, 0.12);
-  border-radius: 0;
+  border-radius: 30;
   background-color: #fff;
   box-shadow: none;
   color: #212121;
@@ -4736,7 +4737,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   .alert.alert-success {
     background: #8BC34A; }
   .alert.alert-info {
-    background: #e11d8e; }
+    background: #1ab0dd; }
   .alert.alert-danger {
     background: #f33923; }
   .alert.alert-warning {
@@ -4761,7 +4762,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
       color: #8BC34A;
       background: #f7f7f7; }
     .alert.alert-style-1.alert-info i {
-      color: #e11d8e;
+      color: #1ab0dd;
       background: #f7f7f7; }
     .alert.alert-style-1.alert-danger i {
       color: #f33923;
@@ -4795,7 +4796,7 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
         left: 12px;
         top: 13px; }
     .jq-toast-wrap .jq-toast-single.jq-icon-info {
-      background: #e11d8e;
+      background: #1ab0dd;
       padding-left: 50px; }
       .jq-toast-wrap .jq-toast-single.jq-icon-info:before {
         content: "\e717"; }
@@ -4890,8 +4891,8 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
 
 .checkbox-info input[type="checkbox"]:checked + label::before,
 .checkbox-info input[type="radio"]:checked + label::before {
-  background-color: #e11d8e;
-  border-color: #e11d8e; }
+  background-color: #1ab0dd;
+  border-color: #1ab0dd; }
 
 .checkbox-warning input[type="checkbox"]:checked + label::before,
 .checkbox-warning input[type="radio"]:checked + label::before {
@@ -4915,8 +4916,8 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
 
 .checkbox-info input[type="checkbox"]:indeterminate + label::before,
 .checkbox-info input[type="radio"]:indeterminate + label::before {
-  background-color: #e11d8e;
-  border-color: #e11d8e; }
+  background-color: #1ab0dd;
+  border-color: #1ab0dd; }
 
 .checkbox-warning input[type="checkbox"]:indeterminate + label::before,
 .checkbox-warning input[type="radio"]:indeterminate + label::before {
@@ -4947,13 +4948,13 @@ button.btn-small.btn-select.fc-agendaWeek-button, .btn-small.btn-select.fc-prev-
   background-color: #f33923; }
 
 .radio-info input[type="radio"] + label::after {
-  background-color: #e11d8e; }
+  background-color: #1ab0dd; }
 
 .radio-info input[type="radio"]:checked + label::before {
-  border-color: #e11d8e; }
+  border-color: #1ab0dd; }
 
 .radio-info input[type="radio"]:checked + label::after {
-  background-color: #e11d8e; }
+  background-color: #1ab0dd; }
 
 .radio-warning input[type="radio"] + label::after {
   background-color: #f8b32d; }
@@ -5423,7 +5424,7 @@ a.compose-mail {
         transition: transform 2s ease; }
 
 .panel-info > .panel-heading {
-  background-color: #e11d8e; }
+  background-color: #1ab0dd; }
 
 .panel-danger > .panel-heading {
   background-color: #f33923; }
@@ -5599,7 +5600,7 @@ a.compose-mail {
   background: #fff; }
 
 .weather-info .left-block-wrap {
-  background: #e11d8e;
+  background: #1ab0dd;
   color: #fff !important; }
   .weather-info .left-block-wrap h5, .weather-info .left-block-wrap .temprature {
     color: #fff !important; }
@@ -5680,7 +5681,7 @@ a.compose-mail {
   text-transform: capitalize;
   font-weight: 400; }
   .label.label-info, .label-info.jvectormap-tip {
-    background: #e11d8e; }
+    background: #1ab0dd; }
   .label.label-primary, .label-primary.jvectormap-tip {
     background: #0fc5bb; }
   .label.label-success, .label-success.jvectormap-tip {
@@ -5697,7 +5698,7 @@ a.compose-mail {
   padding: 5px 10px;
   color: #212121; }
   .badge.badge-info {
-    background: #e11d8e;
+    background: #1ab0dd;
     color: #fff; }
   .badge.badge-primary {
     background: #0fc5bb;
@@ -5716,7 +5717,7 @@ a.compose-mail {
     padding-left: 0;
     padding-right: 0; }
     .badge.transparent-badge.badge-info {
-      color: #e11d8e; }
+      color: #1ab0dd; }
     .badge.transparent-badge.badge-primary {
       color: #0fc5bb; }
     .badge.transparent-badge.badge-success {
@@ -5783,7 +5784,7 @@ a.compose-mail {
       line-height: 20px; }
 
 .progress-bar-info {
-  background: #e11d8e; }
+  background: #1ab0dd; }
 
 .progress-bar-primary {
   background: #0fc5bb; }
@@ -6328,7 +6329,7 @@ a.compose-mail {
         border-right-color: #f8b32d; }
       .timeline > li.timeline-inverted
       > .timeline-panel.bg-pink:after {
-        border-right-color: #e11d8e; }
+        border-right-color: #1ab0dd; }
       .timeline > li.timeline-inverted
       > .timeline-panel.bg-red:after {
         border-right-color: #f33923; }
@@ -7319,7 +7320,7 @@ ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
       ul.timeline > li > .timeline-panel.bg-yellow:after {
         border-right-color: #f8b32d; }
       ul.timeline > li > .timeline-panel.bg-pink:after {
-        border-right-color: #e11d8e; }
+        border-right-color: #1ab0dd; }
       ul.timeline > li > .timeline-panel.bg-red:after {
         border-right-color: #f33923; }
       ul.timeline > li > .timeline-panel.bg-blue:after, .fc-unthemed ul.timeline > li > .timeline-panel.fc-today:after {
