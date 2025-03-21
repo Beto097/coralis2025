@@ -67,7 +67,7 @@ class pacienteController extends Controller
         if($existe ==1){
             $paciente = paciente::where('identificacion_paciente',$cedula)->first();
             $edad = $paciente->edad();
-            $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente,"edad"=>$edad); 
+            $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente,"edad"=>$edad,'consulta'=>$paciente->consultaActiva()); 
             
         }
 
