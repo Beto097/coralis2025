@@ -7,8 +7,8 @@
 	@yield('css')
 	
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="{{asset('public/favicon.ico')}}">
-	<link rel="icon" href="{{asset('public/favicon.ico')}}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{asset('/favicon.ico')}}">
+	<link rel="icon" href="{{asset('/favicon.ico')}}" type="image/x-icon">
 
 	<!-- Data table CSS -->
 	<link href="{{asset('vendors/bower_components/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css"/>
