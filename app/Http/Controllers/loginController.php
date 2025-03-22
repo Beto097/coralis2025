@@ -43,13 +43,20 @@ class loginController extends Controller
     Public function login(Request $request) {
 
         $nombre=$request->usuario;
-        $contraseña=$request->password;        
+        $contraseña=$request->password;  
         
-        $existe=User::where('nombre_usuario',$nombre)->count();
         
-        if ($existe==1) {
+        
+        $usuario=User::where('nombre_usuario',$nombre)->first();
 
-            $usuario=User::where('nombre_usuario',$nombre)->first(); 
+        if ($usuario->estado_usuario==0) {
+
+            return redirect()->back()->withErrors(['danger' => "no puede ingresar al sistema comuniquese con el administrador"])->withInput($request->all());
+        }
+        
+        if ($usuario) {
+
+            
 
             if ($usuario['password_usuario']==md5($contraseña)) {
 

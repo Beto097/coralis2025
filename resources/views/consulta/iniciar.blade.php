@@ -108,8 +108,20 @@
                                     <td>{{$fila->diagnostico}}</td>   
                                     <td>{{$fila->doctor->nombre_usuario}}</td>                 
                                     <td>
+
+                                   
+
+                                      @if ($fila->created_at>\Carbon\Carbon::now()->subHours(24) && Auth::user()->accesoRuta('/consulta/registrar') )
+                                        <button type="button" class="btn btn-success waves-effect waves-light"
+                                            data-toggle="modal" data-animation="bounce"
+                                            data-target="#editarRegistro2Modal{{$fila->id}}">
+                                          
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        @include('modals.editarRegistroModals2')
+                                      @endif
                                       
-                                      @if (Auth::user()->accesoRuta('/paciente/historia/clinica'))
+                                      @if ($fila->created_at<\Carbon\Carbon::now()->subHours(24) && Auth::user()->accesoRuta('/paciente/historia/clinica'))
                                                               
                                         <button type="button" class="btn btn-primary waves-effect waves-light"
                                           data-toggle="modal" data-animation="bounce"

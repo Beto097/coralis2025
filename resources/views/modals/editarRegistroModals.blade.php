@@ -64,6 +64,11 @@
                                         <label class="control-label text-left">Historia Clinica</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
                                                 placeholder="" name="txtHistoriaClinica" rows="3">{{$fila->historia_clinica}}</textarea>                                        
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">                                    
+                                        <label class="control-label text-danger text-left">Atecedente Personales(APP)</label>
+                                        <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
+                                                placeholder="" name="txtMedicamentos" rows="3">{{$fila->medicinas}}</textarea>                                        
                                     </div> 
                                     <div class="col-md-8 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Examen Fisico</label>
@@ -90,23 +95,19 @@
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
                                                 placeholder="" name="txtLaboratoriosExamenes" rows="3">{{$fila->laboratorios_examenes}}</textarea>                                        
                                     </div>   
-                                    <div class="col-md-6 col-sm-12 col-xs-12">                                    
+                                    <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-danger text-left">Alergias</label>
                                         <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
                                                 placeholder="" name="txtAlergias" rows="3">{{$fila->alergias}}</textarea>                                        
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-xs-12">                                    
-                                        <label class="control-label text-danger text-left">Medicamentos</label>
-                                        <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
-                                                placeholder="" name="txtMedicamentos" rows="3">{{$fila->medicinas}}</textarea>                                        
-                                    </div>
+                                    
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Diagnistico</label>
                                         <input type="text" class="form-control" id="txtDiagnostico" placeholder="" name="txtDiagnostico"
                                             value={{$fila->diagnostico}} >
                                     </div>                                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
-                                        <label class="control-label text-left">Recomendaciones</label>
+                                        <label class="control-label text-left">Tratamientos - Recomendaciones</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
                                                 placeholder="" name="txtRecomendaciones" rows="3">{{$fila->recomendaciones}}</textarea>                                        
                                     </div> 

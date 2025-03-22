@@ -51,6 +51,11 @@
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
                                                 placeholder="" name="txtHistoriaClinica" rows="3">{{$consulta->historia_clinica}}</textarea>                                        
                                     </div> 
+                                    <div class="col-md-6 col-sm-12 col-xs-12">                                    
+                                        <label class="control-label text-danger text-left">Medicamentos</label>
+                                        <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
+                                                placeholder="" name="txtMedicamentos" rows="3">{{$paciente->medicinas}}</textarea>                                        
+                                    </div>
                                     <div class="col-md-8 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Examen Fisico</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
@@ -79,13 +84,9 @@
                                     <div class="col-md-6 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-danger text-left">Alergias</label>
                                         <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
-                                                placeholder="" name="txtAlergias" rows="3">{{$consulta->alergias}}</textarea>                                        
+                                                placeholder="" name="txtAlergias" rows="3">{{$paciente->alergias}}</textarea>                                        
                                     </div>
-                                    <div class="col-md-6 col-sm-12 col-xs-12">                                    
-                                        <label class="control-label text-danger text-left">Medicamentos</label>
-                                        <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
-                                                placeholder="" name="txtMedicamentos" rows="3">{{$consulta->medicinas}}</textarea>                                        
-                                    </div>
+
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Diagnistico</label>
                                         <input type="text" class="form-control" id="txtDiagnostico" placeholder="" name="txtDiagnostico"
@@ -105,8 +106,10 @@
                                      
                                     
                                 </div>                            
-                                <div class="modal-footer">                                        
-                                    <button type="submit" id="btnCrearModal"  class="btn btn-primary mb-10  text-left">Guardar</button>
+                                <div class="modal-footer"> 
+                                    <button type="submit" name='accion' value='terminar' id="btnCrearModal"  class="btn btn-primary mb-10  text-left">Terminar</button> 
+
+                                    <button type="submit" name='accion' value='guardar' id="btnCrearModal"  class="btn btn-primary mb-10  text-left">Guardar</button>
                                 </div> 
                                     
                                 

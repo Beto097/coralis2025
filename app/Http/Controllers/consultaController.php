@@ -26,19 +26,32 @@ class consultaController extends Controller
 
             if(Auth::user()->accesoRuta('/consulta/all')){
 
-                
+               
 
                 $resultado = consulta::get();
 
-            }elseif(Auth::user()->accesoRuta('/paciente/historia/clinica')){                
+            }elseif(Auth::user()->accesoRuta('/paciente/historia/clinica')){   
+                         
                 
-
-                $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO')->orderBy('estado_consulta','DESC')->get();
+                if (Auth::user()->sucursal) {
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                } else {
+                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
+                }
+                
+                
 
             }else{
-                
 
-                $resultado = consulta::where('estado_consulta','Pendiente')->get();
+
+                
+                if (Auth::user()->sucursal) {
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                } else {
+                    $resultado = consulta::where('estado_consulta','Pendiente')->get();
+                }
+
+                
 
             }          
 
@@ -167,9 +180,8 @@ class consultaController extends Controller
             return redirect(route('login.index'));
         }
 
-        if(Auth::user()->accesoRuta('/consulta/registrar')){               
-
-
+        if(Auth::user()->accesoRuta('/consulta/registrar')){     
+            
             $consulta = consulta::find($request->txtConsultaId);
             $consulta->medico_id = Auth::user()->id;
             $consulta->fecha_consulta = $request->txtFecha;
@@ -188,10 +200,46 @@ class consultaController extends Controller
             $consulta->diagnostico = $request->txtDiagnostico;
             $consulta->recomendaciones = $request->txtRecomendaciones;
 
+            $paciente = paciente::find($consulta->paciente_id);
+
+            $paciente->alergias = $request->txtAlergias;
+            $paciente->medicinas = $request->txtMedicamentos;
+
+
+            $paciente->save();
+
             $consulta->estado_consulta = 'EN CURSO';
+
+            if ($request->accion == 'terminar') {
+                $consulta->estado_consulta = 'TERMINADA';
+            }
+
+            
             $consulta->save();
 
             return redirect()->back()->withErrors(['status' => "Se ha guardo la consulta correctamente"]);
+
+        }
+
+        return redirect(route('index'));
+    }
+
+    public function delete($id){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/consulta/delete')){               
+
+
+            $consulta = consulta::find($id);
+            $consulta->estado_consulta = 'ELIMINADA';
+            $consulta->save();
+
+            return redirect()->back()->withErrors(['danger' => "Se ha elimino la consulta correctamente"]);
 
         }
 

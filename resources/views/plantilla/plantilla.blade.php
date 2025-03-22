@@ -52,7 +52,10 @@
 				
 			@include('modals.actualizarSucursalModals')
 			@include('modals.actualizarPasswordModals')
-			@include('plantilla.errores')	
+			@if (Route::is('index'))
+				@include('plantilla.errores')	
+			@endif
+			
 			@yield('contenido')
 			<!-- Footer -->
 			@include('plantilla.footer')
