@@ -75,7 +75,7 @@
                                             
                 
                                             
-                                            @if (Auth::user()->accesoRuta('/consulta/update'))                        
+                                            @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
                                               <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
                                               
                                             @endif  
