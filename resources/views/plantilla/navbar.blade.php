@@ -50,16 +50,16 @@
             </li>
             
             <li class="dropdown alert-drp">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="zmdi zmdi-notifications top-nav-icon"></i>
+              {{--  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="zmdi zmdi-notifications top-nav-icon"></i>
                     <span class="top-nav-icon-badge">
                         25
                     </span>
-                        {{-- @if ($cantidad_notificaciones>0)
+                         @if ($cantidad_notificaciones>0)
                             <span class="top-nav-icon-badge">
                                 {{$cantidad_notificaciones}}
                             </span>
-                        @endif --}}
-                </a>
+                        @endif 
+                </a>--}}
                 <ul  class="dropdown-menu alert-dropdown" data-dropdown-in="bounceIn" data-dropdown-out="bounceOut">
                     <li>
                         <div class="notification-box-head-wrap">
