@@ -73,6 +73,14 @@ class consultaController extends Controller
 
         if(Auth::user()->accesoRuta('/consulta/create')){
 
+            $paciente = paciente::find($id);
+
+            if($paciente->consultaActiva()){
+
+                return redirect()->back();
+
+            }
+
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$id;
             $obj_consulta->estado_consulta = 'Pendiente';
@@ -101,6 +109,12 @@ class consultaController extends Controller
             
             $paciente = paciente::where('identificacion_paciente',$request->txtCedula)->first();
 
+            if($paciente->consultaActiva()){
+
+                return redirect()->back();
+
+            }
+
             $edad = $paciente->edad();
 
             if ($edad<18) {
@@ -109,6 +123,9 @@ class consultaController extends Controller
                 $obj_consulta->parentesco_menor = $request->txtParentesco;
  
             }
+            
+
+
 
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$paciente->id;
@@ -137,6 +154,15 @@ class consultaController extends Controller
         }
 
         if(Auth::user()->accesoRuta('/consulta/create')){
+
+            $paciente = paciente::find($request->paciente_id);
+
+            if($paciente->consultaActiva()){
+
+                return redirect()->back();
+
+            }
+
                         
   
             $obj_consulta = new consulta();        
