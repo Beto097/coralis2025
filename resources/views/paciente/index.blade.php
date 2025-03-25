@@ -64,12 +64,12 @@
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
                                                     @if (\Carbon\Carbon::parse($fila->fecha_nacimiento_paciente)->age>=18)
 
-                                                        <a class="btn btn-primary btn-sm btnIcono @if ($fila->consultaActiva()) disabled @endif" title="Crear Consulta" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-file"></i></a>
+                                                        <a class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" title="Crear Consulta" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';"><i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i></a>
 
                                                     @else
-                                                        <button type="button" title="Crear Consulta" class="btn btn-primary btn-sm btnIcono" id="crearConsulta"                
-                                                            data-toggle="modal" data-target="#crearConsultaMenorModal{{$fila->id}}" @if ($fila->consultaActiva()) disabled @endif>
-                                                            <i id="iconoBoton" class="fa fa-file"></i>
+                                                        <button type="button" title="Crear Consulta" class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" id="crearConsulta"                
+                                                            data-toggle="modal" data-target="#crearConsultaMenorModal{{$fila->id}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';">
+                                                            <i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i>
                                                         </button>
                                                         @include('modals.CrearConsultaMenorModals')
                                                     @endif

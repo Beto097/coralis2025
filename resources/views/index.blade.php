@@ -12,12 +12,12 @@
         <!-- Row -->
         <div class="row">
             <x-dashboard-pacientes />
-            @if (Auth::user()->accesoRuta('#'))
+            @if (Auth::user()->accesoRuta('/dashboard'))
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default card-view">
                         <div class="panel-heading">
                             <div class="pull-left">
-                                <h6 class="panel-title txt-dark">Ordenes por Doctor</h6>
+                                <h6 class="panel-title txt-dark">Consultas por Doctor</h6>
                             </div>
                             <div class="clearfix"></div>
                         </div>
