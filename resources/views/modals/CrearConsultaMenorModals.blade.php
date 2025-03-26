@@ -22,7 +22,7 @@
                                         <input type="text" class="form-control" id="" placeholder="Ejemplo: Padre" value="{{old('txtParentesco')}}" name="txtParentesco" required>
                                     </div>                                    
                                     
-
+                                    <x-lista-medicos />
                                     
                                 </div>
                                 

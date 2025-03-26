@@ -78,6 +78,14 @@
                                             @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
                                               <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
                                               
+                                            @endif 
+
+                                            @if (Auth::user()->accesoRuta('/consulta/reasignar'))                        
+                                              <button type="button" title="Reasignar Consulta" class="btn btn-success btn-sm btnIcono " id="crearConsulta"                
+                                                  data-toggle="modal" data-target="#reasignarConsultaModal{{$fila->id}}" >
+                                                  <i id="iconoBoton" class=" fa fa-edit"></i>
+                                              </button>
+                                              @include('modals.ReasignarConsultaModals')
                                             @endif  
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
