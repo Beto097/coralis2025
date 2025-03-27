@@ -177,6 +177,8 @@ class consultaController extends Controller
 
             $edad = $paciente->edad();
 
+            
+
             if ($edad<18) {
 
                 $obj_consulta->responsable_menor = $request->txtNombre;
@@ -191,7 +193,8 @@ class consultaController extends Controller
             $obj_consulta->paciente_id=$paciente->id;
             $obj_consulta->estado_consulta = 'Pendiente';
             $obj_consulta->usuario_id = Auth::user()->id;
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;  
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
+            $obj_consulta->medico_id = $request->selectMedico; 
 
             $obj_consulta->save();
 

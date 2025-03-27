@@ -13,7 +13,7 @@
                                 @csrf                             
                             
                                 
-                                <div class="row" style="pointer-events: none;">
+                                <div class="row">
                                     @isset($fila->responsable_menor)                                        
                                     
                                         <div class="col-md-6 col-sm-6 col-xs-6">                                    

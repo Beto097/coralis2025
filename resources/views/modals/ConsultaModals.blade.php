@@ -25,6 +25,10 @@
                                     <div class="form-group col-md-1 col-sm-12 col-xs-12" style="padding-top: 2rem">
                                         <a class="btn btn-primary btn-sm"  title="buscar paciente"><i class="fa fa-search"></i></a> 
                                     </div>
+                                    <div id="listaMedico" class="hidden">
+                                        <x-lista-medicos/> 
+                                    </div>
+                                    
                                     <div id="contenidoMenor" class="hidden">
                                         
                                         <div class="form-group col-md-6">
