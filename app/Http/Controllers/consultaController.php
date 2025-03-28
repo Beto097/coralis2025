@@ -30,12 +30,14 @@ class consultaController extends Controller
 
                 $resultado = consulta::get();
 
-            }elseif(Auth::user()->accesoRuta('/consulta/registrar')){   
+            }elseif(Auth::user()->accesoRuta('/paciente/historia/clinica')){   
                          
                 
-              
-                $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('medico_id',Auth::user()->id)->orderBy('estado_consulta','DESC')->get();
-            
+                if (Auth::user()->sucursal) {
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                } else {
+                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
+                }
                 
                 
 
@@ -71,14 +73,6 @@ class consultaController extends Controller
 
         if(Auth::user()->accesoRuta('/consulta/create')){
 
-            $paciente = paciente::find($id);
-
-            if($paciente->consultaActiva()){
-
-                return redirect()->back();
-
-            }
-
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$id;
             $obj_consulta->estado_consulta = 'Pendiente';
@@ -87,68 +81,6 @@ class consultaController extends Controller
             
             $obj_consulta->save();
             return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
-            
-            
-        }
-
-        return redirect(route('index'));
-
-    }
-
-    public function mayor(Request $request){
-
-        if (!Auth::user()) {
-
-            Session::put('url', url()->current());    
-            return redirect(route('login.index'));
-        }
-
-        if(Auth::user()->accesoRuta('/consulta/create')){
-
-            $paciente = paciente::find($request->paciente_id);
-
-            if($paciente->consultaActiva()){
-
-                return redirect()->back();
-
-            }
-
-
-            $obj_consulta = new consulta();        
-            $obj_consulta->paciente_id=$request->paciente_id;
-            $obj_consulta->estado_consulta = 'Pendiente';
-            $obj_consulta->usuario_id = Auth::user()->id;
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
-            $obj_consulta->medico_id = $request->selectMedico;     
-            
-            $obj_consulta->save();
-            return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
-            
-            
-        }
-
-        return redirect(route('index'));
-
-    }
-
-    public function reasignar(Request $request){
-
-        if (!Auth::user()) {
-
-            Session::put('url', url()->current());    
-            return redirect(route('login.index'));
-        }
-
-        if(Auth::user()->accesoRuta('/consulta/reasignar')){
-
-        
-
-            $consulta = consulta::find($request->consulta_id);
-
-            $consulta->medico_id = $request->selectMedico;     
-            
-            $consulta->save();
-            return redirect()->back()->withErrors(['status' => "Se ha actualizado la consulta." ]);
             
             
         }
@@ -169,15 +101,7 @@ class consultaController extends Controller
             
             $paciente = paciente::where('identificacion_paciente',$request->txtCedula)->first();
 
-            if($paciente->consultaActiva()){
-
-                return redirect()->back();
-
-            }
-
             $edad = $paciente->edad();
-
-            
 
             if ($edad<18) {
 
@@ -185,16 +109,12 @@ class consultaController extends Controller
                 $obj_consulta->parentesco_menor = $request->txtParentesco;
  
             }
-            
-
-
 
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$paciente->id;
             $obj_consulta->estado_consulta = 'Pendiente';
             $obj_consulta->usuario_id = Auth::user()->id;
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
-            $obj_consulta->medico_id = $request->selectMedico; 
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;  
 
             $obj_consulta->save();
 
@@ -217,15 +137,6 @@ class consultaController extends Controller
         }
 
         if(Auth::user()->accesoRuta('/consulta/create')){
-
-            $paciente = paciente::find($request->paciente_id);
-
-            if($paciente->consultaActiva()){
-
-                return redirect()->back();
-
-            }
-
                         
   
             $obj_consulta = new consulta();        
@@ -233,8 +144,7 @@ class consultaController extends Controller
             $obj_consulta->responsable_menor = $request->txtNombre;
             $obj_consulta->parentesco_menor = $request->txtParentesco;
             $obj_consulta->estado_consulta = 'Pendiente';   
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;  
-            $obj_consulta->medico_id = $request->selectMedico;       
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;         
             
             $obj_consulta->save();
             return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
