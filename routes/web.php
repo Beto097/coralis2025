@@ -59,8 +59,6 @@ Route::get("/paciente/consulta/{id}", [consultaController::class, 'create2'])->n
 Route::POST("/consulta/guardar", [consultaController::class, 'save'])->name("consulta.save");
 Route::get("/consulta/historial/{id}", [consultaController::class, 'historial'])->name("consulta.historial");
 Route::Post("/consulta/menor/", [consultaController::class, 'menor'])->name("consulta.menor");
-Route::Post("/consulta/mayor/", [consultaController::class, 'mayor'])->name("consulta.mayor");
-Route::Post("/consulta/reasignar/", [consultaController::class, 'reasignar'])->name("consulta.reasignar"); 
 Route::get("/consulta/delete/{id}", [consultaController::class, 'delete'])->name("consulta.delete");
 Route::get("/consulta/ver/historial/{id}", [consultaController::class, 'verHistorial'])->name("consulta.ver.historial");
 

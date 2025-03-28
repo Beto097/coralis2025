@@ -24,9 +24,9 @@ class DashboardPacientes extends Component
     
     public function __construct()
     {
-        $this->nuevos_pacientes = paciente::where('created_at','>',Carbon::today()->format('Y-m-d'))->count();
+        $this->nuevos_pacientes = paciente::where('created_at','>',Carbon::today()->subMonth(1)->toDateString())->count();
         $this->total_pacientes = paciente::where('estado_paciente',1)->count();
-        $this->consultas_mes = consulta::where('estado_consulta','TERMINADA')->where('fecha_consulta',Carbon::today()->format('Y-m-d'))->count();
+        $this->consultas_mes = consulta::where('estado_consulta','TERMINADA')->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())->count();
         $this->consultas_totales = consulta::where('estado_consulta','TERMINADA')->count();
 
 

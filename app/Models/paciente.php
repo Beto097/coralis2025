@@ -17,7 +17,7 @@ class paciente extends Model
 
 
     public function consultaActiva(){
-        $exite = consulta::whereIn('estado_consulta',['Pendiente','En Curso'])->where('paciente_id',$this->id)->count();
+        $exite = consulta::where('estado_consulta','Pendiente')->where('paciente_id',$this->id)->count();
         if($exite>0){
             return true;
         }
