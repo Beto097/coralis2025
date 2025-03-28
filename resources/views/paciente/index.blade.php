@@ -64,11 +64,14 @@
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
                                                     @if (\Carbon\Carbon::parse($fila->fecha_nacimiento_paciente)->age>=18)
 
-                                                        <a class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" title="Crear Consulta" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';"><i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i></a>
-
+                                                        <button type="button" title="Crear Consulta" class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" id="crearConsulta"                
+                                                            data-toggle="modal" data-target="#crearConsultaMayorModal{{$fila->id}}" >
+                                                            <i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i>
+                                                        </button>
+                                                        @include('modals.CrearConsultaMayorModals')
                                                     @else
                                                         <button type="button" title="Crear Consulta" class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" id="crearConsulta"                
-                                                            data-toggle="modal" data-target="#crearConsultaMenorModal{{$fila->id}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';">
+                                                            data-toggle="modal" data-target="#crearConsultaMenorModal{{$fila->id}}" >
                                                             <i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i>
                                                         </button>
                                                         @include('modals.CrearConsultaMenorModals')
