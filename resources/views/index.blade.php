@@ -189,6 +189,7 @@
     </div>
 @endsection
 
+
 @if(isset($consultas))
     @section('javaScript')
         <script>

@@ -12,7 +12,6 @@
                 document.getElementById('AlertaCedula2').innerHTML ="esta cedula no existe debe crear el paciente";                    
                 document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-error";                    
                 document.getElementById("divBtn").classList.add("hidden"); 
-                document.getElementById("listaMedico").classList.add("hidden"); 
                
                
             }
@@ -23,13 +22,10 @@
                     
                     document.getElementById('AlertaCedula2').innerHTML ="";
                     document.getElementById("divBtn").classList.remove("hidden");
-                    document.getElementById("listaMedico").classList.remove("hidden");
-                  
                 } else{
                     document.getElementById('AlertaCedula2').innerHTML ="Este paciente ya tiene una consulta abierta";
                     document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-error";     
                     document.getElementById("divBtn").classList.add("hidden");
-                    document.getElementById("listaMedico").classList.add("hidden"); 
                 }              
                 
 

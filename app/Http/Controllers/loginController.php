@@ -18,7 +18,6 @@ class loginController extends Controller
 {
     public function dashboard(){
 
-
         if (!Auth::user()) {
 
             Session::put('url', url()->current());    
@@ -26,7 +25,7 @@ class loginController extends Controller
             
         }
         $consultas = consulta::where('estado_consulta','TERMINADA')
-        ->where('fecha_consulta',Carbon::today()->format('Y-m-d'))
+        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
         ->groupBy('medico_id')
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();
@@ -56,32 +55,29 @@ class loginController extends Controller
         
         $usuario=User::where('nombre_usuario',$nombre)->first();
 
-        if($usuario){
+        if ($usuario->estado_usuario==0) {
 
-            if ($usuario->estado_usuario==0) {
+            return redirect()->back()->withErrors(['danger' => "no puede ingresar al sistema comuniquese con el administrador"])->withInput($request->all());
+        }
+        
+        if ($usuario) {
 
-                return redirect()->back()->withErrors(['danger' => "no puede ingresar al sistema comuniquese con el administrador"])->withInput($request->all());
-            }
             
-            if ($usuario) {
 
+            if ($usuario['password_usuario']==md5($contraseña)) {
+
+                Auth::login($usuario);
+
+                if (Session::get('url')) {
+                       
+                    return redirect(Session::get('url'));
+                } 
                 
-
-                if ($usuario['password_usuario']==md5($contraseña)) {
-
-                    Auth::login($usuario);
-
-                    if (Session::get('url')) {
-                        
-                        return redirect(Session::get('url'));
-                    } 
-                    
-                    return redirect(route('index'));
-                }
-                    
-                return redirect()->back()->withErrors(['danger' => "Contraseña incorrecta."])->withInput($request->all());
-
+                return redirect(route('index'));
             }
+                
+            return redirect()->back()->withErrors(['danger' => "Contraseña incorrecta."])->withInput($request->all());
+
         }
 
         return redirect()->back()->withErrors(['danger' => "El usuario es incorrecto."])->withInput($request->all());
