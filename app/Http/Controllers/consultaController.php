@@ -274,7 +274,6 @@ class consultaController extends Controller
         if(Auth::user()->accesoRuta('/consulta/registrar')){     
             
             $consulta = consulta::find($request->txtConsultaId);
-            $consulta->medico_id = Auth::user()->id;
             $consulta->fecha_consulta = $request->txtFecha;
             $consulta->frecuencia_respiratoria = $request->txtFrecR;
             $consulta->frecuencia_cardiaca = $request->txtFrecC;
