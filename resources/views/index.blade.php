@@ -12,26 +12,30 @@
         <!-- Row -->
         <div class="row">
             <x-dashboard-pacientes />
-            @if (Auth::user()->accesoRuta('/dashboard'))
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel panel-default card-view">
-                        <div class="panel-heading">
-                            <div class="pull-left">
-                                <h6 class="panel-title txt-dark">Consultas por Doctor</h6>
+
+            @if(isset($consultas))
+            
+                @if (Auth::user()->accesoRuta('/dashboard'))
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default card-view">
+                            <div class="panel-heading">
+                                <div class="pull-left">
+                                    <h6 class="panel-title txt-dark">Consultas por Doctor</h6>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="panel-wrapper collapse in">
-                            <div class="panel-body">
-                                <div class="flot-container" style="height:250px">
-                                    <div id="flot_pie_chart" class="demo-placeholder"></div>
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body">
+                                    <div class="flot-container" style="height:250px">
+                                        <div id="flot_pie_chart" class="demo-placeholder"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>	
-                </div>
+                        </div>	
+                    </div>
+                @endif
             @endif
-                        
+            
 {{-- 
             <div class="col-lg-9 col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-default card-view">
@@ -185,53 +189,56 @@
     </div>
 @endsection
 
-@section('javaScript')
-<script>
-		
-    $(function() {
-        "use strict";
-        
-    
-        /***Pie Chart***/
-        if( $('#flot_pie_chart').length > 0 ){
-            var pie_data = [ @foreach($consultas as $examen) {
-                label: '{{$examen->doctor->nombre_usuario}}',
-                data: {{$examen->total}},
-                color: "rgba(50,{{$examen->B}},{{$examen->A}} ,1)",
+
+@if(isset($consultas))
+    @section('javaScript')
+        <script>
+
+            $(function() {
+                "use strict";
                 
-            }, @endforeach];
+            
+                /***Pie Chart***/
+                if( $('#flot_pie_chart').length > 0 ){
+                    var pie_data = [ @foreach($consultas as $examen) {
+                        label: '{{$examen->doctor->nombre_usuario}}: {{$examen->total}}',
+                        data: {{$examen->total}},
+                        color: "rgba(50,{{$examen->B}},{{$examen->A}} ,1)",
+                        
+                    }, @endforeach];
 
-            var pie_op = {
-                series: {
-                    pie: {
-                        innerRadius: 0.5,
-                        show: true,
-                        stroke: {
-                            width: 0,
-                        }
-                    }
-                },
-                legend : {
-                    backgroundColor: 'transparent',
-                },
-                grid: {
-                    hoverable: true
-                },
-                color: null,
-                tooltip: true,
-                tooltipOpts: {
-                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-                    shifts: {
-                        x: 20,
-                        y: 0
-                    },
-                    defaultTheme: false
-                },
-            };
-            $.plot($("#flot_pie_chart"), pie_data, pie_op);
-        }
+                    var pie_op = {
+                        series: {
+                            pie: {
+                                innerRadius: 0.5,
+                                show: true,
+                                stroke: {
+                                    width: 0,
+                                }
+                            }
+                        },
+                        legend : {
+                            backgroundColor: 'transparent',
+                        },
+                        grid: {
+                            hoverable: true
+                        },
+                        color: null,
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                            shifts: {
+                                x: 20,
+                                y: 0
+                            },
+                            defaultTheme: false
+                        },
+                    };
+                    $.plot($("#flot_pie_chart"), pie_data, pie_op);
+                }
 
-    });
+            });
 
-</script> 
-@endsection
+        </script> 
+    @endsection
+@endif

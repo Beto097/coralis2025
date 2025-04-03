@@ -31,7 +31,13 @@ class loginController extends Controller
         ->get();
 
         consulta::actualizarEstados();  
-        return view('index',['consultas'=>$consultas]);
+
+        if (!$consultas->isEmpty()) {
+            return view('index',['consultas'=>$consultas]);
+        }
+
+    
+        return view('index');
         
     }
 
