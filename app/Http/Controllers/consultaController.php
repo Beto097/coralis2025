@@ -271,10 +271,15 @@ class consultaController extends Controller
             return redirect(route('login.index'));
         }
 
-        if(Auth::user()->accesoRuta('/consulta/registrar')){     
+        if(Auth::user()->accesoRuta('/consulta/registrar')){   
+
+
             
             $consulta = consulta::find($request->txtConsultaId);
             $consulta->fecha_consulta = $request->txtFecha;
+            if ($consulta->medico_id == null) {
+                $consulta->medico_id = Auth::user()->id;
+            }
             $consulta->frecuencia_respiratoria = $request->txtFrecR;
             $consulta->frecuencia_cardiaca = $request->txtFrecC;
             $consulta->presion_arterial = $request->txtPresA;
