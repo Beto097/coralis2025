@@ -41,25 +41,30 @@
       
     }
     function validar2(){           
-      const url = app_url+'/consultar/'+document.getElementById('txtCedula2').value;
-      fetch(url)
+        const cedula = document.getElementById('txtCedula2').value.trim();
+        const url = `${app_url}/consultar/${cedula}`;
+
+        fetch(url)
         .then(respuesta => respuesta.json() )
-        .then(respuesta => {let cedula=respuesta.cedula ;
-            if (cedula == document.getElementById('txtCedula2').value ){
+        .then(respuesta => {
+            if (respuesta.cedula === cedula) {
                 document.getElementById('AlertaCedula2').innerHTML ="esta cedula ya existe...";                    
                 document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-error";                    
                 document.getElementById("btnCrearModal").disabled = true; 
-                document.getElementById("txtCedula4").className = "form-control is-invalid";                     
-               
-            }
-            else{
+                document.getElementById("txtCedula4").className = "form-control is-invalid";    
+            }else{
+
                 document.getElementById('AlertaCedula2').innerHTML =""
                 document.getElementById("cedulaDiv").className = "form-group col-md-6 col-sm-12 col-xs-12 has-success";                   
                 document.getElementById("btnCrearModal").disabled = false;
-                document.getElementById("txtCedula4").className = "form-control is-valid";  
-                
-            }                
-        });
+                document.getElementById("txtCedula4").className = "form-control is-valid"; 
+            }
+        })
+        .catch(error => {
+            // Manejo de errores si el servidor responde con error (400, 500, etc.)
+            console.error("Hubo un error en la consulta:", error);
+        });       
+    
       
     }
     function validar3(){           
