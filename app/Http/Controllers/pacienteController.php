@@ -56,22 +56,26 @@ class pacienteController extends Controller
         return redirect(route('index'));
     }
 
-    public function consultar($cedula){
+    public function consultar($id){
 
         if (!Auth::user()) {
 
             return 'no tienes acceso';
         }
+
         $valor= array();
+        $cedula = str_replace(' ','',trim($id));         
         $existe = paciente::where('identificacion_paciente',$cedula)->count();
-        if($existe ==1){
-            $paciente = paciente::where('identificacion_paciente',$cedula)->first();
+        
+        if($existe >0){
+            $paciente = paciente::where('identificacion_paciente',$cedula)->first();            
             $edad = $paciente->edad();
             $valor= array("cedula"=>$cedula,"nombre"=>$paciente->nombre_paciente." ".$paciente->apellido_paciente,"edad"=>$edad,'consulta'=>$paciente->consultaActiva()); 
-            
+            return $valor;
         }
-
-        return $valor;
+        
+        return response()->json(['error' => 'Paciente no encontrado'], 404);
+        
     }
 
     public function buscar(){
