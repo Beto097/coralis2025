@@ -128,7 +128,7 @@ class consultaController extends Controller
 
     }
 
-    public function menor(Request $request){
+    public function doctor(Request $request){
 
         if (!Auth::user()) {
 
@@ -137,15 +137,18 @@ class consultaController extends Controller
         }
 
         if(Auth::user()->accesoRuta('/consulta/create')){
-                        
-  
-            $obj_consulta = new consulta();        
+
+            $obj_consulta = new consulta();   
             $obj_consulta->paciente_id= $request->paciente_id;
-            $obj_consulta->responsable_menor = $request->txtNombre;
-            $obj_consulta->parentesco_menor = $request->txtParentesco;
             $obj_consulta->estado_consulta = 'Pendiente';   
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;         
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
+            $obj_consulta->medico_id =  $request->selectMedico;
             
+            if ($request->tipo == 'menor') {
+                $obj_consulta->responsable_menor = $request->txtNombre;
+                $obj_consulta->parentesco_menor = $request->txtParentesco;
+            }
+                 
             $obj_consulta->save();
             return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
             

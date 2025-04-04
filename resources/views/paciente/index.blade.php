@@ -23,7 +23,10 @@
         <br>
         <br>
         <br>
-        @include('plantilla.errores')
+ 
+        <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>
         <div class="col-sm-12">
             <div class="panel panel-default card-view">
                 <div class="panel-heading">
@@ -62,17 +65,14 @@
                                             <td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>
                                             <td>
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
-                                                    @if (\Carbon\Carbon::parse($fila->fecha_nacimiento_paciente)->age>=18)
+                                                  
 
-                                                        <a class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" title="Crear Consulta" href="{{route('consulta.create2', ['id'=> $fila->id] )}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';"><i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i></a>
-
-                                                    @else
                                                         <button type="button" title="Crear Consulta" class="@if ($fila->consultaActiva()) btn btn-warning btn-sm btnIcono disabled @else btn btn-primary btn-sm btnIcono @endif" id="crearConsulta"                
-                                                            data-toggle="modal" data-target="#crearConsultaMenorModal{{$fila->id}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';">
+                                                            data-toggle="modal" data-target="#crearConsultaDoctorModal{{$fila->id}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';">
                                                             <i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i>
                                                         </button>
-                                                        @include('modals.CrearConsultaMenorModals')
-                                                    @endif
+                                                        @include('modals.CrearConsultaDoctorModals')
+                                                  
                                                 @endif 
                                              
                                                 @if (Auth::user()->accesoRuta('/paciente/historia/clinica'))
