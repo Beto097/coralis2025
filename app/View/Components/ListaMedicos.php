@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use App\Models\User;
 use App\Models\rol;
+use Illuminate\Support\Facades\Auth;
 
 class ListaMedicos extends Component
 {
