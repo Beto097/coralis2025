@@ -33,7 +33,9 @@
         <br>
         <br>
         <br>
-        @include('plantilla.errores')
+            <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>
         <div class="col-sm-12">
             <div class="panel panel-default card-view">
                 <div class="panel-heading">
@@ -78,10 +80,21 @@
                                             @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
                                               <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
                                               
-                                            @endif  
+                                            @endif 
+                                            
+                                            @if (Auth::user()->accesoRuta('/consulta/reasignar'))  
+                                                  
+
+                                                        <button type="button" title="Reasignar Consulta" class="btn btn-primary btn-sm btnIcono "                
+                                                            data-toggle="modal" data-target="#reasignarConsultaDoctorModal{{$fila->id}}">
+                                                            <i id="iconoBoton" class="fa fa-file"></i>
+                                                        </button>
+                                                        @include('modals.reasignarConsultaDoctorModals')
+                                                  
+                                                @endif 
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
-                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="
+                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="https://banistmo.com" onclick="
                                                   return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 
                                             @endif 
                                             
