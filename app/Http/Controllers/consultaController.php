@@ -158,6 +158,30 @@ class consultaController extends Controller
 
     }
 
+    public function reasignar(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+
+        if(Auth::user()->accesoRuta('/consulta/reasignar')){
+
+            $obj_consulta = consulta::find($request->consulta_id);       
+            $obj_consulta->medico_id =  $request->selectMedico;
+            
+           
+            $obj_consulta->save();
+            return redirect()->back()->withErrors(['status' => "Se ha reasignado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
+            
+        }
+
+        return redirect(route('index'));
+
+    }
+
     public function iniciar($id){
 
 
