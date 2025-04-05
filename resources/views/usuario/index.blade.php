@@ -46,6 +46,8 @@
                                         <tr>                                                                                   
                                             <th>Id</th>                                            
                                             <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Usuario</th>
                                             <th>Email</th>
                                             <th>Rol</th>
                                             <th>Sucursal</th>
@@ -57,6 +59,8 @@
                                         @foreach ($resultado as $fila)
                                             <tr style="font-size: 90%;">
                                                 <td scope="row">{{$fila->id }}</td>
+                                                <td>{{ $fila->primer_nombre_usuario }}</td>
+                                                <td>{{ $fila->apellido_usuario }}</td>
                                                 <td>{{ $fila->nombre_usuario }}</td>
                                                 <td>{{ $fila->email_usuario }}</td>
                                                 <td>{{ $fila->rol->nombre_rol}}</td>
