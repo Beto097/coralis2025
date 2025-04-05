@@ -28,7 +28,7 @@ class DashboardPacientes extends Component
         $this->nuevos_pacientes = paciente::where('created_at', '>=', Carbon::now('America/Panama')->subDay())->count();
         $this->total_pacientes = paciente::where('estado_paciente',1)->count();
         $this->consultas_mes = consulta::where('estado_consulta','TERMINADA')->where('fecha_consulta','>',Carbon::now('America/Panama')->subDay())->count();
-        $this->consultas_totales = consulta::where('estado_consulta','TERMINADA')->count();
+        $this->consultas_totales = consulta::where('estado_consulta','CERRADA')->count();
         $this->hora= Carbon::now('America/Panama')->format('H:i:s'); // Hora actual para usar en la vista si es necesario
 
     }
