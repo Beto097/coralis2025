@@ -105,7 +105,7 @@
                               
                               <tbody>
                                 @foreach ($paciente->consultas as $key=>$fila)
-                                  @if ($fila->estado_consulta =='TERMINADA')
+                                  @if ($fila->estado_consulta =='TERMINADA' && $fila->estado_consulta == 'CERRADA')
                                   <tr style="font-size: 100%;">
                                     <td>{{$key+1}}</td>
                                     <td>{{\Carbon\Carbon::parse($fila->fecha_consulta)->format('Y-m-d')}}</td>
