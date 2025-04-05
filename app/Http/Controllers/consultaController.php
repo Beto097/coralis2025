@@ -24,9 +24,8 @@ class consultaController extends Controller
 
             consulta::actualizarEstados();            
 
-            if(Auth::user()->accesoRuta('/consulta/all')){
+            if ((Auth::user()->accesoRuta('/consulta/all')) || (Auth::user()->rol_id == 1)) {
 
-               
 
                 $resultado = consulta::get();
 
@@ -34,24 +33,22 @@ class consultaController extends Controller
                          
                 
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
+                    ->where('sucursal_id',Auth::user()->sucursal->id)
+                    ->where('medico_id',Auth::user()->id)->orderBy('estado_consulta','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
                 }
                 
-                
-
             }else{
 
-
-                
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
+                    ->where('sucursal_id',Auth::user()->sucursal->id)
+                    ->where('medico_id',Auth::user()->id)->orderBy('estado_consulta','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->get();
                 }
-
-                
 
             }          
 
