@@ -40,7 +40,12 @@
             <div class="panel panel-default card-view">
                 <div class="panel-heading">
                     <div class="pull-left">
-                        <h6 class="panel-title txt-dark">Consultas para el Médico {{Auth::user()->primer_nombre_usuario}} {{Auth::user()->apellido_usuario}}</h6>
+                        <h6 class="panel-title txt-dark">
+                        @if(Auth::user()->accesoRuta('/consulta/create'))
+                          Listado de consultas del día
+                        @else
+                          Consultas para el Médico {{Auth::user()->primer_nombre_usuario}} {{Auth::user()->apellido_usuario}}</h6>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -58,6 +63,7 @@
                                         <th>Edad</th>
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
+                                        <th>Médico</th>
                                         <th>Acciones</th>
                                       </tr>
                                       
@@ -71,8 +77,9 @@
                                           <td>{{$fila->paciente->nombre_paciente}} {{$fila->paciente->apellido_paciente}}</td>
                                           <td>@if($fila->paciente->sexo_paciente=="m")M @else F @endif</td>
                                           <td>{{\Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente)->age}}</td> 
-                                          <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>                             
+                                          <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
+                                          <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>  
                                           <td>
                                             
                 

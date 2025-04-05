@@ -106,7 +106,7 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{\Carbon\Carbon::parse($fila->fecha_consulta)->format('Y-m-d')}}</td>
                                     <td>{{$fila->diagnostico}}</td>   
-                                    <td>{{$fila->doctor->nombre_usuario}}</td>                 
+                                    <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>                 
                                     <td>
 
                                    

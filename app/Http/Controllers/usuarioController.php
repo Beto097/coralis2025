@@ -208,7 +208,7 @@ class usuarioController extends Controller
             $obj_usuario->estado_usuario = '0';
 
             $obj_usuario->save();
-            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha desbloqueado el usuario: ".$obj_usuario->nombre_usuario ]);
+            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha bloqueado el usuario: ".$obj_usuario->nombre_usuario ]);
 
         }
 

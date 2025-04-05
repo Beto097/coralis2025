@@ -24,10 +24,13 @@ class consultaController extends Controller
 
             consulta::actualizarEstados();            
 
-            if ((Auth::user()->accesoRuta('/consulta/all')) || (Auth::user()->rol_id == 1)) {
+            if ((Auth::user()->accesoRuta('/consulta/all'))) {
 
-
-                $resultado = consulta::get();
+                if ((Auth::user()->accesoRuta('/consulta/all'))) {
+                    $resultado = consulta::whereNotIn('estado_consulta', ['ELIMINADA', 'CERRADA','CANCELADA'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                }
 
             }elseif(Auth::user()->accesoRuta('/paciente/historia/clinica')){   
                          
@@ -35,9 +38,9 @@ class consultaController extends Controller
                 if (Auth::user()->sucursal) {
                     $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
                     ->where('sucursal_id',Auth::user()->sucursal->id)
-                    ->where('medico_id',Auth::user()->id)->orderBy('estado_consulta','DESC')->get();
+                    ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
                 } else {
-                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('created_at','DESC')->get();
                 }
                 
             }else{
@@ -45,7 +48,7 @@ class consultaController extends Controller
                 if (Auth::user()->sucursal) {
                     $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
                     ->where('sucursal_id',Auth::user()->sucursal->id)
-                    ->where('medico_id',Auth::user()->id)->orderBy('estado_consulta','DESC')->get();
+                    ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->get();
                 }
