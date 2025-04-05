@@ -20,15 +20,16 @@ class DashboardPacientes extends Component
     public $consultas_totales;
     public $consultas_mes;
     public $total_pacientes;
+    public $hora; // Variable para la hora actual
 
     
     public function __construct()
     {
-        $this->nuevos_pacientes = paciente::where('created_at','>',Carbon::today()->subMonth(1)->toDateString())->count();
+        $this->nuevos_pacientes = paciente::where('created_at', '>=', Carbon::now('America/Panama')->subDay())->count();
         $this->total_pacientes = paciente::where('estado_paciente',1)->count();
-        $this->consultas_mes = consulta::where('estado_consulta','TERMINADA')->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())->count();
+        $this->consultas_mes = consulta::where('estado_consulta','TERMINADA')->where('fecha_consulta','>',Carbon::now('America/Panama')->subDay())->count();
         $this->consultas_totales = consulta::where('estado_consulta','TERMINADA')->count();
-
+        $this->hora= Carbon::now('America/Panama')->format('H:i:s'); // Hora actual para usar en la vista si es necesario
 
     }
 

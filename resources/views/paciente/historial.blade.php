@@ -97,7 +97,7 @@
                                 <tr>
                                   <th>ID</th>                    
                                   <th>Fecha</th>                    
-                                  <th>Diagnistico</th>
+                                  <th>Diagnóstico</th>
                                   <th>Medico</th> 
                                   <th>Acciones</th>
                                 </tr>
@@ -112,7 +112,7 @@
                                     <td>{{$fila->diagnostico}}</td>   
                                     <td>
                                       @isset($fila->doctor)
-                                        {{$fila->doctor->nombre_usuario}}
+                                        {{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}
                                       @endisset
                                     </td>                 
                                     <td>

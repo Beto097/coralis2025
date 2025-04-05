@@ -201,7 +201,7 @@
                 /***Pie Chart***/
                 if( $('#flot_pie_chart').length > 0 ){
                     var pie_data = [ @foreach($consultas as $examen) {
-                        label: '{{$examen->doctor->nombre_usuario}}: {{$examen->total}}',
+                        label: '{{$examen->doctor->primer_nombre_usuario}} {{$examen->doctor->apellido_usuario}}: {{$examen->total}}',
                         data: {{$examen->total}},
                         color: "rgba(50,{{$examen->B}},{{$examen->A}} ,1)",
                         

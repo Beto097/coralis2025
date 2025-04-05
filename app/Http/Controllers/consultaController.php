@@ -34,7 +34,7 @@ class consultaController extends Controller
                          
                 
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
                 }
@@ -46,7 +46,7 @@ class consultaController extends Controller
 
                 
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->get();
                 }
