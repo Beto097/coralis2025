@@ -1,7 +1,17 @@
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="inputEmail4">Nombre del Usuario</label>
-        <input type="text" class="form-control" id="inputEmail4" placeholder="Ejemplo:Juan" name="txtUsuario"
+        <label for="txtNameUsuario">Nombre</label>
+        <input type="text" class="form-control" id="txtNameUsuario" placeholder="Ejemplo:Juan" name="txtNameUsuario"
+            value="{{ $fila->primer_nombre_usuario }}" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="txtLastName">Apellido</label>
+        <input type="text" class="form-control" id="txtLastName" placeholder="Ejemplo:Perez" 
+            value="{{ $fila->apellido_usuario }}" name="txtLastName" required>                            
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputEmail4">Nombre de Usuario</label>
+        <input type="text" class="form-control" id="inputEmail4" placeholder="Ejemplo:Jperez" name="txtUsuario"
             value="{{$fila->nombre_usuario}}" required>
     </div>
     <div class="form-group col-md-6">

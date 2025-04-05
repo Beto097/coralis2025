@@ -18,32 +18,32 @@
                                     <div class="col-md-4 col-sm-12 col-xs-12">
                                         <label class="control-label text-left">Fecha</label>
                                         <input type="date" class="form-control" id="txtFecha" name="txtFecha" 
-                                            value={{$consulta->fecha_consulta}} required>
+                                            value="{{$consulta->fecha_consulta}}" required>
                                     </div>
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Frecuencia Respiratoria</label>
                                         <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
-                                            value={{$consulta->frecuencia_respiratoria}}  >
+                                            value="{{$consulta->frecuencia_respiratoria}}"  >
                                     </div>  
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Frecuencia Cardiaca</label>
                                         <input type="text" class="form-control" id="txtFrecC" placeholder="60-100" name="txtFrecC"
-                                            value={{$consulta->frecuencia_cardiaca}} >
+                                            value="{{$consulta->frecuencia_cardiaca}}" >
                                     </div>  
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Presion Arterial</label>
                                         <input type="text" class="form-control" id="txtPresA" placeholder="120/80" name="txtPresA"
-                                            value={{$consulta->presion_arterial}} >
+                                            value="{{$consulta->presion_arterial}}" >
                                     </div> 
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Temperatura</label>
                                         <input type="text" class="form-control" id="txtTemp" placeholder="36-37" name="txtTemp"
-                                            value={{$consulta->temperatura}} >
+                                            value="{{$consulta->temperatura}}" >
                                     </div>    
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Saturacion de Oxigeno</label>
                                         <input type="text" class="form-control" id="txtSatO" placeholder="95-100" name="txtSatO"
-                                            value={{$consulta->saturacion_oxigeno}} >
+                                            value="{{$consulta->saturacion_oxigeno}}" >
                                     </div>
                                        
                                     <div class="col-md-6 col-sm-12 col-xs-12">                                    
@@ -72,12 +72,12 @@
                                             <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                                 <label class="control-label text-left">Peso</label>
                                                 <input type="text" class="form-control" id="txtPeso" placeholder="150" name="txtPeso"
-                                                    value={{$consulta->peso}} >
+                                                    value="{{$consulta->peso}}" >
                                             </div>
                                             <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                                 <label class="control-label text-left">Talla</label>
                                                 <input type="text" class="form-control" id="txtTalla" placeholder="1.80" name="txtTalla"
-                                                    value={{$consulta->talla}} >
+                                                    value="{{$consulta->talla}}" >
                                             </div>
 
                                         </div>
@@ -90,7 +90,7 @@
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Diagnóstico</label>
                                         <input type="text" class="form-control" id="txtDiagnostico" placeholder="" name="txtDiagnostico"
-                                            value={{$consulta->diagnostico}} >
+                                            value="{{$consulta->diagnostico}}">
                                     </div>                                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Tratamientos - Recomendaciones</label>

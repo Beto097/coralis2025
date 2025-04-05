@@ -10,6 +10,7 @@ use App\Http\Controllers\sucursalController;
 use App\Http\Controllers\pacienteController;
 use App\Http\Controllers\medicoController;
 use App\Http\Controllers\consultaController;
+use App\Http\Controllers\recetaController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -58,9 +59,15 @@ Route::get("/paciente/iniciar/consulta/{id}", [consultaController::class, 'inici
 Route::get("/paciente/consulta/{id}", [consultaController::class, 'create2'])->name("consulta.create2");
 Route::POST("/consulta/guardar", [consultaController::class, 'save'])->name("consulta.save");
 Route::get("/consulta/historial/{id}", [consultaController::class, 'historial'])->name("consulta.historial");
-Route::Post("/consulta/menor/", [consultaController::class, 'menor'])->name("consulta.menor");
+Route::Post("/consulta/doctor/", [consultaController::class, 'doctor'])->name("consulta.doctor");
+Route::Post("/consulta/reasignar/", [consultaController::class, 'reasignar'])->name("consulta.reasignar");
 Route::get("/consulta/delete/{id}", [consultaController::class, 'delete'])->name("consulta.delete");
 Route::get("/consulta/ver/historial/{id}", [consultaController::class, 'verHistorial'])->name("consulta.ver.historial");
+
+/*Recetas*/
+Route::get("/receta", [consultaController::class, 'index'])->name("consulta.index");
+Route::Post("/receta/save", [recetaController::class, 'recetaSave'])->name("receta.save");
+Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edit");
 
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -108,3 +115,6 @@ Route::get("/email/{correo}", [usuarioController::class, 'Correo'])->name("Corre
 Route::get("/login", [loginController::class, 'index'])->name("login.index");
 Route::post("/login", [loginController::class, 'login'])->name("login.login");
 Route::get("/cerrar", [loginController::class, 'cerrar'])->name("login.cerrar");
+
+
+Route::get("/pruebaReceta", [consultaController::class, 'prueba']);

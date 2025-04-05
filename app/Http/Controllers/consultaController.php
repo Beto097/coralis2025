@@ -24,34 +24,34 @@ class consultaController extends Controller
 
             consulta::actualizarEstados();            
 
-            if(Auth::user()->accesoRuta('/consulta/all')){
+            if ((Auth::user()->accesoRuta('/consulta/all'))) {
 
-               
-
-                $resultado = consulta::get();
+                if ((Auth::user()->accesoRuta('/consulta/all'))) {
+                    $resultado = consulta::whereNotIn('estado_consulta', ['ELIMINADA', 'CERRADA','CANCELADA'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                }
 
             }elseif(Auth::user()->accesoRuta('/paciente/historia/clinica')){   
                          
                 
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
+                    ->where('sucursal_id',Auth::user()->sucursal->id)
+                    ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
                 } else {
-                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::where('estado_consulta','Pendiente')->orWhere('estado_consulta','EN CURSO') ->orderBy('created_at','DESC')->get();
                 }
                 
-                
-
             }else{
 
-
-                
                 if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO'])->where('sucursal_id',Auth::user()->sucursal->id)->orderBy('estado_consulta','DESC')->get();
+                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
+                    ->where('sucursal_id',Auth::user()->sucursal->id)
+                    ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
                 } else {
                     $resultado = consulta::where('estado_consulta','Pendiente')->get();
                 }
-
-                
 
             }          
 
@@ -128,7 +128,7 @@ class consultaController extends Controller
 
     }
 
-    public function menor(Request $request){
+    public function doctor(Request $request){
 
         if (!Auth::user()) {
 
@@ -137,17 +137,44 @@ class consultaController extends Controller
         }
 
         if(Auth::user()->accesoRuta('/consulta/create')){
-                        
-  
-            $obj_consulta = new consulta();        
+
+            $obj_consulta = new consulta();   
             $obj_consulta->paciente_id= $request->paciente_id;
-            $obj_consulta->responsable_menor = $request->txtNombre;
-            $obj_consulta->parentesco_menor = $request->txtParentesco;
             $obj_consulta->estado_consulta = 'Pendiente';   
-            $obj_consulta->sucursal_id = Auth::user()->sucursal_id;         
+            $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
+            $obj_consulta->medico_id =  $request->selectMedico;
             
+            if ($request->tipo == 'menor') {
+                $obj_consulta->responsable_menor = $request->txtNombre;
+                $obj_consulta->parentesco_menor = $request->txtParentesco;
+            }
+                 
             $obj_consulta->save();
             return redirect()->back()->withErrors(['status' => "Se ha creado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
+            
+        }
+
+        return redirect(route('index'));
+
+    }
+
+    public function reasignar(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+
+        if(Auth::user()->accesoRuta('/consulta/reasignar')){
+
+            $obj_consulta = consulta::find($request->consulta_id);       
+            $obj_consulta->medico_id =  $request->selectMedico;
+            
+           
+            $obj_consulta->save();
+            return redirect()->back()->withErrors(['status' => "Se ha reasignado la consulta para el paciente: " .$obj_consulta->paciente->identificacion_paciente ]);
             
         }
 
