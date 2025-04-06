@@ -78,7 +78,7 @@
                                           <td>@if($fila->paciente->sexo_paciente=="m")M @else F @endif</td>
                                           <td>
                                                 @php
-                                                    $nacimiento = \Carbon\Carbon::parse($fila->fecha_nacimiento_paciente);
+                                                    $nacimiento = \Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente);
                                                     $hoy = \Carbon\Carbon::now();
                                                     $edad = $nacimiento->diff($hoy);
 
