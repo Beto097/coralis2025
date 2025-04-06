@@ -76,7 +76,21 @@
                                           <td>{{$fila->paciente->identificacion_paciente}}</td>
                                           <td>{{$fila->paciente->nombre_paciente}} {{$fila->paciente->apellido_paciente}}</td>
                                           <td>@if($fila->paciente->sexo_paciente=="m")M @else F @endif</td>
-                                          <td>{{\Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente)->age}}</td> 
+                                          <td>
+                                                @php
+                                                    $nacimiento = \Carbon\Carbon::parse($fila->fecha_nacimiento_paciente);
+                                                    $hoy = \Carbon\Carbon::now();
+                                                    $edad = $nacimiento->diff($hoy);
+
+                                                    if ($edad->y >= 1) {
+                                                        $textoEdad = $edad->y . 'a ' . $edad->m . 'm';
+                                                    } else {
+                                                        $textoEdad = $edad->m . 'm ' . $edad->d . 'd';
+                                                    }
+                                                @endphp
+
+                                                {{ $textoEdad }}
+                                            </td>
                                           <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
                                           <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>  
