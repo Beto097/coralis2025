@@ -25,8 +25,9 @@ class loginController extends Controller
             
         }
 
-        $consultas = consulta::where('estado_consulta','TERMINADA')
-        ->where('fecha_consulta',Carbon::today()->format('Y-m-d'))
+     
+        $consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
+        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
         ->groupBy('medico_id')
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();

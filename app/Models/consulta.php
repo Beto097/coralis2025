@@ -17,6 +17,7 @@ class consulta extends Model
     public static function actualizarEstados(){
         $consultas = consulta::Where('estado_consulta','EN CURSO')->get();
         $consultas_pendientes = consulta::Where('estado_consulta','Pendiente')->get();
+        $consultas_terminadas = consulta::Where('estado_consulta','TERMINADA')->get();
 
         foreach ($consultas as $consulta) {           
 
@@ -32,6 +33,13 @@ class consulta extends Model
                 $consulta->save();
             }
             
+        }
+        foreach ($consultas_terminadas as $consulta) {           
+
+            if($consulta->updated_at->addHours(intval(env('TIEMPO_ESPERA_CONSULTA', '8')))<Carbon::now()){
+                $consulta->estado_consulta = "CERRADA";
+                $consulta->save();
+            }
         }
     }
 

@@ -19,12 +19,12 @@
                                         <div class="col-md-6 col-sm-6 col-xs-6">                                    
                                             <label class="control-label text-left">Nombre del Responsable</label>
                                             <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
-                                                value={{$fila->responsable_menor}}  >
+                                                value="{{$fila->responsable_menor}}"  >
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6">                                    
                                             <label class="control-label text-left">Parentesco</label>
                                             <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
-                                                value={{$fila->parentesco_menor}}  >
+                                                value="{{$fila->parentesco_menor}}"  >
                                         </div>  
                                     @endif
                                     
@@ -32,32 +32,32 @@
                                     <div class="col-md-4 col-sm-12 col-xs-12">
                                         <label class="control-label text-left">Fecha</label>
                                         <input type="date" class="form-control" id="txtFecha" name="txtFecha" 
-                                            value={{$fila->fecha_consulta}} required>
+                                            value="{{$fila->fecha_consulta}}" required>
                                     </div>
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Frecuencia Respiratoria</label>
                                         <input type="text" class="form-control" id="txtFrecR" placeholder="14-18" name="txtFrecR"
-                                            value={{$fila->frecuencia_respiratoria}}  >
+                                            value="{{$fila->frecuencia_respiratoria}}"  >
                                     </div>  
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Frecuencia Cardiaca</label>
                                         <input type="text" class="form-control" id="txtFrecC" placeholder="60-100" name="txtFrecC"
-                                            value={{$fila->frecuencia_cardiaca}} >
+                                            value="{{$fila->frecuencia_cardiaca}}" >
                                     </div>  
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Presion Arterial</label>
                                         <input type="text" class="form-control" id="txtPresA" placeholder="120/80" name="txtPresA"
-                                            value={{$fila->presion_arterial}} >
+                                            value="{{$fila->presion_arterial}}" >
                                     </div> 
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Temperatura</label>
                                         <input type="text" class="form-control" id="txtTemp" placeholder="36-37" name="txtTemp"
-                                            value={{$fila->temperatura}} >
+                                            value="{{$fila->temperatura}}" >
                                     </div>    
                                     <div class="col-md-4 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Saturacion de Oxigeno</label>
                                         <input type="text" class="form-control" id="txtSatO" placeholder="95-100" name="txtSatO"
-                                            value={{$fila->saturacion_oxigeno}} >
+                                            value="{{$fila->saturacion_oxigeno}}" >
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-danger text-left">Alergias</label>
@@ -84,12 +84,12 @@
                                             <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                                 <label class="control-label text-left">Peso</label>
                                                 <input type="text" class="form-control" id="txtPeso" placeholder="150" name="txtPeso"
-                                                    value={{$fila->peso}} >
+                                                    value="{{$fila->peso}}" >
                                             </div>
                                             <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                                 <label class="control-label text-left">Talla</label>
                                                 <input type="text" class="form-control" id="txtTalla" placeholder="1.80" name="txtTalla"
-                                                    value={{$fila->talla}} >
+                                                    value="{{$fila->talla}}" >
                                             </div>
 
                                         </div>
@@ -102,7 +102,7 @@
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Diagnóstico</label>
                                         <input type="text" class="form-control" id="txtDiagnostico" placeholder="" name="txtDiagnostico"
-                                            value={{$fila->diagnostico}} >
+                                            value="{{$fila->diagnostico}}" >
                                     </div>                                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Tratamientos - Recomendaciones</label>

@@ -5,12 +5,8 @@
         
         @foreach($medicos as $medico)                                                
            
-            <option value="{{$medico->id}}">{{$medico->nombre_usuario}}</option>
+            <option value="{{$medico->id}}">{{$medico->primer_nombre_usuario}} {{$medico->apellido_usuario}}</option>
                
-
-           
-               
-        
         @endforeach       
         
   

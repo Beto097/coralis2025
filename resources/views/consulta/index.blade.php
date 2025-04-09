@@ -16,7 +16,7 @@
     <div class="row">
         <br>
         <div class="col-sm-10">
-            <p>Este listado muestra todos los consultas que estan registrados en el sistema.</p>
+            <p>Este listado muestra todas las consultas que estan registradas en el sistema para la gestión de atención al paciente de este turno.</p>
         </div>
         <div class="col-sm-2">
           @if(Auth::user()->accesoRuta('/consulta/create'))
@@ -40,7 +40,12 @@
             <div class="panel panel-default card-view">
                 <div class="panel-heading">
                     <div class="pull-left">
-                        <h6 class="panel-title txt-dark">Consultas</h6>
+                        <h6 class="panel-title txt-dark">
+                        @if(Auth::user()->accesoRuta('/consulta/create'))
+                          Listado de consultas del día
+                        @else
+                          Consultas para el Médico {{Auth::user()->primer_nombre_usuario}} {{Auth::user()->apellido_usuario}}</h6>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -58,6 +63,7 @@
                                         <th>Edad</th>
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
+                                        <th>Médico</th>
                                         <th>Acciones</th>
                                       </tr>
                                       
@@ -70,9 +76,24 @@
                                           <td>{{$fila->paciente->identificacion_paciente}}</td>
                                           <td>{{$fila->paciente->nombre_paciente}} {{$fila->paciente->apellido_paciente}}</td>
                                           <td>@if($fila->paciente->sexo_paciente=="m")M @else F @endif</td>
-                                          <td>{{\Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente)->age}}</td> 
-                                          <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>                             
+                                          <td>
+                                                @php
+                                                    $nacimiento = \Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente);
+                                                    $hoy = \Carbon\Carbon::now();
+                                                    $edad = $nacimiento->diff($hoy);
+
+                                                    if ($edad->y >= 1) {
+                                                        $textoEdad = $edad->y . 'a ' . $edad->m . 'm';
+                                                    } else {
+                                                        $textoEdad = $edad->m . 'm ' . $edad->d . 'd';
+                                                    }
+                                                @endphp
+
+                                                {{ $textoEdad }}
+                                            </td>
+                                          <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
+                                          <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>  
                                           <td>
                                             
                 
@@ -98,8 +119,7 @@
                                             @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
-                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="https://banistmo.com" onclick="
-                                                  return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 
+                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 
                                             @endif 
                                             
                                                                             

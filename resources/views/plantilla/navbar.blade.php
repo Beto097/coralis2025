@@ -11,14 +11,49 @@
         <a id="toggle_nav_btn" class="toggle-left-nav-btn inline-block ml-20 pull-left" href="javascript:void(0);"><i class="zmdi zmdi-menu"></i></a>
         <a id="toggle_mobile_search" data-toggle="collapse" data-target="#search_form" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-search"></i></a>
         <a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-more"></i></a>
-        {{-- <form id="search_form" role="search" class="top-nav-search collapse pull-left">
+        {{--<form id="search_form" role="search" class="top-nav-search collapse pull-left">
             <div class="input-group">
-                <input type="text" name="example-input1-group2" class="form-control" placeholder="Search">
+                <input type="text" name="example-input1-group2" class="form-control" placeholder="Buscar...">
                 <span class="input-group-btn">
                 <button type="button" class="btn  btn-default"  data-target="#search_form" data-toggle="collapse" aria-label="Close" aria-expanded="true"><i class="zmdi zmdi-search"></i></button>
                 </span>
             </div>
-        </form> --}}
+        </form>--}}
+        <div class="top-nav-search collapse pull-left">
+            <div class="input-group" style="background-color: #fff; border-radius: 25px; padding: 6px 40px;">
+                <label id="reloj-local" style="
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 1em;
+                    color: #333;
+                    font-weight: 600;
+                    margin: 0;
+                "></label>
+            </div>
+        </div>  
+        <script>
+            function actualizarReloj() {
+                const ahora = new Date();
+
+                const opcionesFecha = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+
+                const fechaFormateada = ahora.toLocaleDateString('es-ES', opcionesFecha);
+                const horaFormateada = ahora.toLocaleTimeString('es-ES', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+
+                document.getElementById('reloj-local').textContent = `${fechaFormateada}, ${horaFormateada}`;
+            }
+
+            setInterval(actualizarReloj, 1000);
+            actualizarReloj();
+        </script>
     </div>
     <div id="mobile_only_nav" class="mobile-only-nav pull-right">
         <ul class="nav navbar-right top-nav pull-right">

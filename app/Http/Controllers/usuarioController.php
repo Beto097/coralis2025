@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\rol;
 use App\Models\sucursal;
-
+use Illuminate\Validation\Rule;
 use Session;
 
 class usuarioController extends Controller
@@ -79,6 +79,8 @@ class usuarioController extends Controller
 
            
             $obj_usuario = new User();
+            $obj_usuario->primer_nombre_usuario = $request->txtNameUsuario;
+            $obj_usuario->apellido_usuario = $request->txtLastName;
             $obj_usuario->nombre_usuario = $request->txtUsuario;
             $obj_usuario->email_usuario = $request->txtEmail;
             $obj_usuario->password_usuario = $contraseña_verificada;
@@ -92,7 +94,7 @@ class usuarioController extends Controller
                 return redirect(route('usuario.index'))->withErrors(['status' => "Se ha creado el usuario: : ".$obj_usuario->nombre_usuario ]);
 
             } catch (\Illuminate\Database\QueryException $qe) {                
-                return redirect()->back()->withErrors(['danger' => 'error al crear el usuario.' ]);
+                return redirect()->back()->withErrors(['danger' => $qe->getMessage() ]);
             } catch (Exception $e) {
                 return redirect()->back()->withErrors(['danger' => $e->getMessage()]);
             } catch (\Throwable $th) {
@@ -207,7 +209,7 @@ class usuarioController extends Controller
             $obj_usuario->estado_usuario = '0';
 
             $obj_usuario->save();
-            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha desbloqueado el usuario: ".$obj_usuario->nombre_usuario ]);
+            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha bloqueado el usuario: ".$obj_usuario->nombre_usuario ]);
 
         }
 
