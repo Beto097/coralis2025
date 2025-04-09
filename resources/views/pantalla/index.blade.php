@@ -27,7 +27,9 @@
         <br>
         <br>
         <br>
-        @include('plantilla.errores')
+            <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>
         <div class="col-sm-12">
             <div class="panel panel-default card-view">
                 <div class="panel-heading">

@@ -92,6 +92,10 @@
                                                         @include('modals.reasignarConsultaDoctorModals')
                                                   
                                                 @endif 
+                                            @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
+                                              <a class="btn btn-sm btn-warning btnIcono" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+      
+                                            @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
                                                 <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="https://banistmo.com" onclick="

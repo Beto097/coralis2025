@@ -24,8 +24,9 @@ class loginController extends Controller
             return redirect(route('login.index'));
             
         }
+
         $consultas = consulta::where('estado_consulta','TERMINADA')
-        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
+        ->where('fecha_consulta',Carbon::today()->format('Y-m-d'))
         ->groupBy('medico_id')
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();

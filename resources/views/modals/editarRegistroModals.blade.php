@@ -100,7 +100,7 @@
                                                 placeholder="" name="txtLaboratoriosExamenes" rows="3">{{$fila->laboratorios_examenes}}</textarea>                                        
                                     </div>                                       
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
-                                        <label class="control-label text-left">Diagnistico</label>
+                                        <label class="control-label text-left">Diagnóstico</label>
                                         <input type="text" class="form-control" id="txtDiagnostico" placeholder="" name="txtDiagnostico"
                                             value={{$fila->diagnostico}} >
                                     </div>                                  

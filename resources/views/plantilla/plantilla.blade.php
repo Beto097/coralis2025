@@ -53,7 +53,9 @@
 			@include('modals.actualizarSucursalModals')
 			@include('modals.actualizarPasswordModals')
 			@if (Route::is('index'))
-				@include('plantilla.errores')	
+				    <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>	
 			@endif
 			
 			@yield('contenido')

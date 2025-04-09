@@ -112,120 +112,61 @@ class usuarioController extends Controller
 
     public function save(Request $request){
 
-        if (!Auth::user()) {
-
-            Session::put('url', url()->current());    
+        if (!Auth::check()) {
+            Session::put('url', url()->current());
             return redirect(route('login.index'));
         }
-        
-
-        if(Auth::user()->accesoRuta('/usuario/update')){
-           
-            $obj_usuario = User::find($request->txtId);
-            if($request->txtPassword==($obj_usuario->password_usuario)){
-                $contraseña_verificada = $obj_usuario->password_usuario;
-                
-            }else{
-                $contraseña_verificada = md5($request->txtPassword); 
-                
-            }
-        
-
-                // Busqueda Usuario
-            $nombre_existe = User::where('nombre_usuario', $request->txtUsuario )->count();     
-            if($nombre_existe>=1){
-                $obj_usuario = User::where('nombre_usuario', $request->txtUsuario )->first();
-                if($obj_usuario->id == $request->txtId){
-                    $email_existe = User::where('email_usuario', $request->txtEmail )->count();                    
-                    if($email_existe>=1){                       
-                        $obj_email = User::where('email_usuario', $request->txtEmail )->first();
-                        if($obj_email->id == $request->txtId){         
-                            $obj_usuario->nombre_usuario = $request->txtUsuario;
-                            $obj_usuario->email_usuario = $request->txtEmail;
-                            $obj_usuario->password_usuario = $contraseña_verificada;
-                            $obj_usuario->rol_id = $request->selectRol;
-                            $obj_usuario->sucursal_id = $request->selectSucursal;
-                            $obj_usuario->estado_usuario = $request->txtEstado;
-                            
-                            try {
-                                $obj_usuario->save();
-                                return redirect(route('usuario.index'))->withErrors(['status' => "Se ha actualizado el usuario: ".$obj_usuario->nombre_usuario ]);
-            
-                            } catch (\Illuminate\Database\QueryException $qe) {
-                                
-                                return redirect()->back()->withErrors(['danger' => 'Usuario o Correo duplicados' ]);
-                            } catch (Exception $e) {
-                                return redirect()->back()->withErrors(['danger' => $e->getMessage()]);
-                            } catch (\Throwable $th) {
-                                return redirect()->back()->withErrors(['danger' => $th]);
-                            }  
-                            
-                            
-                        }else{
-                            
-                            return redirect()->back()->withErrors(['danger' => 'Ingreso un correo que ya esta en uso' ]);
-                        }
-                    
-                    }else{
-                        $obj_usuario->nombre_usuario = $request->txtUsuario;
-                        $obj_usuario->email_usuario = $request->txtEmail;
-                        $obj_usuario->password_usuario = $contraseña_verificada;
-                        $obj_usuario->rol_id = $request->txtRol;
-                        $obj_usuario->estado_usuario = $request->txtEstado;
-                        try {
-                            $obj_usuario->save();
-                            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha actualizado el usuario: ".$obj_usuario->nombre_usuario ]);
-        
-                        } catch (\Illuminate\Database\QueryException $qe) {
-                            
-                            return redirect()->back()->withErrors(['danger' => 'Usuario o Correo duplicados' ]);
-                        } catch (Exception $e) {
-                            return redirect()->back()->withErrors(['danger' => $e->getMessage()]);
-                        } catch (\Throwable $th) {
-                            return redirect()->back()->withErrors(['danger' => $th]);
-                        } 
-                    }
-                
-                }else{
-                    return redirect()->back()->withErrors(['danger' => 'Ingreso un nombre que ya esta en uso' ]);
-                }
-            }else{
-                
-                $email_existe = User::where('email_usuario', $request->txtEmail )->count();
-                if($email_existe>=1){
-                    $obj_email = User::where('email_usuario', $request->txtEmail )->first();
-                    if($obj_email->id == $request->txtId){         
-                        $obj_usuario->nombre_usuario = $request->txtUsuario;
-                        $obj_usuario->email_usuario = $request->txtEmail;
-                        $obj_usuario->password_usuario = $contraseña_verificada;
-                        $obj_usuario->rol_id = $request->txtRol;
-                        $obj_usuario->estado_usuario = $request->txtEstado;
-                        try {
-                            $obj_usuario->save();
-                            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha actualizado el usuario: ".$obj_usuario->nombre_usuario ]);
-        
-                        } catch (\Illuminate\Database\QueryException $qe) {
-                            
-                            return redirect()->back()->withErrors(['danger' => 'Usuario o Correo duplicados' ]);
-                        } catch (Exception $e) {
-                            return redirect()->back()->withErrors(['danger' => $e->getMessage()]);
-                        } catch (\Throwable $th) {
-                            return redirect()->back()->withErrors(['danger' => $th]);
-                        } 
-                    }else{
-                        return redirect()->back()->withErrors(['danger' => 'Ingreso un email que ya esta en uso' ]);
-                    }
-                
-                }else{
-                    return redirect()->back()->withErrors(['danger' => 'Ingreso un nombre que ya esta en uso' ]);
-                }
-            }
-
+    
+        // Verificar permisos
+        if (!Auth::user()->accesoRuta('/usuario/update')) {
+            return redirect(route('index'));
         }
-        
-              
-        return redirect(route('index'));
-        
+    
+        // Buscar usuario
+        $obj_usuario = User::find($request->txtId);
+        if (!$obj_usuario) {
+            return redirect()->back()->withErrors(['danger' => 'Usuario no encontrado']);
+        }
+    
+        // Verificar si la contraseña cambió
+        $contraseña_verificada = ($request->txtPassword === $obj_usuario->password_usuario)
+            ? $obj_usuario->password_usuario
+            : md5($request->txtPassword);
+    
+        // Validación de unicidad en nombre y correo
+        $existe_nombre = User::where('nombre_usuario', $request->txtUsuario)
+            ->where('id', '!=', $request->txtId)
+            ->exists();
+    
+        if ($existe_nombre) {
+            return redirect()->back()->withErrors(['danger' => 'El nombre de usuario ya está en uso']);
+        }
+    
+        $existe_email = User::where('email_usuario', $request->txtEmail)
+            ->where('id', '!=', $request->txtId)
+            ->exists();
+    
+        if ($existe_email) {
+            return redirect()->back()->withErrors(['danger' => 'El email ya está en uso']);
+        }
+    
+        // Actualizar usuario
+        try {
+
+            $obj_usuario->nombre_usuario = $request->txtUsuario;
+            $obj_usuario->email_usuario = $request->txtEmail;
+            $obj_usuario->password_usuario = $contraseña_verificada;
+            $obj_usuario->rol_id = $request->selectRol;
+            $obj_usuario->sucursal_id = $request->selectSucursal;
+            $obj_usuario->estado_usuario = $request->txtEstado;
+          
+            $obj_usuario->save();
+    
+            return redirect(route('usuario.index'))
+                ->withErrors(['status' => "Se ha actualizado el usuario: " . $obj_usuario->nombre_usuario]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['danger' => 'Error al actualizar: ' . $e->getMessage()]);
+        }
 
     }
 
