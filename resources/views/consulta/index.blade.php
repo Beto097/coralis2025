@@ -138,6 +138,7 @@
                                         <th>Edad</th>
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
+                                        <th>Médico</th>
                                         <th>Acciones</th>
                                       </tr>
                                     </tfoot>
@@ -158,6 +159,7 @@
       null,
       null,
       null,      
+      null,
       null,
       null,
       null,
