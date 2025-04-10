@@ -126,7 +126,7 @@
                                     </tbody>
                                 
                                     <tfoot>
-                                      <tr>
+                                       <tr>
                                         <th>ID</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
@@ -134,6 +134,7 @@
                                         <th>Edad</th>
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
+                                        <th>Médico</th>
                                         <th>Acciones</th>
                                       </tr>
                                     </tfoot>
@@ -154,6 +155,7 @@
       null,
       null,
       null,      
+      null,
       null,
       null,
       null,
