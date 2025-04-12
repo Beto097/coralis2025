@@ -22,28 +22,20 @@ class consultaController extends Controller
 
         if(Auth::user()->accesoRuta('/consulta')){
 
-            consulta::actualizarEstados();            
+            consulta::actualizarEstados();         
+
 
             if ((Auth::user()->accesoRuta('/consulta/all'))) {
-            if ((Auth::user()->accesoRuta('/consulta/all'))) {
 
-                if ((Auth::user()->accesoRuta('/consulta/all'))) {
-                    $resultado = consulta::whereNotIn('estado_consulta', ['ELIMINADA', 'CERRADA','CANCELADA'])
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
-                }
-                if ((Auth::user()->accesoRuta('/consulta/all'))) {
-                    $resultado = consulta::whereNotIn('estado_consulta', ['ELIMINADA', 'CERRADA','CANCELADA'])
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
-                }
+               
+                $resultado = consulta::whereNotIn('estado_consulta', ['ELIMINADA', 'CERRADA','CANCELADA'])
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+                
 
             }elseif(Auth::user()->accesoRuta('consulta/registrar')){   
                          
-                if (Auth::user()->sucursal) {
-                    $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
-                    ->where('sucursal_id',Auth::user()->sucursal->id)
-                    ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
+                if (Auth::user()->sucursal) {                  
                     $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
                     ->where('sucursal_id',Auth::user()->sucursal->id)
                     ->where('medico_id',Auth::user()->id)->orderBy('created_at','DESC')->get();
