@@ -25,6 +25,8 @@ class loginController extends Controller
             
         }
 
+        $inicioDia = Carbon::now()->subHours(5)->endOfDay();   
+
      
         $consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
         ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
@@ -32,10 +34,17 @@ class loginController extends Controller
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();
 
+        $consultasD = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
+        ->where('created_at','>',$inicioDia)
+        ->groupBy('medico_id')
+        ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
+        ->get();
+
+
         consulta::actualizarEstados();  
 
         if (!$consultas->isEmpty()) {
-            return view('index',['consultas'=>$consultas]);
+            return view('index',['consultas'=>$consultas,'consultasD'=>$consultasD]);
         }
 
     

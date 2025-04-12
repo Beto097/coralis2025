@@ -33,8 +33,8 @@ class consultaController extends Controller
                     ->get();
                 
 
-            }elseif(Auth::user()->accesoRuta('consulta/registrar')){   
-                         
+            }elseif(Auth::user()->accesoRuta('/consulta/registrar')){   
+
                 if (Auth::user()->sucursal) {                  
                     $resultado = consulta::whereIn('estado_consulta',['Pendiente','EN CURSO','TERMINADA'])
                     ->where('sucursal_id',Auth::user()->sucursal->id)
