@@ -24,6 +24,8 @@ class loginController extends Controller
             return redirect(route('login.index'));
             
         }
+
+     
         $consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
         ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
         ->groupBy('medico_id')

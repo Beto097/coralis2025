@@ -47,4 +47,30 @@ class consulta extends Model
     {
         return $this->belongsTo('App\Models\User','medico_id');
     }
+
+    public function tieneReceta(){
+
+        $exite = receta::where('consulta_id',$this->id)->count();
+
+        if ($exite>0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function numeroReceta(){
+
+        $receta = receta::where('consulta_id',$this->id)->first();
+
+        return $receta->numero;
+
+        
+    }
+
+    public function recetas()
+    {
+        return $this->hasMany('App\Models\receta');
+    }
+
 }

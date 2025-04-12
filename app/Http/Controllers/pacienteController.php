@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\paciente;
 use App\Models\consulta;
-
+use App\Models\rol;
+use App\Models\User;
 use Carbon\Carbon;
 
 use Session;
