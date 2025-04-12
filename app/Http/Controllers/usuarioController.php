@@ -150,7 +150,6 @@ class usuarioController extends Controller
             $contraseña_verificada = md5($request->txtPassword);
         }
 
-        // Asignar los nuevos valores
         $obj_usuario->primer_nombre_usuario = $request->txtNameUsuario;
         $obj_usuario->apellido_usuario = $request->txtLastName;
         $obj_usuario->nombre_usuario = $request->txtUsuario;
