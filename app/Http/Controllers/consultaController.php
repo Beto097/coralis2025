@@ -245,7 +245,6 @@ class consultaController extends Controller
             if ($request->accion == 'terminar') {
                 $consulta->estado_consulta = 'TERMINADA';
             }
-
             
             $consulta->save();
 
