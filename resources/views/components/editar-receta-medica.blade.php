@@ -5,7 +5,7 @@
             <input type="hidden" name="txtFilaId[]" id="filaId" class="form-control form-control-sm" value="{{ $filaReceta->id }}">     
             <div class="form-group col-md-2">
                 <label for="">Cantidad</label>
-                <input type="text" class="form-control" id="cantidad" placeholder="" value="{{$filaReceta->cantidad}}"   name="txtCantidad[]" required >
+                <input type="text" class="form-control" id="cantidad" placeholder="" value="{{$filaReceta->cantidad}}"   name="txtCantidad[]" required autocomplete="off">
             </div>
             <div class="form-group col-md-3">
                 <label for="">Medicamento</label>
@@ -13,14 +13,14 @@
             </div>
             <div class="form-group col-md-3">
                 <label for="">Dosis</label>
-                <input type="text" class="form-control" id="dosis" placeholder=""  value="{{$filaReceta->dosis}}" name="txtDosis[]" required>
+                <input type="text" class="form-control" id="dosis" placeholder=""  value="{{$filaReceta->dosis}}" name="txtDosis[]" required autocomplete="off">
             </div>
             <div class="form-group col-md-3 ">
                 <label for="">Tratamiento</label>
-                <input type="text" class="form-control" id="tratamiento" placeholder="" value="{{$filaReceta->tratamiento}}"  name="txtTratamiento[]" required>
+                <input type="text" class="form-control" id="tratamiento" placeholder="" value="{{$filaReceta->tratamiento}}"  name="txtTratamiento[]" required autocomplete="off">
             </div>
             @if (!isset($tipo))
-                <div class="form-group col-md-1 " style="padding-top: 1.5rem">
+                <div class="form-group col-md-1 " style="padding-top: 1.5rem; margin-left: -10px">
                     <button type="button" class="btn btn-danger eliminarFila"  onclick="eliminarFila2({{ $filaReceta->id }},this)"><i class="fa fa-trash"></i></button>
                 </div>
             @endif
@@ -38,7 +38,7 @@
         
     </div>
     @if (!isset($tipo))
-        <div class="form-group col-md-1 ">
+        <div class="form-group col-md-1 " style="margin-left: -10px">
         
             <button type="button" id="sumarFila"  class="btn btn-primary text-left" onclick="agregarFila2()"><i id="iconoBoton" class="fa fa-plus"></i></button>
         

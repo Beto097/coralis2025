@@ -9,7 +9,7 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form action="{{route('receta.save')}}" method="POST" role="form" autocomplete="off">
+                            <form action="{{route('receta.save')}}" method="POST" role="form" >
                                 @csrf
                                 <x-receta-medica :resultado="$consulta" />
                             </form>

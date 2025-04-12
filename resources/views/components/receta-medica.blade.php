@@ -4,7 +4,7 @@
     <div class="row filaReceta" id="filaReceta" style="padding-top: 15px">      
         <div class="form-group col-md-2">
             <label for="">Cantidad</label>
-            <input type="text" class="form-control" id="cantidad" placeholder=""   name="txtCantidad[]" required>
+            <input type="text" class="form-control" id="cantidad" placeholder=""   name="txtCantidad[]" required autocomplete="off">
         </div>
         <div class="form-group col-md-3">
             <label for="">Medicamento</label>
@@ -12,13 +12,13 @@
         </div>
         <div class="form-group col-md-3">
             <label for="">Dosis</label>
-            <input type="text" class="form-control" id="dosis" placeholder=""   name="txtDosis[]" required>
+            <input type="text" class="form-control" id="dosis" placeholder=""   name="txtDosis[]" required autocomplete="off">
         </div>
         <div class="form-group col-md-3 ">
             <label for="">Tratamiento</label>
-            <input type="text" class="form-control" id="tratamiento" placeholder=""   name="txtTratamiento[]" required>
+            <input type="text" class="form-control" id="tratamiento" placeholder=""   name="txtTratamiento[]" required autocomplete="off">
         </div>
-        <div class="form-group col-md-1 " style="padding-top: 1.5rem">
+        <div class="form-group col-md-1 " style="padding-top: 1.5rem ; margin-left: -10px">
             <button type="button" class="btn btn-danger eliminarFila" style="display: none;"></button>
         </div>
         
@@ -28,7 +28,7 @@
 
 
 <div class="row">
-    <div class="form-group col-md-11">
+    <div class="form-group col-md-11" style="margin-left: -10px">
         
     </div>
     <div class="form-group col-md-1 ">
