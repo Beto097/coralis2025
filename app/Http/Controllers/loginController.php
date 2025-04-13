@@ -23,9 +23,7 @@ class loginController extends Controller
             Session::put('url', url()->current());    
             return redirect(route('login.index'));
             
-        }
-
-        $inicioDia = Carbon::now()->subHours(5)->endOfDay();   
+        }        
 
      
         $consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
@@ -35,7 +33,7 @@ class loginController extends Controller
         ->get();
 
         $consultasD = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
-        ->where('created_at','>',$inicioDia)
+        ->whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])
         ->groupBy('medico_id')
         ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();

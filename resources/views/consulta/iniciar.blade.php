@@ -81,7 +81,7 @@
                                 @endif</li>
                         <li class="" style="font-size: 130%"><i
                                 class="zmdi zmdi-cake text-success font-size-18 mt-2 me-2"></i>
-                            <b> Edad </b> : {{\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age}}
+                            <b> Edad </b> : {{$paciente->edad()}}
                         </li>
                         <li class="" style="font-size: 130%"><i class="zmdi zmdi-phone-end me-2 text-success font-size-18"></i> <b>
                           Telefono</b> : {{$paciente->telefono_paciente}}</li>

@@ -61,19 +61,7 @@
                                             <td>{{$fila->nombre_paciente}} {{$fila->apellido_paciente}}</td>
                                             <td>@if($fila->sexo_paciente=="m")<span class="label label-primary">Masculino</span>@else<span class="label label-info">Femenino</span>@endif</td>
                                             <td>
-                                                @php
-                                                    $nacimiento = \Carbon\Carbon::parse($fila->fecha_nacimiento_paciente);
-                                                    $hoy = \Carbon\Carbon::now();
-                                                    $edad = $nacimiento->diff($hoy);
-
-                                                    if ($edad->y >= 1) {
-                                                        $textoEdad = $edad->y . 'a ' . $edad->m . 'm';
-                                                    } else {
-                                                        $textoEdad = $edad->m . 'm ' . $edad->d . 'd';
-                                                    }
-                                                @endphp
-
-                                                {{ $textoEdad }}
+                                                {{$fila->edad()}}
                                             </td>
                                             <td>{{$fila->telefono_paciente}}</td>
                                             <td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>

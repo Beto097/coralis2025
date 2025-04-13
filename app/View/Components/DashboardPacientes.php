@@ -26,7 +26,7 @@ class DashboardPacientes extends Component
     
     public function __construct()
     {
-        $this->nuevos_pacientes = paciente::where('created_at', '>=', Carbon::now('America/Panama')->subDay())->count();
+        $this->nuevos_pacientes = paciente::whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])->count();
         $this->total_pacientes = paciente::where('estado_paciente',1)->count();
         $this->consultas_mes = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA', 'EN CURSO', 'PENDIENTE'])
                 ->whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])

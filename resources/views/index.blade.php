@@ -16,25 +16,7 @@
             @if(isset($consultas))
             
                 @if (Auth::user()->accesoRuta('/dashboard'))
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel panel-default card-view">
-                            <div class="panel-heading">
-                                <div class="pull-left">
-                                    <h6 class="panel-title txt-dark">Consultas por Doctor</h6>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="panel-wrapper collapse in">
-                                <div class="panel-body">
-                                    <div class="flot-container" style="height:250px">
-                                        <div id="flot_pie_chart" class="demo-placeholder"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>	
-                    </div>
-                @endif
-                @if (Auth::user()->accesoRuta('/dashboard'))
+
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <div class="panel panel-default card-view">
                             <div class="panel-heading">
@@ -57,6 +39,25 @@
                             </div>
                         </div>	
                     </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default card-view">
+                            <div class="panel-heading">
+                                <div class="pull-left">
+                                    <h6 class="panel-title txt-dark">Consultas por Doctor</h6>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body">
+                                    <div class="flot-container" style="height:250px">
+                                        <div id="flot_pie_chart" class="demo-placeholder"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+             
+                    
                 @endif
             @endif
             
