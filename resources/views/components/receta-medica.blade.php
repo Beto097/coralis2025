@@ -2,18 +2,27 @@
 
 <div id="contenedorReceta">
     <div class="row filaReceta" id="filaReceta" style="padding-top: 15px">      
-        <div class="form-group col-md-2">
-            <label for="">Cantidad</label>
-            <input type="text" class="form-control" id="cantidad" placeholder=""   name="txtCantidad[]" required autocomplete="off">
+        <div class="form-group col-md-3">            
+            <label for="">Tipo</label> 
+            <select class="form-control" name="txtDosis[]" id="txtDosis">               
+                                                        
+                
+                <option value="inyectable">Inyectable</option>
+                <option value="oral">Oral</option>  
+                <option value="otro">otro</option> 
+        
+            </select>
+           
         </div>
         <div class="form-group col-md-3">
             <label for="">Medicamento</label>
             <input type="text" class="form-control" id="medicamento" placeholder=""   name="txtMedicamento[]" required>
         </div>
-        <div class="form-group col-md-3">
-            <label for="">Dosis</label>
-            <input type="text" class="form-control" id="dosis" placeholder=""   name="txtDosis[]" required autocomplete="off">
+        <div class="form-group col-md-2">
+            <label for="">Cantidad</label>
+            <input type="text" min="1" class="form-control" id="cantidad" placeholder=""   name="txtCantidad[]" required autocomplete="off">
         </div>
+
         <div class="form-group col-md-3 ">
             <label for="">Tratamiento</label>
             <input type="text" class="form-control" id="tratamiento" placeholder=""   name="txtTratamiento[]" required autocomplete="off">

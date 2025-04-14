@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 use App\Models\receta;
 use App\Models\consulta;
@@ -24,37 +25,45 @@ class recetaController extends Controller
 
         if(Auth::user()->accesoRuta('/receta/create')){
 
-
+            $numeroBase = receta::ultimaReceta();
+            // Agrupar datos por tipo de dosis
+            $data = [];
             for ($i = 0; $i < count($request->txtCantidad); $i++) {
-
-                $receta = new receta();
-                $receta->cantidad = $request->txtCantidad[$i];
-                $receta->medicamento = $request->txtMedicamento[$i];
-                $receta->dosis = $request->txtDosis[$i];
-                $receta->tratamiento = $request->txtTratamiento[$i];
-                $receta->consulta_id = $request->txtIdConsulta;
-                $receta->numero = receta::ultimaReceta();
-
-                $receta->save();
-    
+                $dosis = $request->txtDosis[$i];
+                $data[$dosis][] = [
+                    'cantidad' => $request->txtCantidad[$i],
+                    'medicamento' => $request->txtMedicamento[$i],
+                    'dosis' => $dosis,
+                    'tratamiento' => $request->txtTratamiento[$i],
+                ];
             }
-            if ($request->accion == 'guardar') {
+            $contadorGlobal = $numeroBase;
+            // Procesar cada grupo de dosis
+            foreach ($data as $grupoDosis) {
+                $grupoCount = count($grupoDosis);
+                for ($i = 0; $i < $grupoCount; $i++) {
+                    // Cada 2 elementos se incrementa el número
+                    $numeroAsignado = $contadorGlobal + intdiv($i, 2);
 
-                return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
+                    $receta = new receta();
+                    $receta->cantidad = $grupoDosis[$i]['cantidad'];
+                    $receta->medicamento = $grupoDosis[$i]['medicamento'];
+                    $receta->dosis = $grupoDosis[$i]['dosis'];
+                    $receta->tratamiento = $grupoDosis[$i]['tratamiento'];
+                    $receta->consulta_id = $request->txtIdConsulta;
+                    $receta->numero = $numeroAsignado;
+                    $receta->save();
+                }
+
+                // Incrementar el contador global al final de cada grupo
+                $contadorGlobal += intdiv($grupoCount + 1, 2); // Redondea hacia arriba cada 2
+            }
+   
+           
+
+            return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
             
-            }
-
-            if(Auth::user()->accesoRuta('/receta/imprimir')){
-
-                $consulta = consulta::find($request->txtIdConsulta);
-                
-    
-                $pdf= \PDF::loadView('consulta.pdf',['consulta'=>$consulta])->setPaper([0, 0, 419.5276, 595.2756]);
-                $nombreArchivo = $consulta->paciente->identificacion_paciente.'.pdf';
-                return $pdf->download($nombreArchivo);                
-               
-                
-            }
+            
 
             
             
@@ -76,55 +85,49 @@ class recetaController extends Controller
 
 
         if(Auth::user()->accesoRuta('/receta/create')){
-
-            if ($request->has('txtEliminarId') && $request->txtEliminarId != null) {
+            
                 
-                $idsEliminar = json_decode($request->txtEliminarId, true);
-                receta::whereIn('id',$idsEliminar)->delete();
+                
+            receta::where('consulta_id',$request->txtIdConsulta)->delete();
 
-            }
-
+            $numeroBase = receta::ultimaReceta();
+            // Agrupar datos por tipo de dosis
+            $data = [];
             for ($i = 0; $i < count($request->txtCantidad); $i++) {
+                $dosis = $request->txtDosis[$i];
+                $data[$dosis][] = [
+                    'cantidad' => $request->txtCantidad[$i],
+                    'medicamento' => $request->txtMedicamento[$i],
+                    'dosis' => $dosis,
+                    'tratamiento' => $request->txtTratamiento[$i],
+                ];
+            }
+            $contadorGlobal = $numeroBase;
+            // Procesar cada grupo de dosis
+            foreach ($data as $grupoDosis) {
+                $grupoCount = count($grupoDosis);
+                for ($i = 0; $i < $grupoCount; $i++) {
+                    // Cada 2 elementos se incrementa el número
+                    $numeroAsignado = $contadorGlobal + intdiv($i, 2);
 
-                if($request->txtFilaId[$i] != null){
-
-                    $receta =  receta::find($request->txtFilaId[$i]);
-                    
-
-                }else{
-                    
                     $receta = new receta();
-
+                    $receta->cantidad = $grupoDosis[$i]['cantidad'];
+                    $receta->medicamento = $grupoDosis[$i]['medicamento'];
+                    $receta->dosis = $grupoDosis[$i]['dosis'];
+                    $receta->tratamiento = $grupoDosis[$i]['tratamiento'];
+                    $receta->consulta_id = $request->txtIdConsulta;
+                    $receta->numero = $numeroAsignado;
+                    $receta->save();
                 }
 
-                $receta->cantidad = $request->txtCantidad[$i];
-                $receta->medicamento = $request->txtMedicamento[$i];
-                $receta->dosis = $request->txtDosis[$i];
-                $receta->tratamiento = $request->txtTratamiento[$i];
-                $receta->consulta_id = $request->txtIdConsulta;
-                $receta->save();    
-
-    
+                // Incrementar el contador global al final de cada grupo
+                $contadorGlobal += intdiv($grupoCount + 1, 2); // Redondea hacia arriba cada 2
             }
+   
+           
 
-            if ($request->accion == 'guardar') {
+            return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
 
-                return redirect()->back()->withErrors(['status' => "Se ha editado correctamente la receta"]);
-            
-            }
-
-            if(Auth::user()->accesoRuta('/receta/imprimir')){
-
-                $consulta = consulta::find($request->txtIdConsulta);
-                
-    
-                $pdf= \PDF::loadView('consulta.pdf',['consulta'=>$consulta])->setPaper([0, 0, 419.5276, 595.2756]);
-                $nombreArchivo = $consulta->paciente->identificacion_paciente.'.pdf';
-                return $pdf->download($nombreArchivo);                
-               
-                return redirect()->back()->withErrors(['status' => "Se ha editado correctamente la receta"]);
-            }
-    
             
            
             
@@ -149,10 +152,23 @@ class recetaController extends Controller
 
         if(Auth::user()->accesoRuta('/receta/imprimir')){
 
-            $consulta = consulta::find($id);
+            $consulta = consulta::with('recetas')->find($id);
             
+            $grupos = $consulta->recetas->groupBy('numero');
+            $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
+            $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
 
-            $pdf= \PDF::loadView('consulta.pdf',['consulta'=>$consulta])->setPaper([0, 0, 419.5276, 595.2756]);
+            
+            $firmaExiste = File::exists($firmaPath);
+            $selloExiste = File::exists($selloPath);
+
+            $pdf = \PDF::loadView('consulta.pdf', [
+                'consulta' => $consulta,
+                'grupos' => $grupos,
+                'firma' => $firmaExiste,
+                'sello' => $selloExiste
+            ])->setPaper([0, 0, 419.5276, 595.2756]);
+
             $nombreArchivo = $consulta->paciente->identificacion_paciente.'.pdf';
             return $pdf->stream($nombreArchivo);
             
