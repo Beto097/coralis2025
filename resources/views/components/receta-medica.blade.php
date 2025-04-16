@@ -2,9 +2,9 @@
 
 <div id="contenedorReceta">
     <div class="row filaReceta" id="filaReceta" style="padding-top: 15px">      
-        <div class="form-group col-md-3">            
+        <div class="form-group col-md-2">            
             <label for="">Tipo</label> 
-            <select class="form-control" name="txtDosis[]" id="txtDosis">               
+            <select class="form-control" name="txtTipo[]">               
                                                         
                 
                 <option value="inyectable">Inyectable</option>
@@ -14,18 +14,22 @@
             </select>
            
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
             <label for="">Medicamento</label>
-            <input type="text" class="form-control" id="medicamento" placeholder=""   name="txtMedicamento[]" required>
+            <input type="text" class="form-control" id="medicamento" placeholder="Acetaminofen"   name="txtMedicamento[]" required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="">Dosis</label>
+            <input type="text"  class="form-control" id="cantidad" placeholder="500mg"   name="txtDosis[]" required autocomplete="off">
         </div>
         <div class="form-group col-md-2">
             <label for="">Cantidad</label>
-            <input type="text" min="1" class="form-control" id="cantidad" placeholder=""   name="txtCantidad[]" required autocomplete="off">
+            <input type="text" class="form-control" id="cantidad" placeholder="10 Tabletas"   name="txtCantidad[]" required autocomplete="off">
         </div>
 
         <div class="form-group col-md-3 ">
             <label for="">Tratamiento</label>
-            <input type="text" class="form-control" id="tratamiento" placeholder=""   name="txtTratamiento[]" required autocomplete="off">
+            <input type="text" class="form-control" id="tratamiento" placeholder="una cada 8 horas"   name="txtTratamiento[]" required autocomplete="off">
         </div>
         <div class="form-group col-md-1 " style="padding-top: 1.5rem ; margin-left: -10px">
             <button type="button" class="btn btn-danger eliminarFila" style="display: none;"></button>

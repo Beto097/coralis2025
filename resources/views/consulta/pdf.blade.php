@@ -60,12 +60,14 @@
             </div>
 
             <div style="margin-top: 50px; padding-left: 100px;">
-                @foreach ($recetas as $receta)
-                    <p  id="fila" style="margin-top: 20px; padding-left:0px;">{{$receta->medicamento}}  #{{$receta->cantidad}} {{$receta->tratamiento}}</p>
+                @foreach ($recetas as $key => $receta)
+                    <p  id="fila" style="margin-top: 20px; padding-left:0px;">{{$key+1}}. {{$receta->medicamento}}  #{{$receta->cantidad}} </p>
+                    <p   style="margin-top: -20px; padding-left:50px;">{{$receta->dosis}} </p>
+                    <p   style="margin-top: -20px; padding-left:20px;">Sig. {{$receta->tratamiento}} </p>
                 @endforeach
                 
             </div>
-            <table style="width: 10%; margin-top: 100px; margin-left: 50px; ">
+            <table style="width: 10%; margin-top: 60px; margin-left: 50px; ">
                 <tr>
                     <td style="text-align: left"?>
                         @if($firma)

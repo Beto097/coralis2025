@@ -29,27 +29,29 @@ class recetaController extends Controller
             // Agrupar datos por tipo de dosis
             $data = [];
             for ($i = 0; $i < count($request->txtCantidad); $i++) {
-                $dosis = $request->txtDosis[$i];
-                $data[$dosis][] = [
+                $tipo= $request->txtTipo[$i];
+                $data[$tipo][] = [
                     'cantidad' => $request->txtCantidad[$i],
                     'medicamento' => $request->txtMedicamento[$i],
-                    'dosis' => $dosis,
+                    'tipo' =>$tipo,
+                    'dosis' => $request->txtDosis[$i],
                     'tratamiento' => $request->txtTratamiento[$i],
                 ];
             }
             $contadorGlobal = $numeroBase;
             // Procesar cada grupo de dosis
-            foreach ($data as $grupoDosis) {
-                $grupoCount = count($grupoDosis);
+            foreach ($data as $grupoTipo) {
+                $grupoCount = count($grupoTipo);
                 for ($i = 0; $i < $grupoCount; $i++) {
                     // Cada 2 elementos se incrementa el número
                     $numeroAsignado = $contadorGlobal + intdiv($i, 2);
 
                     $receta = new receta();
-                    $receta->cantidad = $grupoDosis[$i]['cantidad'];
-                    $receta->medicamento = $grupoDosis[$i]['medicamento'];
-                    $receta->dosis = $grupoDosis[$i]['dosis'];
-                    $receta->tratamiento = $grupoDosis[$i]['tratamiento'];
+                    $receta->cantidad = $grupoTipo[$i]['cantidad'];
+                    $receta->medicamento = $grupoTipo[$i]['medicamento'];
+                    $receta->tipo = $grupoTipo[$i]['tipo'];
+                    $receta->dosis = $grupoTipo[$i]['dosis'];
+                    $receta->tratamiento = $grupoTipo[$i]['tratamiento'];
                     $receta->consulta_id = $request->txtIdConsulta;
                     $receta->numero = $numeroAsignado;
                     $receta->save();
@@ -58,6 +60,7 @@ class recetaController extends Controller
                 // Incrementar el contador global al final de cada grupo
                 $contadorGlobal += intdiv($grupoCount + 1, 2); // Redondea hacia arriba cada 2
             }
+   
    
            
 
@@ -94,27 +97,28 @@ class recetaController extends Controller
             // Agrupar datos por tipo de dosis
             $data = [];
             for ($i = 0; $i < count($request->txtCantidad); $i++) {
-                $dosis = $request->txtDosis[$i];
-                $data[$dosis][] = [
+                $tipo= $request->txtTipo[$i];
+                $data[$tipo][] = [
                     'cantidad' => $request->txtCantidad[$i],
                     'medicamento' => $request->txtMedicamento[$i],
-                    'dosis' => $dosis,
+                    'tipo' =>$tipo,
+                    'dosis' => $request->txtDosis[$i],
                     'tratamiento' => $request->txtTratamiento[$i],
                 ];
             }
             $contadorGlobal = $numeroBase;
             // Procesar cada grupo de dosis
-            foreach ($data as $grupoDosis) {
-                $grupoCount = count($grupoDosis);
+            foreach ($data as $grupoTipo) {
+                $grupoCount = count($grupoTipo);
                 for ($i = 0; $i < $grupoCount; $i++) {
                     // Cada 2 elementos se incrementa el número
                     $numeroAsignado = $contadorGlobal + intdiv($i, 2);
 
                     $receta = new receta();
-                    $receta->cantidad = $grupoDosis[$i]['cantidad'];
-                    $receta->medicamento = $grupoDosis[$i]['medicamento'];
-                    $receta->dosis = $grupoDosis[$i]['dosis'];
-                    $receta->tratamiento = $grupoDosis[$i]['tratamiento'];
+                    $receta->cantidad = $grupoTipo[$i]['cantidad'];
+                    $receta->medicamento = $grupoTipo[$i]['medicamento'];
+                    $receta->dosis = $grupoTipo[$i]['dosis'];
+                    $receta->tratamiento = $grupoTipo[$i]['tratamiento'];
                     $receta->consulta_id = $request->txtIdConsulta;
                     $receta->numero = $numeroAsignado;
                     $receta->save();

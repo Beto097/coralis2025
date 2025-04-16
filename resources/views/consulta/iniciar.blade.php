@@ -133,8 +133,7 @@
                                       <td>{{$fila->diagnostico}}</td>   
                                       <td>{{$fila->doctor->nombre_usuario}}</td>                 
                                       <td>
-
-                                   
+                                                                             
                                         @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
                                           <a class="btn btn-warning btnIcono" title="Imprimir Receta" target="_blank" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
 
@@ -191,8 +190,8 @@
                                           @endif 
                                         
                                         @endif 
-                                        
-                                      </td>--}}
+                                        --}}
+                                      </td>
                                     </tr>
                                     @endif
                                   
