@@ -16,7 +16,7 @@
         </div>
         <div class="form-group col-md-2">
             <label for="">Medicamento</label>
-            <input type="text" class="form-control" id="medicamento" placeholder="Acetaminofen"   name="txtMedicamento[]" required>
+            <input type="text" class="form-control" id="medicamento" list="medicamentos" autocomplete="off" placeholder="Acetaminofen"   name="txtMedicamento[]" required>
         </div>
         <div class="form-group col-md-2">
             <label for="">Dosis</label>
@@ -36,6 +36,15 @@
         </div>
         
     </div>
+    <datalist id="medicamentos">
+
+        @foreach ($medicamentos as $medicamento)
+            <option value="{{$medicamento}}">
+        @endforeach
+        
+        
+
+    </datalist>
 
 </div>
 

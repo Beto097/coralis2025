@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\receta;
 
 class RecetaMedica extends Component
 {
@@ -12,11 +13,13 @@ class RecetaMedica extends Component
      * @return void
      */
     public $consulta;
+    public $medicamentos;
 
 
     public function __construct($resultado)
     {
         $this->consulta =$resultado;
+        $this->medicamentos = Receta::select('medicamento')->orderBy('medicamento')->distinct()->pluck('medicamento');
        
     }
 

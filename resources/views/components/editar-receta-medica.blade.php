@@ -3,7 +3,7 @@
     
         <div class="row filaReceta {{ empty($tipo) ? '' : 'disabled-div' }}" id="filaReceta" style="padding-top: 15px" data-id="{{ $filaReceta->id }}"  >  
             <input type="hidden" name="txtFilaId[]" id="filaId" class="form-control form-control-sm" value="{{ $filaReceta->id }}">     
-            <div class="form-group col-md-3">            
+            <div class="form-group col-md-2">            
                 <label for="">Tipo</label> 
                 <select class="form-control" name="txtDosis[]" id="txtDosis">               
                                                             
@@ -15,9 +15,9 @@
                 </select>
                
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="">Medicamento</label>
-                <input type="text" class="form-control" id="medicamento" placeholder=""  value="{{$filaReceta->medicamento}}"  name="txtMedicamento[]" required>
+                <input type="text" class="form-control" id="medicamento" list="medicamentos" autocomplete="off" placeholder=""  value="{{$filaReceta->medicamento}}"  name="txtMedicamento[]" required>
             </div>
             <div class="form-group col-md-2">
                 <label for="">Cantidad</label>
@@ -38,6 +38,15 @@
 
 
     @endforeach 
+    <datalist id="medicamentos">
+
+        @foreach ($medicamentos as $medicamento)
+            <option value="{{$medicamento}}">
+        @endforeach
+        
+        
+
+    </datalist>
 </div>
 
 

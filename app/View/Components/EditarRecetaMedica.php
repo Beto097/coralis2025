@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\receta;
 
 class EditarRecetaMedica extends Component
 {
@@ -13,6 +14,7 @@ class EditarRecetaMedica extends Component
      */
     public $consulta;
     public $tipo;
+    public $medicamentos;
 
     public function __construct($resultado , $modo = 'normal')
     {
@@ -20,6 +22,7 @@ class EditarRecetaMedica extends Component
         if($modo == 'imprimir'){
             $this->tipo = $modo;
         }
+        $this->medicamentos = Receta::select('medicamento')->orderBy('medicamento')->distinct()->pluck('medicamento');
     }
 
     /**
