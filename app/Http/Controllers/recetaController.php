@@ -96,9 +96,9 @@ class recetaController extends Controller
             $numeroBase = receta::ultimaReceta();
             // Agrupar datos por tipo de dosis
             $data = [];
-8*-
 
-            if (!isset($request->txtCantidad)) {
+
+            if(!isset($request->txtCantidad)) {
                 return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
             }
           
