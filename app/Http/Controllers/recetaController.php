@@ -96,6 +96,13 @@ class recetaController extends Controller
             $numeroBase = receta::ultimaReceta();
             // Agrupar datos por tipo de dosis
             $data = [];
+8*-
+
+            if (!isset($request->txtCantidad)) {
+                return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
+            }
+          
+
             for ($i = 0; $i < count($request->txtCantidad); $i++) {
                 $tipo= $request->txtTipo[$i];
                 $data[$tipo][] = [
@@ -186,6 +193,17 @@ class recetaController extends Controller
         
 
 
+    }
+    public function buscarMedicamento(Request $request)
+    {
+        $term = $request->get('term');
+
+        $medicamentos = Receta::where('nombre', 'LIKE', '%' . $term . '%')
+            ->distinct()
+            ->orderBy('nombre')
+            ->pluck('nombre');
+
+        return response()->json($medicamentos);
     }
 
 
