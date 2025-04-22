@@ -124,6 +124,7 @@ class recetaController extends Controller
                     $receta = new receta();
                     $receta->cantidad = $grupoTipo[$i]['cantidad'];
                     $receta->medicamento = $grupoTipo[$i]['medicamento'];
+                    $receta->tipo = $grupoTipo[$i]['tipo'];
                     $receta->dosis = $grupoTipo[$i]['dosis'];
                     $receta->tratamiento = $grupoTipo[$i]['tratamiento'];
                     $receta->consulta_id = $request->txtIdConsulta;

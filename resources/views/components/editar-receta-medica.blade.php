@@ -4,30 +4,34 @@
         <div class="row filaReceta {{ empty($tipo) ? '' : 'disabled-div' }}" id="filaReceta" style="padding-top: 15px" data-id="{{ $filaReceta->id }}"  >  
             <input type="hidden" name="txtFilaId[]" id="filaId" class="form-control form-control-sm" value="{{ $filaReceta->id }}">     
             <div class="form-group col-md-2">            
-                <label for="">Tipo</label> 
-                <select class="form-control" name="txtDosis[]" id="txtDosis">               
-                                                            
+                <label for="">Tipo</label>                
+                <select class="form-control" name="txtTipo[]"> 
                     
-                    <option value="inyectable" @if($filaReceta->dosis =='inyectable') selected @endif>Inyectable</option>
-                    <option value="oral" @if($filaReceta->dosis =='oral') selected @endif>Oral</option>  
-                    <option value="otro"@if($filaReceta->dosis =='otro') selected @endif>Otro</option> 
+                    <option value="inyectable" @if($filaReceta->tipo=='inyectable') selected @endif>Inyectable</option>
+                    <option value="oral" @if($filaReceta->tipo =='oral') selected @endif>Oral</option>  
+                    <option value="topico"  @if($filaReceta->tipo =='topico') selected @endif>Tópico</option>
+                    <option value="otro"@if($filaReceta->tipo =='otro') selected @endif>Otro</option> 
             
                 </select>
-               
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
                 <label for="">Medicamento</label>
-                <input type="text" class="form-control" id="medicamento" list="medicamentos" autocomplete="off" placeholder=""  value="{{$filaReceta->medicamento}}"  name="txtMedicamento[]" required>
+                <input type="text" class="form-control" id="medicamento" list="medicamentos" autocomplete="off" value="{{$filaReceta->medicamento}}" placeholder="Acetaminofen"   name="txtMedicamento[]" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="">Dosis</label>
+                <input type="text"  class="form-control" id="cantidad" placeholder="500mg"   name="txtDosis[]" value="{{$filaReceta->dosis}}" required autocomplete="off">
             </div>
             <div class="form-group col-md-2">
                 <label for="">Cantidad</label>
-                <input type="text" min="1" class="form-control" id="cantidad" placeholder=""  value="{{$filaReceta->cantidad}}"    name="txtCantidad[]" required autocomplete="off">
+                <input type="text" class="form-control" id="cantidad" placeholder="10 Tabletas"  value="{{$filaReceta->cantidad}}"  name="txtCantidad[]" required autocomplete="off">
             </div>
     
             <div class="form-group col-md-3 ">
                 <label for="">Tratamiento</label>
-                <input type="text" class="form-control" id="tratamiento" placeholder=""   value="{{$filaReceta->tratamiento}}"    name="txtTratamiento[]" required autocomplete="off">
+                <input type="text" class="form-control" id="tratamiento" placeholder="una cada 8 horas" value="{{$filaReceta->tratamiento}}"  name="txtTratamiento[]" required autocomplete="off">
             </div>
+
             @if (!isset($tipo))
                 <div class="form-group col-md-1 " style="padding-top: 1.5rem; margin-left: -10px">
                     <button type="button" class="btn btn-danger eliminarFila"  onclick="eliminarFila2({{ $filaReceta->id }},this)"><i class="fa fa-trash"></i></button>
