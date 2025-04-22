@@ -60,10 +60,10 @@ class loginController extends Controller
         $nombre=$request->usuario;
         $contraseña=$request->password;  
         
-        
-        
         $usuario=User::where('nombre_usuario',$nombre)->first();
 
+        return $usuario;
+        
         if ($usuario->estado_usuario==0) {
 
             return redirect()->back()->withErrors(['danger' => "no puede ingresar al sistema comuniquese con el administrador"])->withInput($request->all());
