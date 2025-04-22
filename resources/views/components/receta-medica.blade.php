@@ -6,9 +6,9 @@
             <label for="">Tipo</label> 
             <select class="form-control" name="txtTipo[]">               
                                                         
-                
                 <option value="inyectable">Inyectable</option>
-                <option value="oral">Oral</option>  
+                <option value="oral">Oral</option>
+                <option value="topico">Tópico</option>
                 <option value="otro">otro</option> 
         
             </select>
