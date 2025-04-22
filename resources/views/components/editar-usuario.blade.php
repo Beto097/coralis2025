@@ -70,13 +70,13 @@
             <label for="">Seleccione una Sucursal</label>                                                                           
             <div class="col-sm-12">
                 <select class="form-control" name="selectSucursal" id="">
-                    <option value='null' selected>Sin Sucursal</option>
+                    <option value='null' selected>Sin Sucursal prueba</option>
                     @foreach($sucursales as $sucursal)                                                
                         @if(isset($fila->sucursal))
                             @if($sucursal->id == $fila->sucursal->id)
                                 <option value="{{$sucursal->id}}" selected>{{$sucursal->nombre_sucursal}} </option>
                             @else
-                                <option value="{{$sucursal->id}}">{{$sucursal->nombre_sucursal}}</option>
+                                <option value="{{$sucursal->id}}">{{$sucursal->nombre_sucursal}} </option>
                             @endif
                         @else  
                             <option value="{{$sucursal->id}}">{{$sucursal->nombre_sucursal}}</option>

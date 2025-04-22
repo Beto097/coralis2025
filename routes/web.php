@@ -68,6 +68,7 @@ Route::get("/consulta/ver/historial/{id}", [consultaController::class, 'verHisto
 Route::get("/receta", [consultaController::class, 'index'])->name("consulta.index");
 Route::Post("/receta/save", [recetaController::class, 'recetaSave'])->name("receta.save");
 Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edit");
+Route::get("/receta/print/{id}", [recetaController::class, 'print'])->name("receta.print");
 
 // -----------------------------------------------------------------------------------------------------------------
 

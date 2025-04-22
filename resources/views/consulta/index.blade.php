@@ -77,20 +77,8 @@
                                           <td>{{$fila->paciente->nombre_paciente}} {{$fila->paciente->apellido_paciente}}</td>
                                           <td>@if($fila->paciente->sexo_paciente=="m")M @else F @endif</td>
                                           <td>
-                                                @php
-                                                    $nacimiento = \Carbon\Carbon::parse($fila->paciente->fecha_nacimiento_paciente);
-                                                    $hoy = \Carbon\Carbon::now();
-                                                    $edad = $nacimiento->diff($hoy);
-
-                                                    if ($edad->y >= 1) {
-                                                        $textoEdad = $edad->y . 'a ' . $edad->m . 'm';
-                                                    } else {
-                                                        $textoEdad = $edad->m . 'm ' . $edad->d . 'd';
-                                                    }
-                                                @endphp
-
-                                                {{ $textoEdad }}
-                                            </td>
+                                            {{$fila->paciente->edad()}}
+                                          </td>
                                           <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
                                           <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>  
@@ -113,6 +101,10 @@
                                                         @include('modals.reasignarConsultaDoctorModals')
                                                   
                                                 @endif 
+                                            @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
+                                              <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+      
+                                            @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
                                                 <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 

@@ -9,7 +9,7 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form action="{{route('consulta.save')}}" method="POST" role="form" class="form-horizontal" autocomplete="off">
+                            <form action="{{route('consulta.save')}}" method="POST" role="form" class="form-horizontal" >
                                 @csrf                             
                             
                                 
@@ -62,22 +62,22 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-danger text-left">Alergias</label>
                                         <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
-                                                placeholder="" name="txtAlergias" rows="3">{{$fila->alergias}}</textarea>                                        
+                                                placeholder="" name="txtAlergias" rows="3" autocomplete="off">{{$fila->alergias}}</textarea>                                        
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-danger text-left">Atecedente Personales(APP)</label>
                                         <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" style="border-color: red"
-                                                placeholder="" name="txtMedicamentos" rows="3">{{$fila->medicinas}}</textarea>                                        
+                                                placeholder="" name="txtMedicamentos" rows="3" autocomplete="off">{{$fila->medicinas}}</textarea>                                        
                                     </div> 
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Historia Clinica</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                placeholder="" name="txtHistoriaClinica" rows="3">{{$fila->historia_clinica}}</textarea>                                        
+                                                placeholder="" name="txtHistoriaClinica" rows="3" autocomplete="off">{{$fila->historia_clinica}}</textarea>                                        
                                     </div>
                                     <div class="col-md-8 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Examen Fisico</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                placeholder="" name="txtExamenFisico" rows="5">{{$fila->examen_fisico}}</textarea>                                        
+                                                placeholder="" name="txtExamenFisico" rows="5" autocomplete="off">{{$fila->examen_fisico}}</textarea>                                        
                                     </div> 
                                     <div class="col-md-4 col-sm-12 col-xs-12">  
                                         <div class="row">
@@ -97,7 +97,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Laboratorios/Examenes</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                placeholder="" name="txtLaboratoriosExamenes" rows="3">{{$fila->laboratorios_examenes}}</textarea>                                        
+                                                placeholder="" name="txtLaboratoriosExamenes" rows="3" autocomplete="off">{{$fila->laboratorios_examenes}}</textarea>                                        
                                     </div>                                       
                                     <div class="col-md-12 col-sm-6 col-xs-6">                                    
                                         <label class="control-label text-left">Diagnóstico</label>
@@ -107,7 +107,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">                                    
                                         <label class="control-label text-left">Tratamientos - Recomendaciones</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                placeholder="" name="txtRecomendaciones" rows="3">{{$fila->recomendaciones}}</textarea>                                        
+                                                placeholder="" name="txtRecomendaciones" rows="3" autocomplete="off">{{$fila->recomendaciones}}</textarea>                                        
                                     </div> 
                                                                     
                                     

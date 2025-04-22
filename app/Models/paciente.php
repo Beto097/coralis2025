@@ -27,8 +27,22 @@ class paciente extends Model
 
     public function edad(){
 
-        $edad = Carbon::parse($this->fecha_nacimiento_paciente)->age;
-
-        return $edad;
+        $fechaNacimiento = Carbon::parse($this->fecha_nacimiento_paciente);
+        $hoy = Carbon::now();
+        $diferencia = $fechaNacimiento->diff($hoy);
+    
+        if ($diferencia->y >= 5) {
+            return $diferencia->y . ' años';
+        }
+    
+        if ($diferencia->y >= 1) {
+            return $diferencia->y . 'a ' . $diferencia->m . 'm';
+        }
+    
+        if ($diferencia->m >= 1) {
+            return $diferencia->m . 'm ' . $diferencia->d . 'd';
+        }
+    
+        return $diferencia->d . ' días';
     }
 }

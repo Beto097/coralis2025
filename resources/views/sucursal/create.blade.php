@@ -10,7 +10,9 @@
 <br>
 
 <!--muestro el error-->
-@include('plantilla.errores')
+    <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>
 <!-- fin del error-->
 <div class="row">
     <div class="col-sm-2"></div>

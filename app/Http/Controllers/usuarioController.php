@@ -112,20 +112,20 @@ class usuarioController extends Controller
     }
 
 
-    public function save(Request $request)
-    {
-        if (!Auth::user()) {
-            Session::put('url', url()->current());    
+    public function save(Request $request){
+
+        if (!Auth::check()) {
+            Session::put('url', url()->current());
             return redirect(route('login.index'));
         }
-
+    
+        // Verificar permisos
         if (!Auth::user()->accesoRuta('/usuario/update')) {
             return redirect(route('index'));
         }
-
-        // Obtener el usuario actual
+    
+        // Buscar usuario
         $obj_usuario = User::find($request->txtId);
-
         if (!$obj_usuario) {
             return redirect()->back()->withErrors(['danger' => 'Usuario no encontrado']);
         }
@@ -150,7 +150,6 @@ class usuarioController extends Controller
             $contraseña_verificada = md5($request->txtPassword);
         }
 
-        // Asignar los nuevos valores
         $obj_usuario->primer_nombre_usuario = $request->txtNameUsuario;
         $obj_usuario->apellido_usuario = $request->txtLastName;
         $obj_usuario->nombre_usuario = $request->txtUsuario;
@@ -165,10 +164,13 @@ class usuarioController extends Controller
         // Guardar y manejar errores
         try {
             $obj_usuario->save();
-            return redirect(route('usuario.index'))->withErrors(['status' => "Se ha actualizado el usuario: ".$obj_usuario->nombre_usuario ]);
-        } catch (\Illuminate\Database\QueryException $qe) {
-            return redirect()->back()->withErrors(['danger' => 'Error SQL: ' . $qe->getMessage()]);
+    
+            return redirect(route('usuario.index'))
+                ->withErrors(['status' => "Se ha actualizado el usuario: " . $obj_usuario->nombre_usuario]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['danger' => 'Error al actualizar: ' . $e->getMessage()]);
         }
+
     }
 
     public function desbloquear($id){

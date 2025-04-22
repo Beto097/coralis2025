@@ -11,7 +11,9 @@
   <br>
   <br>
   <br>
-  @include('plantilla.errores')
+      <div class="col-sm-4 col-sm-offset-8">
+          @include('plantilla.errores')
+        </div>
   <div class="col-sm-12">
       <div class="panel panel-default card-view">
           <div class="panel-heading">
@@ -56,7 +58,7 @@
                               @endif</li>
                       <li class="" style="font-size: 130%"><i
                         class="zmdi zmdi-cake text-success font-size-18 mt-2 me-2"></i>
-                          <b> Edad </b> : {{\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age}}
+                          <b> Edad </b> : {{$paciente->edad()}}
                       </li>
                       <li class="" style="font-size: 130%"><i class="zmdi zmdi-phone-end me-2 text-success font-size-18"></i> <b>
                         Telefono</b> : {{$paciente->telefono_paciente}}</li>
@@ -116,7 +118,12 @@
                                       @endisset
                                     </td>                 
                                     <td>
-                                      
+                                   
+                                      @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
+                                        <a class="btn btn-warning btnIcono" title="Imprimir Receta" target="_blank" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+
+                                      @endif
+                                    
                                       @if (Auth::user()->accesoRuta('/paciente/historia/clinica'))
                                                               
                                         <button type="button" class="btn btn-primary waves-effect waves-light"
@@ -171,7 +178,7 @@
                                 <tr>
                                   <th>ID</th>                    
                                   <th>Fecha</th>                    
-                                  <th>Diagnistico</th>
+                                  <th>Diagnóstico</th>
                                   <th>Medico</th> 
                                   <th>Acciones</th>
                                 </tr>
