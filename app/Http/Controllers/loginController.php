@@ -61,8 +61,6 @@ class loginController extends Controller
         $contraseña=$request->password;  
         
         $usuario=User::where('nombre_usuario',$nombre)->first();
-
-        return $usuario;
         
         if ($usuario->estado_usuario==0) {
 
