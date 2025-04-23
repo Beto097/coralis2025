@@ -73,7 +73,9 @@
                                                             data-toggle="modal" data-target="#crearConsultaDoctorModal{{$fila->id}}" onclick="this.classList.add('disabled'); this.style.pointerEvents='none';">
                                                             <i id="iconoBoton" class="@if ($fila->consultaActiva()) fa fa-clock-o @else fa fa-file @endif"></i>
                                                         </button>
-                                                        @include('modals.CrearConsultaDoctorModals')
+                                                        @if (!$fila->consultaActiva())
+                                                            @include('modals.CrearConsultaDoctorModals')
+                                                        @endif    
                                                   
                                                 @endif 
                                              
