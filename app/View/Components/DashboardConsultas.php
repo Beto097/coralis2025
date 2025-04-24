@@ -21,16 +21,19 @@ class DashboardConsultas extends Component
     public function __construct()
     {
         $this->consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA', 'EN CURSO', 'PENDIENTE'])
-        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
-        ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id')
-        ->get();
+                                        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
+                                        ->groupBy('medico_id')
+                                        ->selectRaw('count(*) as total, medico_id')
+                                        ->get();
 
         $this->consultasD = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA', 'EN CURSO', 'PENDIENTE'])
-        ->whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])
-        ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id')
-        ->get();
+                                        ->whereBetween('created_at', [
+                                            Carbon::now('America/Panama')->startOfDay(),
+                                            Carbon::now('America/Panama')->endOfDay()
+                                        ])
+                                        ->groupBy('medico_id')
+                                        ->selectRaw('count(*) as total, medico_id')
+                                        ->get();
 
     }
 
