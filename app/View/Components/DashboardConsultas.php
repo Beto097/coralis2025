@@ -20,16 +20,14 @@ class DashboardConsultas extends Component
     
     public function __construct()
     {
-        $this->consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
+        $this->consultas = consulta::whereIn('estado_consulta',  ['TERMINADA', 'CERRADA', 'EN CURSO', 'PENDIENTE'])
         ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
         ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
         ->get();
 
-        $this->consultasD = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
+        $this->consultasD = consulta::whereIn('estado_consulta',  ['TERMINADA', 'CERRADA', 'EN CURSO', 'PENDIENTE'])
         ->whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])
-        ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
+        ->groupBy('medico_id') 
         ->get();
 
     }
