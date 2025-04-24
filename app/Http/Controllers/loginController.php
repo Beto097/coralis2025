@@ -25,25 +25,8 @@ class loginController extends Controller
             
         }        
 
-     
-        $consultas = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
-        ->where('fecha_consulta','>',Carbon::today()->subMonth(1)->toDateString())
-        ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
-        ->get();
-
-        $consultasD = consulta::whereIn('estado_consulta', ['TERMINADA', 'CERRADA'])
-        ->whereBetween('created_at', [Carbon::now('America/Panama')->startOfDay(), Carbon::now('America/Panama')->endOfDay()])
-        ->groupBy('medico_id')
-        ->selectRaw('count(*) as total, medico_id,CAST((RAND()*100)+156 as UNSIGNED) as A,CAST((RAND()*100)+156 as UNSIGNED) as B')
-        ->get();
-
 
         consulta::actualizarEstados();  
-
-        if (!$consultas->isEmpty()) {
-            return view('index',['consultas'=>$consultas,'consultasD'=>$consultasD]);
-        }
 
     
         return view('index');
@@ -80,7 +63,7 @@ class loginController extends Controller
                     return redirect(Session::get('url'));
                 } 
                 
-                return redirect(route('index'));
+                return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             }
                 
             return redirect()->back()->withErrors(['danger' => "Contraseña incorrecta."])->withInput($request->all());

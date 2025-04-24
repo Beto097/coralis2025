@@ -27,7 +27,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -49,7 +49,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -83,7 +83,7 @@ class roldepantallaController extends Controller
             }
         
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -105,7 +105,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -124,7 +124,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -156,7 +156,7 @@ class roldepantallaController extends Controller
             }
         
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -184,7 +184,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -217,7 +217,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -246,7 +246,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -272,7 +272,7 @@ class roldepantallaController extends Controller
             }
             
               
-            return redirect(route('index'));
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
