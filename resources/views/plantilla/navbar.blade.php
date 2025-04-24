@@ -20,7 +20,7 @@
             </div>
         </form>--}}
         <div class="top-nav-search collapse pull-left">
-            <div class="input-group" style="background-color: #fff; border-radius: 25px; padding: 6px 40px;">
+            <div class="input-group text-center" style="background-color: #fff; border-radius: 25px; padding: 6px 40px;">
                 <label id="reloj-local" style="
                     font-family: 'Open Sans', sans-serif;
                     font-size: 1em;
@@ -35,9 +35,9 @@
                 const ahora = new Date();
 
                 const opcionesFecha = {
-                    weekday: 'long',
+                    weekday: 'short',
                     year: 'numeric',
-                    month: 'long',
+                    month: 'short',
                     day: 'numeric'
                 };
 
