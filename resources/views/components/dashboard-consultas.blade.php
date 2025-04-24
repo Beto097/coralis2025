@@ -10,11 +10,9 @@
             <div class="panel-wrapper collapse in">
                 <div class="panel-body">
                     <div class="flot-container" style="height:250px">
-                        @if ($consultasD->isNotEmpty())
+                        
                             <div id="flot_pie_chart2" class="demo-placeholder"></div>
-                        @else
-                            <div class="text-center">No hay consultas hoy</div>
-                        @endif
+                        
                         
                     </div>
                 </div>
