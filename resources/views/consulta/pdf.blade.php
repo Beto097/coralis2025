@@ -25,7 +25,7 @@
       margin: 0;
       padding: 0;
       background-image: url('img/MembreteReceta.png');
-      background-size: cover; /* O "contain", depende de lo que quieras */
+      background-size:95%; /* O "contain", depende de lo que quieras */
       background-repeat: no-repeat;
       background-position: center center;
     }
@@ -47,16 +47,16 @@
     @foreach ($grupos as $numero => $recetas)
         <div class="pagina">
             <div>    
-            <p id="nRegistro" style="padding-top: 112px; padding-left: 428px;">N° {{$numero}}</p>
+            <p id="nRegistro" style="padding-top: 122px; padding-left: 428px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p style="margin-top: -15px; padding-left: 150px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
+                <p style="margin-top: -8px; padding-left: 160px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
             </div>
             <div>
-                <p style="margin-top: -11px; padding-left: 150px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p style="margin-top: -18px; padding-left: 160px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             <div>
-                <p style="margin-top: -11px; padding-left: 150px;">{{$consulta->fecha_consulta}} </p>
+                <p style="margin-top: -11px; padding-left: 160px;">{{$consulta->fecha_consulta}} </p>
             </div>
 
             <div style="margin-top: 50px; padding-left: 100px;">
