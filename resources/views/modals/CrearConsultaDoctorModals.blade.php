@@ -13,7 +13,7 @@
                                 @csrf
                                 
                                 <div class="row" style="padding-top: 15px">
-                                    @if ($fila->edad()<18)  
+                                    @if (!$fila->esMayor())  
                                         
                                         <div class="form-group col-md-6">
                                             <label for="">Nombre del Responsable</label>
@@ -29,10 +29,10 @@
                                     
                                 </div>
                                 <input type="hidden" name="tipo" value='
-                                    @if ($fila->edad()<18)
-                                        menor
-                                    @else
+                                    @if ($fila->esMayor())  
                                         mayor
+                                    @else
+                                        menor
                                     @endif
                                 '>
                                 <input type="hidden" name="paciente_id" value={{$fila->id}}>

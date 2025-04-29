@@ -72,7 +72,7 @@ class recetaController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
         
 
 
@@ -147,7 +147,7 @@ class recetaController extends Controller
     
 
         
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
         
 
@@ -189,7 +189,7 @@ class recetaController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
         
 

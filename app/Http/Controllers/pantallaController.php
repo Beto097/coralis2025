@@ -37,7 +37,7 @@ class pantallaController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -56,7 +56,7 @@ class pantallaController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -89,7 +89,7 @@ class pantallaController extends Controller
         }
         
               
-        return redirect(route('index'));            
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -117,9 +117,40 @@ class pantallaController extends Controller
         }
         
             
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
         
         
+    }
+
+    public function save(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/pantalla/update')){
+            
+           
+            if($request->txtEstado == 1){
+                $estado =1;
+            }else{
+                $estado=0;
+            }
+                
+            $obj_pantalla = pantalla::find($request->txtid);    
+            $obj_pantalla->nombre_pantalla=$request->txtNombre;
+            $obj_pantalla->titulo_pantalla = str_replace(' ', '', $request->txtNombre);        
+            $obj_pantalla->url_pantalla=$request->txtUrl;
+            $obj_pantalla->padre = $request->txtPadre;
+            $obj_pantalla->estado_pantalla = $estado;
+            $obj_pantalla->save();
+            return redirect(route('pantalla.index'))->withErrors(['status' => "Se ha editado la pantalla" ]);
+        }
+        
+              
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);      
     }
 
     public function pantallaSave(Request $request){
@@ -143,7 +174,7 @@ class pantallaController extends Controller
         }
         
             
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function delete($id){
@@ -167,7 +198,7 @@ class pantallaController extends Controller
         }
         
             
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 }

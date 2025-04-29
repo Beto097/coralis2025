@@ -32,7 +32,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -50,7 +50,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function insert(Request $request){
@@ -73,7 +73,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function save(Request $request){
@@ -97,7 +97,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function actualizar(Request $request){
@@ -120,7 +120,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function delete($id){
@@ -143,7 +143,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function desbloquear($id){
@@ -166,7 +166,7 @@ class sucursalController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
 

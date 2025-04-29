@@ -35,7 +35,7 @@ class rolController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -53,7 +53,7 @@ class rolController extends Controller
             
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function insert(Request $request){
@@ -90,7 +90,7 @@ class rolController extends Controller
         }
         
               
-        return redirect(route('index'));            
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -111,7 +111,7 @@ class rolController extends Controller
             return redirect(route('rol.index'))->withErrors(['status' => "Se ha eliminado el rol correctamente" ]);
         }
 
-        return redirect(route('index'));
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
 }
