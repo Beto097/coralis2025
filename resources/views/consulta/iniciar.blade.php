@@ -43,17 +43,17 @@
                             @else
                               @include('modals.RecetaModals') 
                             @endif
-                             
+                            <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal"> 
+                              
+                              <i class="fa fa-ambulance" aria-hidden="true"></i>
+  
+                              
+                            </button>
                           @endif
                         
                           <a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>
                         
-                          <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal"> 
-                              
-                            <i class="fa fa-ambulance" aria-hidden="true"></i>
-
-                            
-                          </button>
+                          
                           @include('modals.ReferenciaModals') 
                         
                           @if ($consulta->estado_consulta != 'TERMINADA')
