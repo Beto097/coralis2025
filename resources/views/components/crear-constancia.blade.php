@@ -1,13 +1,13 @@
 <div class="row" style="padding-top: 15px">      
+   
     <div class="form-group col-md-6">
-        <label for="">Horario de constancia:</label>
-        <input type="text" class="form-control" id="" placeholder="Ejemplo: CSS"  value="{{old('RefiereA')}}" name="RefiereA">
+        <label for="" name="hora_inicio">Hora de entrada:</label>
+        <input type="time" name="hora_inicio" />
     </div>
     <div class="form-group col-md-6">
-        <label for="">Hora de entrada:</label>
-        <input type="time" name="hora" />
-    </div>
-
+        <label for="" name="hora_fin">Hora de salida:</label>
+        <input type="time" name="hora_fin" />
+    </div> 
     
 </div>
 

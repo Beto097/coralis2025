@@ -9,7 +9,7 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form action="{{route('referencia.insert')}}" method="POST" role="form">
+                            <form action="{{route('constancia.insert')}}" method="POST" role="form">
                                 @csrf
                                 <x-crear-constancia :resultado="$consulta" /> 
                             </form>

@@ -5,12 +5,45 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 use App\Models\consulta;
-use App\Models\certificado;
+use App\Models\constancia;
 
 use Illuminate\Http\Request;
 
-class certificadoController extends Controller
+class constanciaController extends Controller
 {
+    public function insert(Request $request){    
+    
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+        
+        if(Auth::user()->accesoRuta('/constancia/create')){
+                       
+            
+
+            $constancia = constancia::where('consulta_id', $request->txtId)->first();
+
+            if (!$constancia) {
+                $constancia = new constancia();
+            }
+
+            $constancia->consulta_id = $request->txtId;
+            $constancia->hora_inicio = $request->hora_inicio;
+            $constancia->hora_fin = $request->hora_fin;
+            $constancia->save();
+ 
+            
+            return redirect(route('constancia.print',['id'=>$request->txtId]));
+        }
+        
+              
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        
+        
+    }
+
     public function print($id){
         
         if (!Auth::user()) {
@@ -19,11 +52,11 @@ class certificadoController extends Controller
             return redirect(route('login.index'));
         }
 
-        if(Auth::user()->accesoRuta('/certificado/imprimir')){
+        if(Auth::user()->accesoRuta('/constancia/imprimir')){
 
             $consulta = consulta::find($id);
             
-            $numero = certificado::ultimo();
+            $constancia = constancia::where('consulta_id', $id)->first();
             
             $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
             $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
@@ -32,14 +65,14 @@ class certificadoController extends Controller
             $firmaExiste = File::exists($firmaPath);
             $selloExiste = File::exists($selloPath);
 
-            $pdf = \PDF::loadView('consulta.certificadoPdf', [
+            $pdf = \PDF::loadView('consulta.constanciaPdf', [
                 'consulta' => $consulta,
-                'numero' => $numero,
+                'constancia' => $constancia,
                 'firma' => $firmaExiste,
                 'sello' => $selloExiste
             ])->setPaper([0, 0, 595.2756,  419.5276]);
 
-            $nombreArchivo = 'Certificado '.$consulta->paciente->identificacion_paciente.'.pdf';
+            $nombreArchivo = 'Constancia '.$consulta->paciente->identificacion_paciente.'.pdf';
             return $pdf->stream($nombreArchivo);
             
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\consultaController;
 use App\Http\Controllers\recetaController;
 use App\Http\Controllers\certificadoController;
 use App\Http\Controllers\referenciaController;
+use App\Http\Controllers\constanciaController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -80,6 +81,10 @@ Route::get("/certificado/print/{id}", [certificadoController::class, 'print'])->
 
 Route::Post("/referencia/insert", [referenciaController::class, 'insert'])->name("referencia.insert");
 Route::get("/referencia/print/{id}", [referenciaController::class, 'print'])->name("referencia.print");
+
+/*Constancia*/
+Route::Post("/constancia/insert", [constanciaController::class, 'insert'])->name("constancia.insert");
+Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->name("constancia.print");
 
 // -----------------------------------------------------------------------------------------------------------------
 
