@@ -26,12 +26,17 @@ class referenciaController extends Controller
             // Obtienes todos los datos
             $data = $request->except('_token','txtId');
 
+            
             // Eliminas los campos vacíos (null o strings vacíos)
             $filtered = array_filter($data, function ($value) {
                 return $value !== null && $value !== '';
             });
 
-            $referencia = New referencia();
+            $referencia = referencia::where('consulta_id', $request->txtId)->first();
+
+            if (!$referencia) {
+                $referencia = new referencia();
+            }
 
             $referencia->datos = $filtered;
             $referencia->consulta_id = $request->txtId;
