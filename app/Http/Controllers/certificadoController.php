@@ -25,6 +25,10 @@ class certificadoController extends Controller
             
             $numero = certificado::ultimo();
             
+            $certificado = new certificado();
+            $certificado->numero = $numero;
+            $certificado->save();
+
             $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
             $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
 
