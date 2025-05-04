@@ -50,7 +50,7 @@
                 <p id="nRegistro" style="padding-top: 175px; padding-left: 520px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p style="margin-top: 22px; padding-left: 95px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="margin-top: -45px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p style="margin-top: 22px; padding-left: 145px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="margin-top: -45px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             
             <div style="text-align: left width: 10%; margin-top: 95px; margin-left: 130px;">
