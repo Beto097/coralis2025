@@ -25,34 +25,42 @@
             <div class="panel-heading">
                 <div>
                   <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <h6 class="panel-title txt-dark">{{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}}</h6>   
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-2">
+                        <div class="col-sm-3 text-end">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
-                            <button class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal"> 
+                            <button  title="Crear Receta"  class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal"> 
                               
-                              Receta
+                              <i class="fa fa-plus-square"></i>
                               
                             </button>
-                          @if ($consulta->tieneReceta())
-                            @include('modals.editarRecetaModals')
-                            <a class="btn btn-warning btnIcono" title="Imprimir Receta"  target="_blank" href="{{route('receta.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-                          @else
-                            @include('modals.RecetaModals') 
+                            @if ($consulta->tieneReceta())
+                              @include('modals.editarRecetaModals')
+                              <a class="btn btn-warning btnIcono" title="Imprimir Receta"  target="_blank" href="{{route('receta.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+                            @else
+                              @include('modals.RecetaModals') 
+                            @endif
+                            <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
+                              <i class="fa fa-ambulance" aria-hidden="true"></i>
+                            </button>
+                            @include('modals.ConstanciaModals') 
+                            <button class="btn  btn-warning" id="addNewConstancia" title="Generar Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
                           @endif
-                             
-                          @endif
-                        </div>
-                        <div class="col-sm-2">
+                        
+                          <a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>
+                        
+                          
+                          @include('modals.ReferenciaModals') 
+                        
                           @if ($consulta->estado_consulta != 'TERMINADA')
-                          <button class="btn btn-primary" id="addNewRegistro" data-toggle="modal" data-target="#addNewRegistroModal"> 
-                            
-                              Registrar Consulta
-                            
-                          </button>
+                            <button class="btn btn-primary" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">                              
+                              <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </button>
                             @include('modals.RegistroModals')  
                           @endif
                         </div>
@@ -221,6 +229,40 @@
     </div>
   </div>
 
+@endsection
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formCrearConstancia');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.pdf_url) {
+                $('#addNewConstanciaModal').modal('hide');
+                window.open(data.pdf_url, '_blank');
+            } else {
+                alert('Error al generar constancia');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error inesperado');
+        });
+    });
+});
+</script>
 @endsection
 
 

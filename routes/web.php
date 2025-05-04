@@ -11,6 +11,9 @@ use App\Http\Controllers\pacienteController;
 use App\Http\Controllers\medicoController;
 use App\Http\Controllers\consultaController;
 use App\Http\Controllers\recetaController;
+use App\Http\Controllers\certificadoController;
+use App\Http\Controllers\referenciaController;
+use App\Http\Controllers\constanciaController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -69,6 +72,19 @@ Route::get("/receta", [consultaController::class, 'index'])->name("consulta.inde
 Route::Post("/receta/save", [recetaController::class, 'recetaSave'])->name("receta.save");
 Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edit");
 Route::get("/receta/print/{id}", [recetaController::class, 'print'])->name("receta.print");
+
+/*Certificado*/
+
+Route::get("/certificado/print/{id}", [certificadoController::class, 'print'])->name("certificado.print");
+
+/*Certificado*/
+
+Route::Post("/referencia/insert", [referenciaController::class, 'insert'])->name("referencia.insert");
+Route::get("/referencia/print/{id}", [referenciaController::class, 'print'])->name("referencia.print");
+
+/*Constancia*/
+Route::Post("/constancia/insert", [constanciaController::class, 'insert'])->name("constancia.insert");
+Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->name("constancia.print");
 
 // -----------------------------------------------------------------------------------------------------------------
 

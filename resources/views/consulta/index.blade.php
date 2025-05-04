@@ -64,6 +64,7 @@
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
                                         <th>Médico</th>
+                                        <th>Motivo</th>
                                         <th>Acciones</th>
                                       </tr>
                                       
@@ -81,7 +82,8 @@
                                           </td>
                                           <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
-                                          <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>  
+                                          <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>
+                                          <td>{{$fila->motivo_consulta}}</td>
                                           <td>
                                             
                 

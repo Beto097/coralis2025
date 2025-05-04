@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
+use App\Models\consulta;
+use App\Models\certificado;
+
+use Illuminate\Http\Request;
+
+class certificadoController extends Controller
+{
+    public function print($id){
+        
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/certificado/imprimir')){
+
+            $consulta = consulta::find($id);
+            
+            $numero = certificado::ultimo();
+            
+            $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
+            $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
+
+            
+            $firmaExiste = File::exists($firmaPath);
+            $selloExiste = File::exists($selloPath);
+
+            $pdf = \PDF::loadView('consulta.certificadoPdf', [
+                'consulta' => $consulta,
+                'numero' => $numero,
+                'firma' => $firmaExiste,
+                'sello' => $selloExiste
+            ])->setPaper([0, 0, 595.2756,  419.5276]);
+
+            $nombreArchivo = 'Certificado '.$consulta->paciente->identificacion_paciente.'.pdf';
+            return $pdf->stream($nombreArchivo);
+            
+
+            
+            
+        }
+
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+
+        
+
+
+    }
+}

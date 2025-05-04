@@ -73,4 +73,9 @@ class consulta extends Model
         return $this->hasMany('App\Models\receta');
     }
 
+    public function referencia()
+    {
+        return $this->hasOne('App\Models\referencia');
+    }
+
 }
