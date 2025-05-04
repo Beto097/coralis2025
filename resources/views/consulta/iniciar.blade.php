@@ -230,6 +230,40 @@
   </div>
 
 @endsection
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formCrearConstancia');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.pdf_url) {
+                $('#addNewConstanciaModal').modal('hide');
+                window.open(data.pdf_url, '_blank');
+            } else {
+                alert('Error al generar constancia');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error inesperado');
+        });
+    });
+});
+</script>
+@endsection
 
 
 

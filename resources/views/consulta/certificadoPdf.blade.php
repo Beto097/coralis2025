@@ -50,21 +50,21 @@
                 <p id="nRegistro" style="padding-top: 175px; padding-left: 520px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p style="margin-top: 22px; padding-left: 145px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="margin-top: -45px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p style="position:absolute; margin-top: 22px; padding-left: 145px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="position:absolute; margin-top: 22px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             
-            <div style="text-align: left width: 10%; margin-top: 95px; margin-left: 130px;">
+            <div style="position:absolute; text-align: left width: 10%; margin-top: 115px; margin-left: 130px;">
                 @if($firma)
                     <img src="img/firmas/{{$consulta->doctor->nombre_usuario}}.PNG" width="150"/>
                 @endif
             </div>
-            <div style=" margin-top: -500px; margin-left: 330px;" >
+            <div style="position:absolute; margin-top: 115px; margin-left: 330px;" >
                 @if($sello)
                     <img src="img/sellos/{{$consulta->doctor->nombre_usuario}}.PNG" width="150"/>
                 @endif
             </div>
             <div>
-                <p style="margin-top: -50px; padding-left: 530px;">{{$consulta->fecha_consulta}} </p>
+                <p style="position:absolute ; margin-top: 200px; padding-left: 530px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y')}} </p>
             </div>
                     
            
