@@ -46,6 +46,7 @@
                             <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
                               <i class="fa fa-ambulance" aria-hidden="true"></i>
                             </button>
+                            @include('modals.ConstanciaModals') 
                             <button class="btn  btn-warning" id="addNewConstancia" title="Generar Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>

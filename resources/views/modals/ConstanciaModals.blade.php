@@ -11,7 +11,7 @@
                         <div class="form-wrap">
                             <form action="{{route('referencia.insert')}}" method="POST" role="form">
                                 @csrf
-                                <x-crear-constancia :resultado='$consulta' /> 
+                                <x-crear-constancia :resultado="$consulta" /> 
                             </form>
                         </div>
                     </div>

@@ -11,9 +11,10 @@ class CrearConstancia extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $consulta;
+    public function __construct($resultado)
     {
-        //
+        $this->consulta = $resultado;
     }
 
     /**
