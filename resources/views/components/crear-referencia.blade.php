@@ -2,7 +2,7 @@
 <div class="row" style="padding-top: 15px">      
     <div class="form-group col-md-6">
         <label for="">Servicio Medico al que Refiere:</label>
-        <input type="text" class="form-control" id="" placeholder="Ejemplo: CSS"  value="{{old('RefiereA')}}" name="RefiereA">
+        <input type="text" class="form-control" id="" placeholder="Ejemplo: CSS"  value="{{old('RefiereA')}}" name="RefiereA" required>
     </div>
     <div class="form-group col-md-6">
         <label for="">Tipo de Referencia:</label>

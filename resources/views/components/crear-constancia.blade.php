@@ -2,11 +2,11 @@
    
     <div class="form-group col-md-6">
         <label for="" name="hora_inicio">Hora de entrada:</label>
-        <input type="time" name="hora_inicio" />
+        <input type="time" name="hora_inicio" required/>
     </div>
     <div class="form-group col-md-6">
         <label for="" name="hora_fin">Hora de salida:</label>
-        <input type="time" name="hora_fin" />
+        <input type="time" name="hora_fin" required/>
     </div> 
     
 </div>
