@@ -26,7 +26,15 @@
                                     @endif
 
                                     <x-lista-medicos/>
-                                    
+                                    <div class="form-group col-md-6">
+                                        <label for="">Motivo de visita</label>
+                                        <select class="form-control" name="selectMotivo" id="selectMotivo" required>
+                                            <option value="Control de Salud">Control de Salud</option>
+                                            <option value="Consulta regular">Consulta regular</option>
+                                            <option value="Certificado de buena salud">Certificado de buena salud</option>
+                                            <option value="Incapacidad">Incapacidad</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <input type="hidden" name="tipo" value='
                                     @if ($fila->esMayor())  
