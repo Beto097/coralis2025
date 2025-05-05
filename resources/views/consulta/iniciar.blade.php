@@ -51,9 +51,11 @@
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
                           @endif
-                        
-                          <a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>
-                        
+                          @include('modals.CertificadoModals')
+                          <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
+                          <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
+                            <i class="fa fa-wpforms" aria-hidden="true"></i>
+                          </button>
                           
                           @include('modals.ReferenciaModals') 
                         

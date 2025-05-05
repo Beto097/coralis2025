@@ -74,10 +74,10 @@ Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edi
 Route::get("/receta/print/{id}", [recetaController::class, 'print'])->name("receta.print");
 
 /*Certificado*/
-
+Route::Post("/certificado/insert", [certificadoController::class, 'insert'])->name("certificado.insert");
 Route::get("/certificado/print/{id}", [certificadoController::class, 'print'])->name("certificado.print");
 
-/*Certificado*/
+/*Referencia*/
 
 Route::Post("/referencia/insert", [referenciaController::class, 'insert'])->name("referencia.insert");
 Route::get("/referencia/print/{id}", [referenciaController::class, 'print'])->name("referencia.print");
