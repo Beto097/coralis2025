@@ -64,7 +64,7 @@
                 @endif
             </div>
             <div>
-                <p style="position:absolute ; margin-top: 200px; padding-left: 530px;">{{$fecha}} </p>
+                <p style="position:absolute ; margin-top: 200px; padding-left: 530px;">{{\Carbon\Carbon::parse($fecha)->format('d-m-Y')}} </p>
             </div>
                     
            
