@@ -50,7 +50,7 @@
                 <p style="padding-top: 375px; padding-left: 780px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             <div>
-                <p style="margin-top: 10; padding-left: 780px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y')}} </p>
+                <p style="margin-top: 10; padding-left: 780px;">{{\Carbon\Carbon::parse($constancia->fecha)->format('d-m-Y')}} </p>
             </div>
             <div>
                 <p style="margin-top:30px; padding-left: 450px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> 
@@ -66,7 +66,7 @@
             </div>
             
             @php
-                [$anio, $mesNum, $dia] = explode('-', $consulta->fecha_consulta);
+                [$anio, $mesNum, $dia] = explode('-', $constancia->fecha);
                 $meses = [
                     '01' => 'enero', '02' => 'febrero', '03' => 'marzo',
                     '04' => 'abril', '05' => 'mayo', '06' => 'junio',

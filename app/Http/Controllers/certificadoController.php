@@ -11,6 +11,33 @@ use Illuminate\Http\Request;
 
 class certificadoController extends Controller
 {
+    public function insert(Request $request){    
+    
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+        
+        if(Auth::user()->accesoRuta('/certificado/create')){
+
+            $numero = certificado::ultimo();
+                       
+            $certificado = new certificado();
+            $certificado->numero = $numero;
+            $certificado->fecha_certificado = $request->fecha_certificado;
+            $certificado->save();
+ 
+            
+            return redirect(route('certificado.print',['id'=>$request->txtId]));
+        }
+        
+              
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        
+        
+    }
+
     public function print($id){
         
         if (!Auth::user()) {
@@ -23,11 +50,9 @@ class certificadoController extends Controller
 
             $consulta = consulta::find($id);
             
-            $numero = certificado::ultimo();
-            
-            $certificado = new certificado();
-            $certificado->numero = $numero;
-            $certificado->save();
+            $numero = certificado::max('numero');
+
+            $fecha_certificado = certificado::where('numero', $numero)->value('fecha_certificado');
 
             $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
             $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
@@ -39,6 +64,7 @@ class certificadoController extends Controller
             $pdf = \PDF::loadView('consulta.certificadoPdf', [
                 'consulta' => $consulta,
                 'numero' => $numero,
+                'fecha' => $fecha_certificado,
                 'firma' => $firmaExiste,
                 'sello' => $selloExiste
             ])->setPaper([0, 0, 595.2756,  419.5276]);

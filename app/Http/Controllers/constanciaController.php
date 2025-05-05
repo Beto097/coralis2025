@@ -32,6 +32,7 @@ class constanciaController extends Controller
             $constancia->consulta_id = $request->txtId;
             $constancia->hora_inicio = $request->hora_inicio;
             $constancia->hora_fin = $request->hora_fin;
+            $constancia->fecha = $request->fecha_constancia;
             $constancia->save();
  
             
