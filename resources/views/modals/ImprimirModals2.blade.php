@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="imprimirModal{{$fila->id}}" aria-hidden="true" style="display: none;">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="imprimirModal" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
                         <div class="form-wrap">
                             <form id="formCrearConstancia" action="{{ route('imprimir.select') }}" method="POST" role="form">
                                 @csrf
-                                <x-imprimir-documento :resultado="$fila"/> 
+                                <x-imprimir-documento :resultado="$consulta"/> 
                             </form> 
                         </div>
                     </div>

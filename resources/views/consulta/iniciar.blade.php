@@ -39,10 +39,7 @@
                             </button>
                             @if ($consulta->tieneReceta())
                               @include('modals.editarRecetaModals')
-                              @if (Auth::user()->accesoRuta('/receta/imprimir'))
-                                <a class="btn btn-warning btnIcono" title="Imprimir Receta"  target="_blank" href="{{route('receta.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-
-                              @endif
+                              
                             @else
                               @include('modals.RecetaModals') 
                             @endif
@@ -50,21 +47,14 @@
                               <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
                                 <i class="fa fa-ambulance" aria-hidden="true"></i>
                               </button>
-                              @include('modals.ReferenciaModals') 
-                            @else
-                              @if (Auth::user()->accesoRuta('/referencia/imprimir'))
-                                <a class="btn btn-danger btnIcono" title="Imprimir Referencia"  target="_blank" href="{{route('referencia.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-                              @endif
+                              @include('modals.ReferenciaModals')                            
                             @endif 
                             @if (!$consulta->tieneConstancia())
                               <button class="btn  btn-warning" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                               </button>
                               @include('modals.ConstanciaModals')
-                            @else
-                              @if (Auth::user()->accesoRuta('/constancia/imprimir'))
-                                <a class="btn btn-warning btnIcono" title="Imprimir Constancia"  target="_blank" href="{{route('constancia.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-                              @endif
+                            
                             @endif   
                                                          
                               
@@ -75,12 +65,14 @@
                             <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
                               <i class="fa fa-wpforms" aria-hidden="true"></i>
                             </button>
-                            @include('modals.CertificadoModals')
-                          @else
-                            @if (Auth::user()->accesoRuta('/certificado/imprimir'))
-                              <a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-                            @endif
+                            @include('modals.CertificadoModals')                          
                             
+                          @endif
+                          @if ($consulta->tieneImprimir())
+                            <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
+                              <i class="fa fa-print" aria-hidden="true"></i>
+                            </button>
+                            @include('modals.ImprimirModals2')
                           @endif
                         
                           @if ($consulta->estado_consulta != 'TERMINADA')
