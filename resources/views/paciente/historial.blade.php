@@ -119,9 +119,11 @@
                                     </td>                 
                                     <td>
                                    
-                                      @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                        <a class="btn btn-warning btnIcono" title="Imprimir Receta" target="_blank" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-
+                                      @if ($fila->tieneImprimir())
+                                        <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                          <i class="fa fa-print" aria-hidden="true"></i>
+                                        </button>
+                                        @include('modals.ImprimirModals')
                                       @endif
                                     
                                       @if (Auth::user()->accesoRuta('/paciente/historia/clinica'))

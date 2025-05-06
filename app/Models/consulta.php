@@ -78,4 +78,49 @@ class consulta extends Model
         return $this->hasOne('App\Models\referencia');
     }
 
+    public function tieneCertificado(){
+
+        $exite = certificado::where('consulta_id',$this->id)->count();
+
+        if ($exite>0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function tieneReferencia(){
+
+        $exite = referencia::where('consulta_id',$this->id)->count();
+
+        if ($exite>0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function tieneConstancia(){
+
+        $exite = constancia::where('consulta_id',$this->id)->count();
+
+        if ($exite>0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function tieneImprimir(){
+
+    
+
+        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia()) {
+            return true;
+        }
+
+        return false;
+    }
+    
+
 }

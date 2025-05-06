@@ -103,10 +103,12 @@
                                                         @include('modals.reasignarConsultaDoctorModals')
                                                   
                                                 @endif 
-                                            @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                              <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-      
-                                            @endif
+                                              @if ($fila->tieneImprimir())
+                                                <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                                  <i class="fa fa-print" aria-hidden="true"></i>
+                                                </button>
+                                                @include('modals.ImprimirModals')
+                                              @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
                                                 <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 
@@ -120,7 +122,7 @@
                                     </tbody>
                                 
                                     <tfoot>
-                                       <tr>
+                                      <tr>
                                         <th>ID</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
@@ -129,6 +131,7 @@
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
                                         <th>Médico</th>
+                                        <th>Motivo</th>
                                         <th>Acciones</th>
                                       </tr>
                                     </tfoot>
@@ -154,7 +157,8 @@
       null,
       null,
       null,
-      { "width": "20%" }
+      null,
+      { "width": "30%" }
     ],
     "pageLength": 15,
     lengthMenu: [15, 30, 50, 100],

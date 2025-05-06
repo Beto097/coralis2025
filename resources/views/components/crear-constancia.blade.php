@@ -2,15 +2,15 @@
    
     <div class="form-group col-md-4">
         <label for="" name="hora_inicio">Hora de entrada:</label>
-        <input type="time" name="hora_inicio" required/>
+        <input type="time" class="form-control" name="hora_inicio" required/>
     </div>
     <div class="form-group col-md-4">
         <label for="" name="hora_fin">Hora de salida:</label>
-        <input type="time" name="hora_fin" required/>
+        <input type="time" class="form-control" name="hora_fin" required/>
     </div> 
     <div class="form-group col-md-4">
         <label for="" name="fecha_constancia">Fecha:</label>
-        <input type="date" name="fecha_constancia" required/>
+        <input type="date" class="form-control" name="fecha_constancia" required/>
     </div>
 </div>
 

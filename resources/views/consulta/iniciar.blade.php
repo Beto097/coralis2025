@@ -25,12 +25,12 @@
             <div class="panel-heading">
                 <div>
                   <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                       <h6 class="panel-title txt-dark">{{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}}</h6>   
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-3 text-end">
+                        <div class="col-sm-4 text-end">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
                             <button  title="Crear Receta"  class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal"> 
                               
@@ -39,25 +39,41 @@
                             </button>
                             @if ($consulta->tieneReceta())
                               @include('modals.editarRecetaModals')
-                              <a class="btn btn-warning btnIcono" title="Imprimir Receta"  target="_blank" href="{{route('receta.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+                              
                             @else
                               @include('modals.RecetaModals') 
                             @endif
-                            <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
-                              <i class="fa fa-ambulance" aria-hidden="true"></i>
-                            </button>
-                            @include('modals.ConstanciaModals') 
-                            <button class="btn  btn-warning" id="addNewConstancia" title="Generar Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
-                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
+                            @if (!$consulta->tieneReferencia())
+                              <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
+                                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                              </button>
+                              @include('modals.ReferenciaModals')                            
+                            @endif 
+                            @if (!$consulta->tieneConstancia())
+                              <button class="btn  btn-warning" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </button>
+                              @include('modals.ConstanciaModals')
+                            
+                            @endif   
+                                                         
+                              
                           @endif
-                          @include('modals.CertificadoModals')
-                          <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
-                          <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
-                            <i class="fa fa-wpforms" aria-hidden="true"></i>
-                          </button>
                           
-                          @include('modals.ReferenciaModals') 
+                          <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
+                          @if (!$consulta->tieneCertificado())
+                            <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
+                              <i class="fa fa-wpforms" aria-hidden="true"></i>
+                            </button>
+                            @include('modals.CertificadoModals')                          
+                            
+                          @endif
+                          @if ($consulta->tieneImprimir())
+                            <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
+                              <i class="fa fa-print" aria-hidden="true"></i>
+                            </button>
+                            @include('modals.ImprimirModals2')
+                          @endif
                         
                           @if ($consulta->estado_consulta != 'TERMINADA')
                             <button class="btn btn-primary" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">                              
@@ -144,10 +160,13 @@
                                       <td>{{$fila->doctor->nombre_usuario}}</td>                 
                                       <td>
                                                                              
-                                        @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                          <a class="btn btn-warning btnIcono" title="Imprimir Receta" target="_blank" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-
+                                        @if ($fila->tieneImprimir())
+                                          <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                          </button>
+                                          @include('modals.ImprimirModals')
                                         @endif
+                                        
                                         @if ($fila->created_at->addHours(24)>\Carbon\Carbon::now() && Auth::user()->accesoRuta('/consulta/registrar') )
                                           
                                           <button type="button" class="btn btn-success waves-effect waves-light"

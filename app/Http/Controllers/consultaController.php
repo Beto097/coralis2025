@@ -282,4 +282,16 @@ class consultaController extends Controller
 
         return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
+
+    public function select(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+        return redirect(route($request->selectDocumento.'.print',['id'=>$request->txtId]));
+        
+        
+    }
 }

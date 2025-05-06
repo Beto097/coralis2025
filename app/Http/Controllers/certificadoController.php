@@ -25,11 +25,12 @@ class certificadoController extends Controller
                        
             $certificado = new certificado();
             $certificado->numero = $numero;
+            $certificado->consulta_id = $request->txtId;
             $certificado->fecha_certificado = $request->fecha_certificado;
             $certificado->save();
  
             
-            return redirect(route('certificado.print',['id'=>$request->txtId]));
+            return redirect()->back()->withErrors(['status' => "Se creo la constancia correctamente." ]);
         }
         
               
