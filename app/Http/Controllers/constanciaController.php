@@ -36,7 +36,7 @@ class constanciaController extends Controller
             $constancia->save();
  
             
-            return redirect(route('constancia.print',['id'=>$request->txtId]));
+            return redirect()->back()->withErrors(['status' => "Se creo la constancia correctamente." ]);  
         }
         
               

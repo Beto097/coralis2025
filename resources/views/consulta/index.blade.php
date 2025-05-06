@@ -104,7 +104,19 @@
                                                   
                                                 @endif 
                                             @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                              <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+                                              <a class="btn btn-sm btn-success btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+      
+                                            @endif
+                                            @if ($fila->tieneReferencia() && Auth::user()->accesoRuta('/referencia/imprimir'))
+                                              <a class="btn btn-sm btn-danger btnIcono"  target="_blank" title="Imprimir Referencia" href="{{route('referencia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+      
+                                            @endif
+                                            @if ($fila->tieneConstancia() && Auth::user()->accesoRuta('/constancia/imprimir'))
+                                              <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Constancia" href="{{route('constancia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
+      
+                                            @endif
+                                            @if ($fila->tieneCertificado() && Auth::user()->accesoRuta('/certificado/imprimir'))
+                                              <a class="btn btn-sm btn-info btnIcono"  target="_blank" title="Imprimir Certificado" href="{{route('certificado.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
       
                                             @endif
 
@@ -120,7 +132,7 @@
                                     </tbody>
                                 
                                     <tfoot>
-                                       <tr>
+                                      <tr>
                                         <th>ID</th>
                                         <th>Cédula</th>
                                         <th>Nombre</th>
@@ -129,6 +141,7 @@
                                         <th>Tiempo</th>                            
                                         <th>Estado</th>
                                         <th>Médico</th>
+                                        <th>Motivo</th>
                                         <th>Acciones</th>
                                       </tr>
                                     </tfoot>
@@ -154,7 +167,8 @@
       null,
       null,
       null,
-      { "width": "20%" }
+      null,
+      { "width": "30%" }
     ],
     "pageLength": 15,
     lengthMenu: [15, 30, 50, 100],

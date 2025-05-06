@@ -43,7 +43,7 @@ class referenciaController extends Controller
             $referencia->save();
  
             
-            return redirect(route('referencia.print',['id'=>$request->txtId]));
+            return redirect()->back()->withErrors(['status' => "Se creo la referencia correctamente." ]);   
         }
         
               

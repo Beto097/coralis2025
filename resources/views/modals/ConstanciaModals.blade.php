@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 class="modal-title" id="myLargeModalLabel">Generar constancia</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Crear Constancia</h5>
             </div>
             <div class="modal-body">
                 <div class="panel-wrapper collapse in">
