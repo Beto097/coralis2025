@@ -15,7 +15,7 @@
     <div class="form-group col-md-6">
         <label for="">Motivo de Referencia:</label>
         <select class="form-control" name="motivoR" id="motivoR">
-            <option value="1" selected>Servicio No Afectado</option>
+            <option value="1" selected>Servicio No Ofertado o No disponible</option>
             <option value="2" >Ausencia de Profesional</option>          
             <option value="3" >Falta de Equipo</option> 
             <option value="4" >Falta de Insumo</option> 
