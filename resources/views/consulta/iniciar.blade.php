@@ -168,22 +168,13 @@
                                       <td>{{$fila->doctor->nombre_usuario}}</td>                 
                                       <td>
                                                                              
-                                        @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                          <a class="btn btn-sm btn-success btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-  
+                                        @if ($fila->tieneImprimir())
+                                          <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                          </button>
+                                          @include('modals.ImprimirModals')
                                         @endif
-                                        @if ($fila->tieneReferencia() && Auth::user()->accesoRuta('/referencia/imprimir'))
-                                          <a class="btn btn-sm btn-danger btnIcono"  target="_blank" title="Imprimir Referencia" href="{{route('referencia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-  
-                                        @endif
-                                        @if ($fila->tieneConstancia() && Auth::user()->accesoRuta('/constancia/imprimir'))
-                                          <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Constancia" href="{{route('constancia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-  
-                                        @endif
-                                        @if ($fila->tieneCertificado() && Auth::user()->accesoRuta('/certificado/imprimir'))
-                                          <a class="btn btn-sm btn-info btnIcono"  target="_blank" title="Imprimir Certificado" href="{{route('certificado.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-  
-                                        @endif
+                                        
                                         @if ($fila->created_at->addHours(24)>\Carbon\Carbon::now() && Auth::user()->accesoRuta('/consulta/registrar') )
                                           
                                           <button type="button" class="btn btn-success waves-effect waves-light"

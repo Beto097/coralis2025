@@ -103,22 +103,12 @@
                                                         @include('modals.reasignarConsultaDoctorModals')
                                                   
                                                 @endif 
-                                            @if ($fila->tieneReceta() && Auth::user()->accesoRuta('/receta/imprimir'))
-                                              <a class="btn btn-sm btn-success btnIcono"  target="_blank" title="Imprimir Receta" href="{{route('receta.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-      
-                                            @endif
-                                            @if ($fila->tieneReferencia() && Auth::user()->accesoRuta('/referencia/imprimir'))
-                                              <a class="btn btn-sm btn-danger btnIcono"  target="_blank" title="Imprimir Referencia" href="{{route('referencia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-      
-                                            @endif
-                                            @if ($fila->tieneConstancia() && Auth::user()->accesoRuta('/constancia/imprimir'))
-                                              <a class="btn btn-sm btn-warning btnIcono"  target="_blank" title="Imprimir Constancia" href="{{route('constancia.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-      
-                                            @endif
-                                            @if ($fila->tieneCertificado() && Auth::user()->accesoRuta('/certificado/imprimir'))
-                                              <a class="btn btn-sm btn-info btnIcono"  target="_blank" title="Imprimir Certificado" href="{{route('certificado.print', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-print"></i></a>
-      
-                                            @endif
+                                              @if ($fila->tieneImprimir())
+                                                <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                                  <i class="fa fa-print" aria-hidden="true"></i>
+                                                </button>
+                                                @include('modals.ImprimirModals')
+                                              @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
                                                 <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 

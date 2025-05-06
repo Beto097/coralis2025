@@ -86,6 +86,9 @@ Route::get("/referencia/print/{id}", [referenciaController::class, 'print'])->na
 Route::Post("/constancia/insert", [constanciaController::class, 'insert'])->name("constancia.insert");
 Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->name("constancia.print");
 
+
+Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("imprimir.select");
+
 // -----------------------------------------------------------------------------------------------------------------
 
  //rutas pantalla y rol de pantalla

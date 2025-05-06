@@ -174,40 +174,40 @@ class pacienteController extends Controller
         
     }
     public function save(Request $request)
-{
-    if (!Auth::user()) {
-        Session::put('url', url()->current());
-        return redirect(route('login.index'));
-    }
-
-    if (Auth::user()->accesoRuta('/paciente/update')) { // Validar acceso a la ruta
-        $paciente = paciente::find($request->txtid);
-
-        if (!$paciente) {
-            return back()->withErrors(['status' => "¡El paciente no existe en el sistema!"]);
+    {
+        if (!Auth::user()) {
+            Session::put('url', url()->current());
+            return redirect(route('login.index'));
         }
 
-        // Actualizar datos
-        $paciente->identificacion_paciente = $request->txtCedula;
-        $paciente->nombre_paciente = strtoupper($request->txtnombre);
-        $paciente->apellido_paciente = strtoupper($request->txtapellido);
-        $paciente->sexo_paciente = $request->txtsexo;
-        $paciente->fecha_nacimiento_paciente = $request->txtfecnac;
-        $paciente->telefono_paciente = $request->txttelefono;
-        $paciente->estado_civil_paciente = $request->txtEstadoCivil;
-        $paciente->lugar_trabajo = $request->txtTrabajo;
-        $paciente->direccion_paciente = $request->txtDireccion;
-        $paciente->email_paciente = strtolower($request->txtemail);
-        $paciente->comentario_paciente = nl2br($request->txtComentario);
-        $paciente->save();
+        if (Auth::user()->accesoRuta('/paciente/update')) { // Validar acceso a la ruta
+            $paciente = paciente::find($request->txtid);
 
-        
+            if (!$paciente) {
+                return back()->withErrors(['status' => "¡El paciente no existe en el sistema!"]);
+            }
 
-        return redirect()->back()->withErrors(['status' => "Paciente " . $paciente->identificacion_paciente . " actualizado correctamente."]);
+            // Actualizar datos
+            $paciente->identificacion_paciente = $request->txtCedula;
+            $paciente->nombre_paciente = strtoupper($request->txtnombre);
+            $paciente->apellido_paciente = strtoupper($request->txtapellido);
+            $paciente->sexo_paciente = $request->txtsexo;
+            $paciente->fecha_nacimiento_paciente = $request->txtfecnac;
+            $paciente->telefono_paciente = $request->txttelefono;
+            $paciente->estado_civil_paciente = $request->txtEstadoCivil;
+            $paciente->lugar_trabajo = $request->txtTrabajo;
+            $paciente->direccion_paciente = $request->txtDireccion;
+            $paciente->email_paciente = strtolower($request->txtemail);
+            $paciente->comentario_paciente = nl2br($request->txtComentario);
+            $paciente->save();
+
+            
+
+            return redirect()->back()->withErrors(['status' => "Paciente " . $paciente->identificacion_paciente . " actualizado correctamente."]);
+        }
+
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
-
-    return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
-}
 
 
 

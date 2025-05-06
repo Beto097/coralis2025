@@ -111,4 +111,16 @@ class consulta extends Model
         return false;
     }
 
+    public function tieneImprimir(){
+
+    
+
+        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia()) {
+            return true;
+        }
+
+        return false;
+    }
+    
+
 }
