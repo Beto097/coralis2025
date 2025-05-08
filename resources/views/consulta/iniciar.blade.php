@@ -124,7 +124,7 @@
                             <b>Direccion</b> : {{$paciente->direccion_paciente}}
                         </li>
                         @if (\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age<18)
-                                      <li class="" style="font-size: 130%"><i
+                                      <li class="" style="font-size: 130%"><i><
                                         class="zmdi zmdi-accounts-alt text-success font-size-18 mt-2 me-2"></i>
                                     <b>Responsable</b> : {{$consulta->responsable_menor}}
                                 </li>
@@ -143,7 +143,8 @@
                                 <thead>
                                   <tr>
                                     <th>ID</th>                    
-                                    <th>Fecha</th>                    
+                                    <th>Fecha</th>      
+                                    <th>Estado</th>              
                                     <th>Diagnóstico</th>
                                     <th>Medico</th> 
                                     <th>Acciones</th>
@@ -152,10 +153,11 @@
                                 
                                 <tbody>
                                   @foreach ($paciente->consultas as $key=>$fila)
-                                    @if ($fila->estado_consulta =='TERMINADA' )
+                                    @if ($fila->estado_consulta !='CANCELADA' && $fila->estado_consulta !='ELIMINADA')
                                     <tr style="font-size: 100%;">
                                       <td>{{$key+1}}</td>
-                                      <td>{{\Carbon\Carbon::parse($fila->fecha_consulta)->format('Y-m-d')}}</td>
+                                      <td>{{\Carbon\Carbon::parse($fila->fecha_consulta)->format('Y-m-d h:m')}}</td>
+                                      <td>{{$fila->estado_consulta}}</td>
                                       <td>{{$fila->diagnostico}}</td>   
                                       <td>{{$fila->doctor->nombre_usuario}}</td>                 
                                       <td>
