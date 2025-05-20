@@ -9,6 +9,8 @@ use App\Models\constancia;
 
 use Illuminate\Http\Request;
 
+use Session;
+
 class constanciaController extends Controller
 {
     public function insert(Request $request){    
@@ -40,7 +42,7 @@ class constanciaController extends Controller
         }
         
               
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -81,7 +83,7 @@ class constanciaController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
         
 

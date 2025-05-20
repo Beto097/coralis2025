@@ -75,6 +75,18 @@ class paciente extends Model
         return $segundoNombre;
     }
 
+    public function archivos(){
+        
+        $archivos = collect();
+
+        foreach ($this->consultas as $consulta) {
+            $archivos = $archivos->merge($consulta->archivos);
+        }
+
+        return $archivos;
+
+    }
+
     public function apellidos($id)
     {
         $apellidosCompletos = $this->apellido_paciente;
