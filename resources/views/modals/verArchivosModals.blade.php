@@ -21,15 +21,15 @@
                                         </thead>
                                         
                                         <tbody>
-                                          @foreach ($paciente->archivos() as $key=>$archivo)
+                                        @foreach ($paciente->archivos() as $key=>$archivo)
                                             
                                             <tr style="font-size: 100%;">
                                                 
-                                              <td><a href="{{ asset('storage/' . $archivo->ruta) }}" target="_blank">{{ $archivo->nombre }}</a></td>
+                                              <td><a href="{{ asset($archivo->ruta) }}" target="_blank">{{ $archivo->nombre }}</a></td>
                                               <td> {{\Carbon\Carbon::parse($archivo->created_at)->format('d/m/Y')}}</td>      
                                               <td>
                                                 @if(Auth::user()->accesoRuta('/archivo/ver'))
-                                                  <a class="btn btn-success btn-sm btnIcono" title="Ver Archivo" href="{{ asset('storage/' . $archivo->ruta) }}" target="_blank">
+                                                  <a class="btn btn-success btn-sm btnIcono" title="Ver Archivo" href="{{ asset($archivo->ruta) }}" target="_blank">
                                                     <i id="iconoBoton" class="fa fa-eye"></i>
                                                   </a>
                                                 @endif
