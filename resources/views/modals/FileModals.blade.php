@@ -11,7 +11,12 @@
                         <div class="form-wrap">
                             <form action="{{route('archivo.insert')}}" method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
                                 @csrf
-                                <x-subir-archivo  :resultado="$consulta"/>
+                                @if (Route::is('consulta.index'))
+                                    <x-subir-archivo  :resultado="$fila"/>
+                                @else
+                                    <x-subir-archivo  :resultado="$consulta"/>
+                                @endif
+                                
                             </form>
                         </div>
                     </div>

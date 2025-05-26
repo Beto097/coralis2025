@@ -5,7 +5,7 @@
 <div class="form-group col-md-6">
     
     <label for="">Archivo</label>
-    <input type="file" class="form-control" name="archivo" aria-describedby="inputGroupFileAddon04">
+    <input type="file" class="form-control"   accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png" name="archivo" aria-describedby="inputGroupFileAddon04">
             
         
 </div>
