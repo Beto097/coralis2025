@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\archivo;
-
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Session;
 
@@ -69,12 +69,14 @@ class archivoController extends Controller
         
         if(Auth::user()->accesoRuta('/archivo/delete')){
 
-            // Buscar el archivo en la base de datos
             $archivo = Archivo::find($id);
 
-            // Eliminar el archivo físico del disco
-            if (Storage::disk('public')->exists($archivo->ruta)) {
-                Storage::disk('public')->delete($archivo->ruta);
+            // Ruta absoluta del archivo físico
+            $rutaArchivo = public_path($archivo->ruta);
+
+            // Verificar y eliminar el archivo
+            if (File::exists($rutaArchivo)) {
+                File::delete($rutaArchivo);
             }
 
             // Eliminar el registro de la base de datos
