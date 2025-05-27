@@ -10,6 +10,13 @@
     @include('scripts.consulta')
     
 @endsection
+@section('script')    
+
+    @if(Auth::check() && !Auth::user()->accesoRuta('/recepcion/insertar'))
+        @include('scripts.refrescar')
+    @endif
+
+@endsection
 
 @section('contenido')
     				
@@ -87,7 +94,7 @@
                                           <td>
                                             
                 
-                                            @if (Auth::user()->accesoRuta('/archivo/insertar'))
+                                            @if (Auth::user()->accesoRuta('/archivo/insertar') || Auth::user()->accesoRuta('/recepcion/insertar'))
                                               <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
                                                 <i class="fa fa-file-archive-o" aria-hidden="true"></i>
                                               </button>

@@ -49,12 +49,6 @@
       
     }
 
-    setInterval(function() {
-        location.reload();
-    }, 30000); // 10 segundos
-
-
-
 </script>
 
 <style>
