@@ -87,13 +87,7 @@
                                           <td>
                                             
                 
-                                            @if (Auth::user()->accesoRuta('/archivo/insertar'))
-                                              <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
-                                                <i class="fa fa-file-archive-o" aria-hidden="true"></i>
-                                              </button>
-                                              @include('modals.FileModals')
                                             
-                                            @endif
                                             @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
                                               <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
                                               

@@ -14,7 +14,6 @@ use App\Http\Controllers\recetaController;
 use App\Http\Controllers\certificadoController;
 use App\Http\Controllers\referenciaController;
 use App\Http\Controllers\constanciaController;
-use App\Http\Controllers\archivoController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -87,9 +86,6 @@ Route::get("/referencia/print/{id}", [referenciaController::class, 'print'])->na
 Route::Post("/constancia/insert", [constanciaController::class, 'insert'])->name("constancia.insert");
 Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->name("constancia.print");
 
-/*Archivo*/
-Route::Post("/archivo/insert", [archivoController::class, 'insert'])->name("archivo.insert");
-Route::get("/archivo/delete/{id}", [archivoController::class, 'delete'])->name("archivo.delete");
 
 Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("imprimir.select");
 

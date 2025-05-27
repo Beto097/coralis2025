@@ -33,7 +33,7 @@ class usuarioController extends Controller
             
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -53,7 +53,7 @@ class usuarioController extends Controller
 
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
 
     }
@@ -106,7 +106,7 @@ class usuarioController extends Controller
 
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
 
     }
@@ -121,7 +121,7 @@ class usuarioController extends Controller
     
         // Verificar permisos
         if (!Auth::user()->accesoRuta('/usuario/update')) {
-            return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
         }
     
         // Buscar usuario
@@ -191,7 +191,7 @@ class usuarioController extends Controller
 
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
 
     }
@@ -214,7 +214,7 @@ class usuarioController extends Controller
 
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
 
     }

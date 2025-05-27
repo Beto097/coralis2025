@@ -63,7 +63,7 @@ class loginController extends Controller
                     return redirect(Session::get('url'));
                 } 
                 
-                return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+                return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             }
                 
             return redirect()->back()->withErrors(['danger' => "Contraseña incorrecta."])->withInput($request->all());

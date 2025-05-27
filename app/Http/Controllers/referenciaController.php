@@ -47,7 +47,7 @@ class referenciaController extends Controller
         }
         
               
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -94,7 +94,7 @@ class referenciaController extends Controller
         // }
         
               
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }

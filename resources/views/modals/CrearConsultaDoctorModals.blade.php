@@ -32,10 +32,7 @@
                                             <option value="Control de Salud">Control de Salud</option>
                                             <option value="Consulta regular">Consulta regular</option>
                                             <option value="Certificado de buena salud">Certificado de buena salud</option>
-                                            <option value="Receta médica">Receta médica</option>
                                             <option value="Incapacidad">Incapacidad</option>
-                                            <option value="Certificado prenupcial">Certificado prenupcial</option>
-                                            <option value="Otro">Otro</option>
                                         </select>
                                     </div>
                                 </div>

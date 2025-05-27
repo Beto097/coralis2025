@@ -37,7 +37,7 @@ class pantallaController extends Controller
             
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -56,7 +56,7 @@ class pantallaController extends Controller
             
         }
 
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -89,7 +89,7 @@ class pantallaController extends Controller
         }
         
               
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -117,7 +117,7 @@ class pantallaController extends Controller
         }
         
             
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
         
         
     }
@@ -150,7 +150,7 @@ class pantallaController extends Controller
         }
         
               
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);      
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);      
     }
 
     public function pantallaSave(Request $request){
@@ -174,7 +174,7 @@ class pantallaController extends Controller
         }
         
             
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function delete($id){
@@ -198,7 +198,7 @@ class pantallaController extends Controller
         }
         
             
-        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 }
