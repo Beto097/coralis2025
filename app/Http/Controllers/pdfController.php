@@ -96,7 +96,7 @@ class pdfController extends Controller
             }
         
               
-            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+            return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));
@@ -175,7 +175,7 @@ class pdfController extends Controller
             }
             
               
-            return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+            return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
             
         }else{
             return redirect(route('login.index'));

@@ -14,6 +14,11 @@ class consulta extends Model
         return $this->belongsTo('App\Models\paciente');
     }
 
+    public function archivos()
+    {
+        return $this->hasMany('App\Models\archivo');
+    }
+
     public static function actualizarEstados(){
         $consultas = consulta::Where('estado_consulta','EN CURSO')->get();
         $consultas_pendientes = consulta::Where('estado_consulta','Pendiente')->get();

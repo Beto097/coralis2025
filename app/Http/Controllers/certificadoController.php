@@ -8,6 +8,7 @@ use App\Models\consulta;
 use App\Models\certificado;
 
 use Illuminate\Http\Request;
+use Session;
 
 class certificadoController extends Controller
 {
@@ -34,7 +35,7 @@ class certificadoController extends Controller
         }
         
               
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
         
         
     }
@@ -78,7 +79,7 @@ class certificadoController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
         
 

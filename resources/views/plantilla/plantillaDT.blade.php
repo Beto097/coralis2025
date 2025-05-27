@@ -220,6 +220,7 @@
 			@yield('ordenarTabla')
 		} );
 	</script>
+	@yield('script')
 </body>
 
 </html>

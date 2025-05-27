@@ -60,7 +60,7 @@ class consultaController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -87,7 +87,7 @@ class consultaController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -158,7 +158,7 @@ class consultaController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -182,7 +182,7 @@ class consultaController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
 
     }
 
@@ -258,7 +258,7 @@ class consultaController extends Controller
 
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function delete($id){
@@ -280,7 +280,7 @@ class consultaController extends Controller
 
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function select(Request $request){

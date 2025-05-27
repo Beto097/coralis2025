@@ -36,7 +36,7 @@ class pacienteController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function create(){
@@ -54,7 +54,7 @@ class pacienteController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function consultar($id){
@@ -94,7 +94,7 @@ class pacienteController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function search(Request $request){
@@ -125,7 +125,7 @@ class pacienteController extends Controller
             
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
     public function insert(Request $request){
@@ -168,7 +168,7 @@ class pacienteController extends Controller
         }
         
             
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);          
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);          
        
 
         
@@ -206,7 +206,7 @@ class pacienteController extends Controller
             return redirect()->back()->withErrors(['status' => "Paciente " . $paciente->identificacion_paciente . " actualizado correctamente."]);
         }
 
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
 
@@ -236,7 +236,7 @@ class pacienteController extends Controller
         }
         
             
-        return redirect(route('index'))->withErrors(['danger' => "No tienes acceso a esta funcion." ]);          
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);          
        
 
         

@@ -75,6 +75,12 @@ class paciente extends Model
         return $segundoNombre;
     }
 
+    public function archivos(){
+        
+        return $this->hasMany('App\Models\archivo');
+
+    }
+
     public function apellidos($id)
     {
         $apellidosCompletos = $this->apellido_paciente;

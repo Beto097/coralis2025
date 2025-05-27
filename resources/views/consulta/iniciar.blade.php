@@ -56,8 +56,16 @@
                               @include('modals.ConstanciaModals')
                             
                             @endif   
+                            
                                                          
                               
+                          @endif
+                          @if (Auth::user()->accesoRuta('/archivo/insertar'))
+                            <button class="btn  btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
+                              <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                            </button>
+                            @include('modals.FileModals')
+                          
                           @endif
                           
                           <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
@@ -135,6 +143,17 @@
                         @endif
                         
                       </ul>
+                      <div class="row" style="margin-top: 30px;">
+                        @if (Auth::user()->accesoRuta('/archivo/ver'))
+                          <div class="col-md-6 col-md-offset-3">
+                            <button class="btn btn-lg btn-primary text-center" id="verArchivos" title="Crear Referencia" data-toggle="modal" data-target="#verArchivosModal">
+                              Ver Archivos</i>
+                            </button>
+                            @include('modals.verArchivosModals')     
+                          </div>
+                        @endif
+                        
+                      </div>  
                     </div>
                     <div class="col-md-9">
                       <div class="table-wrap">
@@ -233,7 +252,8 @@
                                 <tfoot>
                                   <tr>
                                     <th>ID</th>                    
-                                    <th>Fecha</th>                    
+                                    <th>Fecha</th>      
+                                    <th>Estado</th>              
                                     <th>Diagnóstico</th>
                                     <th>Medico</th> 
                                     <th>Acciones</th>
@@ -253,38 +273,186 @@
   </div>
 
 @endsection
-@section('scripts')
+@section('script')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('formCrearConstancia');
+  document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('formCrearConstancia');
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+      form.addEventListener('submit', function (e) {
+          e.preventDefault();
 
-        const formData = new FormData(form);
+          const formData = new FormData(form);
 
-        fetch(form.action, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success && data.pdf_url) {
-                $('#addNewConstanciaModal').modal('hide');
-                window.open(data.pdf_url, '_blank');
-            } else {
-                alert('Error al generar constancia');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert('Error inesperado');
-        });
-    });
-});
+          fetch(form.action, {
+              method: 'POST',
+              headers: {
+                  'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
+              },
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success && data.pdf_url) {
+                  $('#addNewConstanciaModal').modal('hide');
+                  window.open(data.pdf_url, '_blank');
+              } else {
+                  alert('Error al generar constancia');
+              }
+          })
+          .catch(error => {
+              console.error(error);
+              alert('Error inesperado');
+          });
+      });
+  });
+</script>
+<script>
+  $('#datable_2').DataTable( {
+    lengthChange: false,
+    "language": {
+      
+      "processing": "Procesando...",
+      "lengthMenu": "Mostrar _MENU_ Registros",
+      "zeroRecords": "No se encontraron resultados",
+      "emptyTable": "Ningún dato disponible en esta tabla",
+      "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "search": "Buscar:",
+      "infoThousands": ",",
+      "loadingRecords": "Cargando...",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": ">>",
+        "previous": "<<"
+      },
+      "aria": {
+        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+        "sortDescending": ": Activar para ordenar la columna de manera descendente"
+      },
+      "buttons": {
+        "copy": "Copiar",
+        "colvis": "Visibilidad",
+        "collection": "Colección",
+        "colvisRestore": "Restaurar visibilidad",
+        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+        "copySuccess": {
+          "1": "Copiada 1 fila al portapapeles",
+          "_": "Copiadas %d fila al portapapeles"
+        },
+        "copyTitle": "Copiar al portapapeles",
+        "csv": "CSV",
+        "excel": "Excel",
+        "pageLength": {
+          "-1": "Mostrar todas las filas",
+          "1": "Mostrar 1 fila",
+          "_": "Mostrar %d filas"
+        },
+        "pdf": "PDF",
+        "print": "Imprimir"
+      },
+      "autoFill": {
+        "cancel": "Cancelar",
+        "fill": "Rellene todas las celdas con <i>%d<\/i>",
+        "fillHorizontal": "Rellenar celdas horizontalmente",
+        "fillVertical": "Rellenar celdas verticalmentemente"
+      },
+      "decimal": ",",
+      "searchBuilder": {
+        "add": "Añadir condición",
+        "button": {
+          "0": "Constructor de búsqueda",
+          "_": "Constructor de búsqueda (%d)"
+        },
+        "clearAll": "Borrar todo",
+        "condition": "Condición",
+        "conditions": {
+          "date": {
+            "after": "Despues",
+            "before": "Antes",
+            "between": "Entre",
+            "empty": "Vacío",
+            "equals": "Igual a",
+            "not": "No",
+            "notBetween": "No entre",
+            "notEmpty": "No Vacio"
+          },
+          "moment": {
+            "after": "Despues",
+            "before": "Antes",
+            "between": "Entre",
+            "empty": "Vacío",
+            "equals": "Igual a",
+            "not": "No",
+            "notBetween": "No entre",
+            "notEmpty": "No vacio"
+          },
+          "number": {
+            "between": "Entre",
+            "empty": "Vacio",
+            "equals": "Igual a",
+            "gt": "Mayor a",
+            "gte": "Mayor o igual a",
+            "lt": "Menor que",
+            "lte": "Menor o igual que",
+            "not": "No",
+            "notBetween": "No entre",
+            "notEmpty": "No vacío"
+          },
+          "string": {
+            "contains": "Contiene",
+            "empty": "Vacío",
+            "endsWith": "Termina en",
+            "equals": "Igual a",
+            "not": "No",
+            "notEmpty": "No Vacio",
+            "startsWith": "Empieza con"
+          }
+        },
+        "data": "Data",
+        "deleteTitle": "Eliminar regla de filtrado",
+        "leftTitle": "Criterios anulados",
+        "logicAnd": "Y",
+        "logicOr": "O",
+        "rightTitle": "Criterios de sangría",
+        "title": {
+          "0": "Constructor de búsqueda",
+          "_": "Constructor de búsqueda (%d)"
+        },
+        "value": "Valor"
+      },
+      "searchPanes": {
+        "clearMessage": "Borrar todo",
+        "collapse": {
+          "0": "Paneles de búsqueda",
+          "_": "Paneles de búsqueda (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Sin paneles de búsqueda",
+        "loadMessage": "Cargando paneles de búsqueda",
+        "title": "Filtros Activos - %d"
+      },
+      "select": {
+        "1": "%d fila seleccionada",
+        "_": "%d filas seleccionadas",
+        "cells": {
+          "1": "1 celda seleccionada",
+          "_": "$d celdas seleccionadas"
+        },
+        "columns": {
+          "1": "1 columna seleccionada",
+          "_": "%d columnas seleccionadas"
+        }
+      },
+      "thousands": "."
+    
+    }
+    
+  } );
+
+
 </script>
 @endsection
 
