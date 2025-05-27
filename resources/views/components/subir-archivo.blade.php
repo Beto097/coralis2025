@@ -11,6 +11,6 @@
 </div>
 
 <div class="modal-footer">  
-    <input type="hidden" name="txtId" id="txtId" class="form-control form-control-sm" value="{{$consulta->id}}">                                      
+    <input type="hidden" name="txtId" id="txtId" class="form-control form-control-sm" value="{{$paciente_id}}">                                      
     <button type="submit" id="btnCrearModal2"  class="btn btn-primary text-left">Subir</button>
 </div>

@@ -23,6 +23,7 @@ class archivoController extends Controller
         
         if(Auth::user()->accesoRuta('/archivo/insertar')){
 
+            
             $request->validate([            
                 'archivo' => 'required|file|mimes:pdf,doc,docx,txt,jpg,png|max:2048',
             ]);
@@ -38,14 +39,14 @@ class archivoController extends Controller
             $extension = $file->getClientOriginalExtension();
     
             // Crear nombre del archivo a guardar (ej: Crear_Usuario.pdf)
-            $nombreArchivo = Str::slug($request->txtNombre) . '.' . $extension;
+            $nombreArchivo = Str::slug($request->txtNombre). $fecha->format('Y-m-d') . '.' . $extension;
     
             // Guardar el archivo con nombre personalizado
             $file->move(public_path($rutaCarpeta), $nombreArchivo);
             
             // Guardar datos en base de datos
             $archivo = new Archivo();
-            $archivo->consulta_id = $request->txtId;
+            $archivo->paciente_id = $request->txtId;
             $archivo->nombre = $request->txtNombre;
             $archivo->ruta = $rutaCarpeta . '/' . $nombreArchivo; // guarda la ruta relativa (útil para mostrar)        
             $archivo->save();

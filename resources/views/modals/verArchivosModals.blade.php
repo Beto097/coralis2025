@@ -21,8 +21,10 @@
                                         </thead>
                                         
                                         <tbody>
-                                        @foreach ($paciente->archivos() as $key=>$archivo)
+                                        
+                                        @foreach ($paciente->archivos as $key=>$archivo)
                                             
+                                          
                                             <tr style="font-size: 100%;">
                                                 
                                               <td><a href="{{ asset($archivo->ruta) }}" target="_blank">{{ $archivo->nombre }}</a></td>

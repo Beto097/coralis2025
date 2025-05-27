@@ -12,9 +12,9 @@
                             <form action="{{route('archivo.insert')}}" method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
                                 @csrf
                                 @if (Route::is('consulta.index'))
-                                    <x-subir-archivo  :resultado="$fila"/>
+                                    <x-subir-archivo  :id="$fila->paciente->id"/>
                                 @else
-                                    <x-subir-archivo  :resultado="$consulta"/>
+                                    <x-subir-archivo  :id="$consulta->paciente->id"/>
                                 @endif
                                 
                             </form>

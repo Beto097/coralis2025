@@ -77,13 +77,7 @@ class paciente extends Model
 
     public function archivos(){
         
-        $archivos = collect();
-
-        foreach ($this->consultas as $consulta) {
-            $archivos = $archivos->merge($consulta->archivos);
-        }
-
-        return $archivos;
+        return $this->hasMany('App\Models\archivo');
 
     }
 

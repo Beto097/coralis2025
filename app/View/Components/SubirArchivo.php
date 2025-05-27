@@ -11,10 +11,10 @@ class SubirArchivo extends Component
      *
      * @return void
      */
-    public $consulta;
-    public function __construct($resultado)
+    public $paciente_id;
+    public function __construct($id)
     {
-        $this->consulta = $resultado;
+        $this->paciente_id = $id;
     }
 
     /**
