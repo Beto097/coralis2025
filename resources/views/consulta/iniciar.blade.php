@@ -64,7 +64,7 @@
                             <button class="btn  btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
                               <i class="fa fa-file-archive-o" aria-hidden="true"></i>
                             </button>
-                            @include('modals.FileModals')
+                            @include('modals.FileModals2')
                           
                           @endif
                           
