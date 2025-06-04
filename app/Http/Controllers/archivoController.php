@@ -26,7 +26,7 @@ class archivoController extends Controller
 
             
             $request->validate([
-                'archivo' => 'required|file|mimes:pdf,doc,docx,txt,jpg,png|max:102400', // 100 MB en KB
+                'archivo' => 'required|file|mimes:pdf,doc,docx,txt,jpg,png|max:102400', // 100 MB en KB - BHETO
             ]);
     
             // Obtener el archivo
