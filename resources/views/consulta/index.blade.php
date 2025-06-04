@@ -94,13 +94,13 @@
                                           <td>
                                             
                 
-                                            @if (Auth::user()->accesoRuta('/archivo/insertar') || Auth::user()->accesoRuta('/recepcion/insertar'))
-                                              <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal{{$fila->id}}">
-                                                <i class="fa fa-file-archive-o" aria-hidden="true"></i>
-                                              </button>
-                                              @include('modals.FileModals')
                                             
-                                            @endif
+                                            <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal{{$fila->id}}">
+                                              <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                                            </button>
+                                              
+                                            @include('modals.FileModals')
+                                            
                                             @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
                                               <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
                                               
@@ -117,7 +117,7 @@
                                                   
                                                 @endif 
                                               @if ($fila->tieneImprimir())
-                                                <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                                <button class="btn  btn-warning btn-sm " id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
                                                   <i class="fa fa-print" aria-hidden="true"></i>
                                                 </button>
                                                 @include('modals.ImprimirModals')

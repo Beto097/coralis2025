@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\archivo;
+use App\Models\paciente;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Session;
@@ -52,6 +53,28 @@ class archivoController extends Controller
             $archivo->save();
     
             return redirect()->back()->withErrors(['status' => "Se subio el archivo correctamente" ]);
+        }
+        
+              
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);            
+
+        
+    }
+
+    public function verArchivos($id){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+        
+        if(Auth::user()->accesoRuta('/archivo/ver')){
+
+            
+            $paciente = paciente::find($id);         
+    
+            return view ("archivo.index",["paciente"=>$paciente]);
         }
         
               

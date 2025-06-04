@@ -34,6 +34,7 @@ Route::get("/paciente/delete/{id}", [pacienteController::class, 'eliminar'])->na
 Route::get("/paciente/desbloquear/{id}", [pacienteController::class, 'desbloquear'])->name("paciente.desbloquear");
 Route::get("/paciente/verPassword/{id}", [pacienteController::class, 'verPassword'])->name("paciente.verPassword");
 Route::get("/paciente/historial/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
+Route::get("/paciente/verArchivo/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
 Route::get("/paciente/buscar", [pacienteController::class, 'buscar'])->name("paciente.buscar");
 Route::post("/paciente/buscar", [pacienteController::class, 'search'])->name("paciente.search");
 
@@ -90,6 +91,7 @@ Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->na
 /*Archivo*/
 Route::Post("/archivo/insert", [archivoController::class, 'insert'])->name("archivo.insert");
 Route::get("/archivo/delete/{id}", [archivoController::class, 'delete'])->name("archivo.delete");
+Route::get("/paciente/verArchivo/{id}", [archivoController::class, 'verArchivos'])->name("paciente.verArchivo");
 
 Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("imprimir.select");
 
