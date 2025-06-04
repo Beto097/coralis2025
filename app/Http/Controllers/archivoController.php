@@ -25,8 +25,8 @@ class archivoController extends Controller
         if(Auth::user()->accesoRuta('/archivo/insertar')){
 
             
-            $request->validate([            
-                'archivo' => 'required|file|mimes:pdf,doc,docx,txt,jpg,png|max:2048',
+            $request->validate([
+                'archivo' => 'required|file|mimes:pdf,doc,docx,txt,jpg,png|max:102400', // 100 MB en KB
             ]);
     
             // Obtener el archivo
