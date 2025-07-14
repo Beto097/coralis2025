@@ -30,8 +30,8 @@ class paciente extends Model
         $fechaNacimiento = Carbon::parse($this->fecha_nacimiento_paciente);
         $hoy = Carbon::now();
         $diferencia = $fechaNacimiento->diff($hoy);
-    
-        if ($diferencia->y > 18) {
+
+        if ($diferencia->y >= 18) {
             return true;
         }
         
@@ -45,12 +45,12 @@ class paciente extends Model
         $hoy = Carbon::now();
         $diferencia = $fechaNacimiento->diff($hoy);
     
-        if ($diferencia->y >= 5) {
+        if ($diferencia->y >= 2) {
             return $diferencia->y . ' años';
         }
     
-        if ($diferencia->y >= 1) {
-            return $diferencia->y . 'a ' . $diferencia->m . 'm';
+        if ($diferencia->y = 1) {
+            return $diferencia->y . ' año';
         }
     
         if ($diferencia->m >= 1) {

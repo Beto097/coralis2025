@@ -25,70 +25,62 @@
             <div class="panel-heading">
                 <div>
                   <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                       <h6 class="panel-title txt-dark">{{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}}</h6>   
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-4 text-end">
+                        <div class="col-sm-10 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
-                            <button  title="Crear Receta"  class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal"> 
-                              
-                              <i class="fa fa-plus-square"></i>
-                              
+                        <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
+                            Crear Receta
+                        </button>
+                        @if ($consulta->tieneReceta())
+                            @include('modals.editarRecetaModals')
+                        @else
+                            @include('modals.RecetaModals') 
+                        @endif
+
+                        @if (!$consulta->tieneReferencia())
+                            <button class="btn btn-danger font-weight-bold" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
+                                Crear Referencia
                             </button>
-                            @if ($consulta->tieneReceta())
-                              @include('modals.editarRecetaModals')
-                              
-                            @else
-                              @include('modals.RecetaModals') 
-                            @endif
-                            @if (!$consulta->tieneReferencia())
-                              <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
-                                <i class="fa fa-ambulance" aria-hidden="true"></i>
-                              </button>
-                              @include('modals.ReferenciaModals')                            
-                            @endif 
-                            @if (!$consulta->tieneConstancia())
-                              <button class="btn  btn-warning" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                              </button>
-                              @include('modals.ConstanciaModals')
-                            
-                            @endif   
-                            
-                                                         
-                              
-                          @endif
-                         
-                          <button class="btn  btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
-                            <i class="fa fa-file-archive-o" aria-hidden="true"></i>
-                          </button>
-                          @include('modals.FileModals2')
-                          
-                          
-                          
-                          <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
-                          @if (!$consulta->tieneCertificado())
-                            <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
-                              <i class="fa fa-wpforms" aria-hidden="true"></i>
+                            @include('modals.ReferenciaModals')                            
+                        @endif 
+
+                        @if (!$consulta->tieneConstancia())
+                            <button class="btn btn-warning font-weight-bold" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                                Crear Constancia
                             </button>
-                            @include('modals.CertificadoModals')                          
-                            
-                          @endif
-                          @if ($consulta->tieneImprimir())
-                            <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
-                              <i class="fa fa-print" aria-hidden="true"></i>
-                            </button>
-                            @include('modals.ImprimirModals2')
-                          @endif
-                        
-                          @if ($consulta->estado_consulta != 'TERMINADA')
-                            <button class="btn btn-primary" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">                              
-                              <i class="fa fa-file-text" aria-hidden="true"></i>
-                            </button>
-                            @include('modals.RegistroModals')  
-                          @endif
+                            @include('modals.ConstanciaModals')
+                        @endif   
+                    @endif
+
+                    <button class="btn btn-success font-weight-bold" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
+                        Cargar Archivo
+                    </button>
+                    @include('modals.FileModals2')
+
+                    @if (!$consulta->tieneCertificado())
+                        <button class="btn btn-info font-weight-bold" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
+                            Crear Certificado
+                        </button>
+                        @include('modals.CertificadoModals')                          
+                    @endif
+
+                    @if ($consulta->tieneImprimir())
+                        <button class="btn btn-warning font-weight-bold" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
+                            Imprimir Documentos
+                        </button>
+                        @include('modals.ImprimirModals2')
+                    @endif
+
+                    @if ($consulta->estado_consulta != 'TERMINADA')
+                        <button class="btn btn-primary font-weight-bold" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">
+                            Registrar Consulta
+                        </button>
+                        @include('modals.RegistroModals')  
+                    @endif
                         </div>
                       @endisset
                     

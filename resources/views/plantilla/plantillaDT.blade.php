@@ -75,8 +75,8 @@
 	<!-- Init JavaScript -->
 	<script src="{{asset('dist/js/init.js')}}"></script>
 	<script>
-		$('#datable_1').DataTable( {
-			 
+		var table = $('#datable_1').DataTable({
+			 searching: false,
 			"language": {
 				
 				"processing": "Procesando...",
@@ -219,6 +219,53 @@
 			}
 			@yield('ordenarTabla')
 		} );
+				// Botón personalizado de búsqueda
+		$('#customSearchBtn').on('click', function() {
+			var value = $('#customSearch').val();
+			$.ajax({
+				url: '/paciente/ajax-buscar',
+				method: 'GET',
+				data: { q: value },
+				success: function(response) {
+					table.clear();
+					response.data.forEach(function(row) {
+						table.row.add(row);
+					});
+					table.draw();
+				}
+			});
+		});
+
+		// Permitir buscar con Enter
+		$('#customSearch').on('keyup', function(e) {
+			if (e.key === 'Enter') {
+				$('#customSearchBtn').click();
+			}
+		});
+		// Búsqueda automática al escribir (mínimo 2 letras)
+		let lastValue = '';
+		$('#customSearch').on('input', function() {
+			var value = $(this).val();
+			if (value.length >= 2 && value !== lastValue) {
+				lastValue = value;
+				$.ajax({
+					url: '/paciente/ajax-buscar',
+					method: 'GET',
+					data: { q: value },
+					success: function(response) {
+						table.clear();
+						response.data.forEach(function(row) {
+							table.row.add(row);
+						});
+						table.draw();
+					}
+				});
+			}
+			if (value.length < 2) {
+				lastValue = '';
+				// Opcional: puedes recargar los 100 primeros pacientes aquí si quieres
+			}
+		});
 	</script>
 	@yield('script')
 </body>

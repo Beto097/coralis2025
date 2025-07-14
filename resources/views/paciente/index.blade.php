@@ -39,6 +39,14 @@
                     <div class="panel-body">
                         <div class="table-wrap">
                             <div class="table-responsive">
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-md-4">
+                                        <input type="text" id="customSearch" class="form-control" placeholder="Buscar paciente...">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="customSearchBtn" class="btn btn-primary">Buscar</button>
+                                    </div>
+                                    </div>
                                 <table id="datable_1" class="table table-hover display  pb-30" cellspacing="0"  style="width:100%">
                                     <thead>
                                         <tr>

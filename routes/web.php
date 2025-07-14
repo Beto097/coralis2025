@@ -37,6 +37,7 @@ Route::get("/paciente/historial/{id}", [pacienteController::class, 'verHistorial
 Route::get("/paciente/verArchivo/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
 Route::get("/paciente/buscar", [pacienteController::class, 'buscar'])->name("paciente.buscar");
 Route::post("/paciente/buscar", [pacienteController::class, 'search'])->name("paciente.search");
+Route::get("/paciente/ajax-buscar", [pacienteController::class, 'ajaxBuscar'])->name('paciente.ajaxBuscar');
 
 //MEDICO
 Route::get("/medico", [medicoController::class, 'index'])->name("medico.index");
