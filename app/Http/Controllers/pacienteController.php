@@ -254,7 +254,8 @@ class pacienteController extends Controller
             $pacientes = paciente::where(function($query) use ($q) {
                     $query->where('identificacion_paciente', 'LIKE', $q . '%')
                         ->orWhere('nombre_paciente', 'LIKE', $q . '%')
-                        ->orWhere('apellido_paciente', 'LIKE', $q . '%');
+                        ->orWhere('apellido_paciente', 'LIKE', $q . '%')
+                        ->orWhere(DB::raw("CONCAT(nombre_paciente,' ',apellido_paciente)"), 'LIKE', $q . '%');
                 })
                 ->orderBy('created_at', 'desc')
                 ->take(50)
