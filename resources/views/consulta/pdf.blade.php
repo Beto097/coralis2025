@@ -62,7 +62,7 @@
             <p id="nRegistro" style="padding-top: 90px; padding-left: 700px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p id="head" style="margin-top: 218px; padding-left: 230px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
+                <p id="head" style="margin-top: 218px; padding-left: 240px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
             </div>
             <div>
                 <p id="head" style="margin-top: -3px; padding-left: 350px;">
@@ -81,7 +81,7 @@
                 <p id="head" style="margin-top: -135px; padding-left: 750px;">{{$consulta->fecha_consulta}} </p>
             </div>
             <div>
-                <p id="bodyMed" style="margin-top: 125px; padding-left: 190px;">{{$consulta->diagnostico}} </p>
+                <p id="bodyMed" style="margin-top: 125px; padding-left: 190px;">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!} </p>
             </div>
             <div style="margin-top: 120px; padding-left: 180px;">
                 @foreach ($recetas as $key => $receta)
