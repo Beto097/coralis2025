@@ -72,7 +72,7 @@
                     <p id="nRegistro" style="padding-top: 105px; padding-left: 750px;">N° {{$numero}}</p>
                 </div>
                 <div>
-                    <p id="head" style="margin-top: 201px; padding-left: 216px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
+                    <p id="head" style="margin-top: 201px; padding-left: 226px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
                 </div>
                 <div>
                     <p id="head" style="margin-top: -43px; padding-left: 750px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y') }} </p>
@@ -91,7 +91,7 @@
                     <p id="head" style="margin-top: 3px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
                 </div>
                 <div>
-                    <p id="fila" style="margin-top: 125px; padding-left: 205px;">{{$consulta->diagnostico}} </p>
+                    <p id="fila" style="margin-top: 125px; padding-left: 205px;">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
                 </div>
                 <div style="margin-top: 115px; padding-left: 205px;">
                     @foreach ($recetas as $key => $receta)
