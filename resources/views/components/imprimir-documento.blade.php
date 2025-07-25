@@ -2,7 +2,7 @@
     <div class="input-group mb-3">
         <label for="">Seleccione el documento a imprimir</label>
         <div class="col-sm-12">
-            <select class="form-control" name="selectDocumento" id="selectDocumento{{ $consulta ? $consulta->id : '' }}" onchange="console.log('Select changed to:', this.value); toggleButtons(this); if(this.value === 'receta') mostrarBotones();">
+            <select class="form-control" name="selectDocumento" id="selectDocumento{{ $consulta ? $consulta->id : '' }}" onchange="console.log('Select changed to:', this.value); toggleButtons(this); if(this.value === 'receta') mostrarBotones({{ $consulta ? $consulta->id : '' }});">
                 
                 @if ($consulta && $consulta->tieneCertificado())
                     <option value="certificado">Certificado</option>
@@ -35,9 +35,13 @@ function toggleButtons(selectElement) {
     console.log('toggleButtons called with:', selectElement);
     console.log('Select value:', selectElement ? selectElement.value : 'no element');
     
-    // Búsqueda más directa de los botones
-    const btnGuardar = document.getElementById('btnGuardarReceta');
-    const btnImprimirViejo = document.getElementById('btnImprimirViejo');
+    // Extraer consultaId del ID del select
+    const consultaId = selectElement ? selectElement.id.replace('selectDocumento', '') : '';
+    console.log('ConsultaId extraído:', consultaId);
+    
+    // Búsqueda con IDs únicos
+    const btnGuardar = document.getElementById('btnGuardarReceta' + consultaId);
+    const btnImprimirViejo = document.getElementById('btnImprimirViejo' + consultaId);
     
     console.log('Botón Guardar encontrado:', btnGuardar);
     console.log('Botón Imprimir Viejo encontrado:', btnImprimirViejo);
@@ -57,15 +61,15 @@ function toggleButtons(selectElement) {
     }
 }
 
-// Función simple para mostrar botones (para prueba manual)
-function mostrarBotones() {
-    const btnGuardar = document.getElementById('btnGuardarReceta');
-    const btnImprimirViejo = document.getElementById('btnImprimirViejo');
+// Función para mostrar botones con consultaId específico
+function mostrarBotones(consultaId) {
+    const btnGuardar = document.getElementById('btnGuardarReceta' + consultaId);
+    const btnImprimirViejo = document.getElementById('btnImprimirViejo' + consultaId);
     
     if (btnGuardar) btnGuardar.style.display = 'inline-block';
     if (btnImprimirViejo) btnImprimirViejo.style.display = 'inline-block';
     
-    console.log('Botones mostrados manualmente');
+    console.log('Botones mostrados manualmente para consulta:', consultaId);
 }
 
 function guardarReceta(consultaId) {
@@ -146,40 +150,55 @@ function imprimirRecetaOld(consultaId) {
 $(document).ready(function() {
     console.log('Document ready ejecutado');
     
-    // Función para verificar y mostrar botones si "receta" está seleccionada
-    function checkAndShowButtons() {
-        const selectElement = document.getElementById('selectDocumento');
+    // Función para verificar y mostrar botones para un consultaId específico
+    function checkAndShowButtons(consultaId) {
+        const selectElement = document.getElementById('selectDocumento' + consultaId);
         if (selectElement) {
-            console.log('Verificando valor actual del select:', selectElement.value);
-            if (selectElement.value === 'receta') {
-                console.log('Receta está seleccionada por defecto, mostrando botones...');
-                mostrarBotones();
+            console.log('Verificando valor actual del select para consulta', consultaId, ':', selectElement.value);
+            
+            // Contar opciones disponibles
+            const opciones = selectElement.querySelectorAll('option');
+            const esUnicaOpcion = opciones.length === 1;
+            
+            if (selectElement.value === 'receta' && esUnicaOpcion) {
+                console.log('Receta es la única opción disponible, mostrando botones...');
+                mostrarBotones(consultaId);
             }
+            
             toggleButtons(selectElement);
         }
     }
     
-    // Para el modal estático de la tabla
-    $('#imprimirModal').on('shown.bs.modal', function () {
-        console.log('Modal estático abierto');
-        setTimeout(checkAndShowButtons, 200);
-    });
-    
-    // Para modales dinámicos del header  
+    // Para modales dinámicos - usando el patrón de ID con consultaId
     $('[id^="imprimirModal"]').on('shown.bs.modal', function () {
-        console.log('Modal dinámico abierto:', $(this).attr('id'));
-        setTimeout(checkAndShowButtons, 200);
+        const modalId = $(this).attr('id');
+        console.log('Modal dinámico abierto:', modalId);
+        
+        // Extraer consultaId del modal ID si es posible
+        const consultaIdMatch = modalId.match(/\d+/);
+        if (consultaIdMatch) {
+            const consultaId = consultaIdMatch[0];
+            setTimeout(() => checkAndShowButtons(consultaId), 200);
+        } else {
+            // Si no se puede extraer, intentar buscar el select en el modal
+            const selectInModal = $(this).find('[id^="selectDocumento"]')[0];
+            if (selectInModal) {
+                const consultaId = selectInModal.id.replace('selectDocumento', '');
+                setTimeout(() => checkAndShowButtons(consultaId), 200);
+            }
+        }
     });
     
     // Ejecutar también cuando se detecta que el DOM está listo
     setTimeout(function() {
         console.log('=== DEBUGGING INFO ===');
-        console.log('Select element:', document.getElementById('selectDocumento'));
-        console.log('Btn Guardar:', document.getElementById('btnGuardarReceta'));
-        console.log('Btn Imprimir Viejo:', document.getElementById('btnImprimirViejo'));
-        console.log('Modal element:', document.getElementById('imprimirModal'));
-        
-        checkAndShowButtons();
-    }, 1000);
+        // Buscar todos los selects de documento en la página
+        const allSelects = document.querySelectorAll('[id^="selectDocumento"]');
+        allSelects.forEach(select => {
+            const consultaId = select.id.replace('selectDocumento', '');
+            console.log('Found select for consulta:', consultaId);
+            checkAndShowButtons(consultaId);
+        });
+    }, 300);
 });
 </script>
