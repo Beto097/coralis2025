@@ -207,7 +207,6 @@
       { "width": "20%" }
     ],
     "pageLength": 15,
-    lengthMenu: [15, 30, 50, 100],
-    
+    lengthMenu: [15, 30, 50, 100]
 
 @endsection

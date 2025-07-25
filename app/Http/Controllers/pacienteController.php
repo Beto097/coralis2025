@@ -283,7 +283,6 @@ class pacienteController extends Controller
                 $fila->sexo_paciente == 'm' ? '<span class="label label-primary">Masculino</span>' : '<span class="label label-info">Femenino</span>',
                 $fila->edad(),
                 $fila->telefono_paciente,
-                '<p style="font-size: 90%;">' . e($fila->email_paciente) . '</p>',
                 $acciones
             ];
         }
