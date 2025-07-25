@@ -9,6 +9,34 @@
 
     @include('scripts.consulta')
     
+    <style>
+        /* Estilos para mejorar la presentación de la tabla */
+        .btnIcono {
+            margin: 1px;
+            padding: 5px 8px;
+        }
+        
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+        
+        /* Permitir que la columna de acciones tenga contenido más flexible */
+        td:last-child {
+            white-space: normal;
+            max-width: none;
+        }
+        
+        /* Hacer los botones más compactos */
+        .btn-sm {
+            padding: 4px 8px;
+            margin: 1px;
+            font-size: 11px;
+        }
+    </style>
+    
 @endsection
 @section('script')    
 
@@ -87,22 +115,35 @@
                                           <td>
                                             {{$fila->paciente->edad()}}
                                           </td>
-                                          <td>{{\Carbon\Carbon::parse($fila->created_at)->diffForHumans()}}</td>   
+                                          <td>
+                                            @php
+                                              $diff = \Carbon\Carbon::parse($fila->created_at)->diffInMinutes(now());
+                                              if ($diff < 1) {
+                                                echo 'Ahora';
+                                              } elseif ($diff < 60) {
+                                                echo $diff . ' min';
+                                              } elseif ($diff < 1440) {
+                                                echo floor($diff / 60) . ' hor';
+                                              } else {
+                                                echo floor($diff / 1440) . ' días';
+                                              }
+                                            @endphp
+                                          </td>   
                                           <td><p>{{$fila->estado_consulta}}</p></td>
                                           <td>{{$fila->doctor->primer_nombre_usuario}} {{$fila->doctor->apellido_usuario}}</td>
                                           <td>{{$fila->motivo_consulta}}</td>
                                           <td>
                                             
                 
-                                            @if (Auth::user()->accesoRuta('/archivo/insertar') || Auth::user()->accesoRuta('/recepcion/insertar'))
-                                              <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal{{$fila->id}}">
-                                                <i class="fa fa-file-archive-o" aria-hidden="true"></i>
-                                              </button>
-                                              @include('modals.FileModals')
                                             
-                                            @endif
+                                            <button class="btn btn-sm btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal{{$fila->id}}">
+                                              <i class="fa fa-upload" aria-hidden="true"></i>
+                                            </button>
+                                              
+                                            @include('modals.FileModals')
+                                            
                                             @if (Auth::user()->accesoRuta('/consulta/registrar'))                        
-                                              <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-plus-square"></i></a>
+                                              <a class="btn btn-info btn-sm btnIcono" title="Atender Consulta" href="{{route('consulta.iniciar', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-stethoscope"></i></a>
                                               
                                             @endif 
                                             
@@ -111,20 +152,20 @@
 
                                                         <button type="button" title="Reasignar Consulta" class="btn btn-primary btn-sm btnIcono "                
                                                             data-toggle="modal" data-target="#reasignarConsultaDoctorModal{{$fila->id}}">
-                                                            <i id="iconoBoton" class="fa fa-file"></i>
+                                                            <i id="iconoBoton" class="fa fa-exchange"></i>
                                                         </button>
                                                         @include('modals.reasignarConsultaDoctorModals')
                                                   
                                                 @endif 
                                               @if ($fila->tieneImprimir())
-                                                <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                                <button class="btn  btn-warning btn-sm " id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
                                                   <i class="fa fa-print" aria-hidden="true"></i>
                                                 </button>
-                                                @include('modals.ImprimirModals')
+                                                @include('modals.ImprimirModals3')
                                               @endif
 
                                             @if (Auth::user()->accesoRuta('/consulta/delete'))
-                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash-o"></i></a> 
+                                                <a class="btn btn-danger btn-sm btnIcono" title="Eliminar consulta" href="{{route('consulta.delete', ['id'=> $fila->id] )}}" onclick="return confirm('Desea eliminar este consulta del sistema?')"><i class="fa fa-trash"></i></a> 
                                             @endif 
                                             
                                                                             
@@ -160,24 +201,24 @@
 
 @section('ordenarTabla')
 
-    ,"order": [[0,'desc']]
+    ,"order": [[0,'asc']]
      ,"columns": [
       null,
       null,
-      null,      
+      { "width": "20%" },      
       null,
       null,
       null,
       null,
+      { "width": "12%" },
       null,
-      null,
-      { "width": "30%" }
+      { "width": "20%" }
     ],
     "pageLength": 15,
     lengthMenu: [15, 30, 50, 100],
-    
+    @endsection
 
-@endsection
+
 
 
 

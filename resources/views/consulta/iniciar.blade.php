@@ -25,70 +25,65 @@
             <div class="panel-heading">
                 <div>
                   <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                       <h6 class="panel-title txt-dark">{{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}}</h6>   
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-4 text-end">
+                        <div class="col-sm-8 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
-                            <button  title="Crear Receta"  class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal"> 
-                              
-                              <i class="fa fa-plus-square"></i>
-                              
-                            </button>
-                            @if ($consulta->tieneReceta())
-                              @include('modals.editarRecetaModals')
-                              
-                            @else
+                        <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
+                          @if ($consulta->tieneReceta())
+                              Editar Receta
+                          @else
+                              Crear Receta
+                          @endif
+                        </button>
+                        @if ($consulta->tieneReceta())
+                            @include('modals.editarRecetaModals')
+                          @else
                               @include('modals.RecetaModals') 
-                            @endif
-                            @if (!$consulta->tieneReferencia())
-                              <button class="btn  btn-danger" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
-                                <i class="fa fa-ambulance" aria-hidden="true"></i>
-                              </button>
-                              @include('modals.ReferenciaModals')                            
-                            @endif 
-                            @if (!$consulta->tieneConstancia())
-                              <button class="btn  btn-warning" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                              </button>
-                              @include('modals.ConstanciaModals')
-                            
-                            @endif   
-                            
-                                                         
-                              
                           @endif
-                          @if (Auth::user()->accesoRuta('/archivo/insertar'))
-                            <button class="btn  btn-success" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
-                              <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                        @if (!$consulta->tieneReferencia())
+                            <button class="btn btn-danger font-weight-bold" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
+                                Referencia
                             </button>
-                            @include('modals.FileModals2')
-                          
-                          @endif
-                          
-                          <!--<a class="btn btn-info btnIcono" title="Imprimir Certificado"  target="_blank" href="{{route('certificado.print', ['id'=> $consulta->id] )}}" class=""><i class="fa fa-wpforms"></i></a>-->
-                          @if (!$consulta->tieneCertificado())
-                            <button class="btn btn-info btnIcono" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
-                              <i class="fa fa-wpforms" aria-hidden="true"></i>
+                            @include('modals.ReferenciaModals')                            
+                        @endif 
+
+                        @if (!$consulta->tieneConstancia())
+                            <button class="btn btn-warning font-weight-bold" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                                Constancia
                             </button>
-                            @include('modals.CertificadoModals')                          
-                            
-                          @endif
-                          @if ($consulta->tieneImprimir())
-                            <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
-                              <i class="fa fa-print" aria-hidden="true"></i>
-                            </button>
-                            @include('modals.ImprimirModals2')
-                          @endif
-                        
-                          @if ($consulta->estado_consulta != 'TERMINADA')
-                            <button class="btn btn-primary" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">                              
-                              <i class="fa fa-file-text" aria-hidden="true"></i>
-                            </button>
-                            @include('modals.RegistroModals')  
-                          @endif
+                            @include('modals.ConstanciaModals')
+                        @endif   
+                    @endif
+
+                    <button class="btn btn-success font-weight-bold" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
+                        Cargar Archivo
+                    </button>
+                    @include('modals.FileModals2')
+
+                    @if (!$consulta->tieneCertificado())
+                        <button class="btn btn-info font-weight-bold" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
+                            Certificado B. Salud
+                        </button>
+                        @include('modals.CertificadoModals')                          
+                    @endif
+
+                    @if ($consulta->tieneImprimir())
+                        <button class="btn btn-warning font-weight-bold" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$consulta->id}}">
+                            Papelería
+                        </button>
+                        @include('modals.ImprimirModals2')
+                    @endif
+
+                    @if ($consulta->estado_consulta != 'TERMINADA')
+                        <button class="btn btn-primary font-weight-bold" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">
+                            Atender Consulta
+                        </button>
+                        @include('modals.RegistroModals')  
+                    @endif
                         </div>
                       @endisset
                     
@@ -144,14 +139,12 @@
                         
                       </ul>
                       <div class="row" style="margin-top: 30px;">
-                        @if (Auth::user()->accesoRuta('/archivo/ver'))
+                        
                           <div class="col-md-6 col-md-offset-3">
-                            <button class="btn btn-lg btn-primary text-center" id="verArchivos" title="Crear Referencia" data-toggle="modal" data-target="#verArchivosModal">
-                              Ver Archivos</i>
-                            </button>
-                            @include('modals.verArchivosModals')     
+                            <a class="btn btn-lg btn-primary text-center" target="_blank" title="Ver Archivo" href="{{route('paciente.verArchivo', ['id'=> $paciente->id] )}}" class="">Ver Archivos</a>
+
                           </div>
-                        @endif
+                       
                         
                       </div>  
                     </div>
@@ -182,7 +175,7 @@
                                       <td>
                                                                              
                                         @if ($fila->tieneImprimir())
-                                          <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                          <button class="btn btn-warning" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                           </button>
                                           @include('modals.ImprimirModals')
@@ -290,170 +283,28 @@
               },
               body: formData
           })
-          .then(response => response.json())
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+          })
           .then(data => {
               if (data.success && data.pdf_url) {
                   $('#addNewConstanciaModal').modal('hide');
                   window.open(data.pdf_url, '_blank');
               } else {
-                  alert('Error al generar constancia');
+                  alert('Error al generar constancia: ' + (data.error || 'Error desconocido'));
               }
           })
           .catch(error => {
-              console.error(error);
-              alert('Error inesperado');
+              console.error('Error completo:', error);
+              alert('Error inesperado: ' + (error.message || error));
           });
       });
   });
 </script>
-<script>
-  $('#datable_2').DataTable( {
-    lengthChange: false,
-    "language": {
-      
-      "processing": "Procesando...",
-      "lengthMenu": "Mostrar _MENU_ Registros",
-      "zeroRecords": "No se encontraron resultados",
-      "emptyTable": "Ningún dato disponible en esta tabla",
-      "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "search": "Buscar:",
-      "infoThousands": ",",
-      "loadingRecords": "Cargando...",
-      "paginate": {
-        "first": "Primero",
-        "last": "Último",
-        "next": ">>",
-        "previous": "<<"
-      },
-      "aria": {
-        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sortDescending": ": Activar para ordenar la columna de manera descendente"
-      },
-      "buttons": {
-        "copy": "Copiar",
-        "colvis": "Visibilidad",
-        "collection": "Colección",
-        "colvisRestore": "Restaurar visibilidad",
-        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-        "copySuccess": {
-          "1": "Copiada 1 fila al portapapeles",
-          "_": "Copiadas %d fila al portapapeles"
-        },
-        "copyTitle": "Copiar al portapapeles",
-        "csv": "CSV",
-        "excel": "Excel",
-        "pageLength": {
-          "-1": "Mostrar todas las filas",
-          "1": "Mostrar 1 fila",
-          "_": "Mostrar %d filas"
-        },
-        "pdf": "PDF",
-        "print": "Imprimir"
-      },
-      "autoFill": {
-        "cancel": "Cancelar",
-        "fill": "Rellene todas las celdas con <i>%d<\/i>",
-        "fillHorizontal": "Rellenar celdas horizontalmente",
-        "fillVertical": "Rellenar celdas verticalmentemente"
-      },
-      "decimal": ",",
-      "searchBuilder": {
-        "add": "Añadir condición",
-        "button": {
-          "0": "Constructor de búsqueda",
-          "_": "Constructor de búsqueda (%d)"
-        },
-        "clearAll": "Borrar todo",
-        "condition": "Condición",
-        "conditions": {
-          "date": {
-            "after": "Despues",
-            "before": "Antes",
-            "between": "Entre",
-            "empty": "Vacío",
-            "equals": "Igual a",
-            "not": "No",
-            "notBetween": "No entre",
-            "notEmpty": "No Vacio"
-          },
-          "moment": {
-            "after": "Despues",
-            "before": "Antes",
-            "between": "Entre",
-            "empty": "Vacío",
-            "equals": "Igual a",
-            "not": "No",
-            "notBetween": "No entre",
-            "notEmpty": "No vacio"
-          },
-          "number": {
-            "between": "Entre",
-            "empty": "Vacio",
-            "equals": "Igual a",
-            "gt": "Mayor a",
-            "gte": "Mayor o igual a",
-            "lt": "Menor que",
-            "lte": "Menor o igual que",
-            "not": "No",
-            "notBetween": "No entre",
-            "notEmpty": "No vacío"
-          },
-          "string": {
-            "contains": "Contiene",
-            "empty": "Vacío",
-            "endsWith": "Termina en",
-            "equals": "Igual a",
-            "not": "No",
-            "notEmpty": "No Vacio",
-            "startsWith": "Empieza con"
-          }
-        },
-        "data": "Data",
-        "deleteTitle": "Eliminar regla de filtrado",
-        "leftTitle": "Criterios anulados",
-        "logicAnd": "Y",
-        "logicOr": "O",
-        "rightTitle": "Criterios de sangría",
-        "title": {
-          "0": "Constructor de búsqueda",
-          "_": "Constructor de búsqueda (%d)"
-        },
-        "value": "Valor"
-      },
-      "searchPanes": {
-        "clearMessage": "Borrar todo",
-        "collapse": {
-          "0": "Paneles de búsqueda",
-          "_": "Paneles de búsqueda (%d)"
-        },
-        "count": "{total}",
-        "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Sin paneles de búsqueda",
-        "loadMessage": "Cargando paneles de búsqueda",
-        "title": "Filtros Activos - %d"
-      },
-      "select": {
-        "1": "%d fila seleccionada",
-        "_": "%d filas seleccionadas",
-        "cells": {
-          "1": "1 celda seleccionada",
-          "_": "$d celdas seleccionadas"
-        },
-        "columns": {
-          "1": "1 columna seleccionada",
-          "_": "%d columnas seleccionadas"
-        }
-      },
-      "thousands": "."
-    
-    }
-    
-  } );
 
-
-</script>
 @endsection
 
 

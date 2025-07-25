@@ -12,8 +12,11 @@ class ImprimirDocumento extends Component
      * @return void
      */
     public $consulta;
-    public function __construct($resultado)
+    public $resultado;
+    
+    public function __construct($resultado = null)
     {
+        $this->resultado = $resultado;
         $this->consulta = $resultado;
     }
 

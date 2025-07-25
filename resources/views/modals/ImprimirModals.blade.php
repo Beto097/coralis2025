@@ -9,7 +9,7 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form id="formCrearConstancia" action="{{ route('imprimir.select') }}" method="POST" role="form">
+                            <form id="formCrearConstancia{{$fila->id}}" action="/imprimir/select" method="POST" role="form">
                                 @csrf
                                 <x-imprimir-documento :resultado="$fila"/> 
                             </form> 

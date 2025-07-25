@@ -24,7 +24,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </a>
-                <ul id="collapse{{$pantalla_menu->titulo_pantalla}}" class="collapse collapse-level-1">
+                <ul id="collapse{{$pantalla_menu->titulo_pantalla}}" class="collapse collapse-level-1 in">
                     @if ($pantalla_menu->url_pantalla != "#")
                         @if ($pantalla_menu->nombre_pantalla=='Orden de Laboratorio')
                             <li>

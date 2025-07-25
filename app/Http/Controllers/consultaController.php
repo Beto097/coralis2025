@@ -290,8 +290,50 @@ class consultaController extends Controller
             Session::put('url', url()->current());    
             return redirect(route('login.index'));
         }
-        return redirect(route($request->selectDocumento.'.print',['id'=>$request->txtId]));
-        
-        
+
+        // Validar que se haya enviado el documento
+        if (!$request->selectDocumento || !$request->txtId) {
+            return back()->with('error', 'Debe seleccionar un documento válido.');
+        }
+
+        // Para recetas, usar la versión simple (pdf.blade.php)
+        if ($request->selectDocumento == 'receta') {
+            return redirect(route('receta.print', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'certificado') {
+            return redirect(route('certificado.print', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'constancia') {
+            return redirect(route('constancia.print', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'referencia') {
+            return redirect(route('referencia.print', ['id' => $request->txtId]));
+        } else {
+            return back()->with('error', 'Tipo de documento no válido.');
+        }
+    }
+
+    public function selectToPrint(Request $request){
+
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        // Validar que se haya enviado el documento
+        if (!$request->selectDocumento || !$request->txtId) {
+            return back()->with('error', 'Debe seleccionar un documento válido.');
+        }
+
+        // Para recetas, usar la versión completa (pdfCompleto.blade.php)
+        if ($request->selectDocumento == 'receta') {
+            return redirect(route('receta.printCompleto', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'certificado') {
+            return redirect(route('certificado.print', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'constancia') {
+            return redirect(route('constancia.print', ['id' => $request->txtId]));
+        } elseif ($request->selectDocumento == 'referencia') {
+            return redirect(route('referencia.print', ['id' => $request->txtId]));
+        } else {
+            return back()->with('error', 'Tipo de documento no válido.');
+        }
     }
 }

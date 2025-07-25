@@ -99,7 +99,7 @@
                     <li>
                         <div class="notification-box-head-wrap">
                             <span class="notification-box-head pull-left inline-block">Notificaciones</span>
-                            <a class="txt-danger pull-right clear-notifications inline-block" href="{{route('notificacion.borrarTodas')}}"> Borrar Todas </a>
+                            {{-- <a class="txt-danger pull-right clear-notifications inline-block" href="{{route('notificacion.borrarTodas')}}"> Borrar Todas </a> --}}
                             <div class="clearfix"></div>
                             <hr class="light-grey-hr ma-0"/>
                         </div>

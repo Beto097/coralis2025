@@ -25,15 +25,16 @@ class pacienteController extends Controller
         }
 
         if(Auth::user()->accesoRuta('/paciente')){
-                        
             if (Auth::user()->rol->tipo_rol == 1) {
-                $resultado = paciente::get(); 
+            $resultado = paciente::orderBy('created_at', 'desc')->take(50)->get();
             } else {
-                $resultado=paciente::where('estado_paciente',1)->get();
+            $resultado = paciente::where('estado_paciente', 1)
+                ->orderBy('created_at', 'desc')
+                ->take(50)
+                ->get();
             }
 
-            return view ("paciente.index", ["resultado"=>$resultado]);
-            
+            return view("paciente.index", ["resultado" => $resultado]);
         }
 
         return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
@@ -240,5 +241,53 @@ class pacienteController extends Controller
        
 
         
+    }
+    public function ajaxBuscar(Request $request)
+    {
+        if (!Auth::user()) {
+            return response()->json(['error' => 'No autorizado'], 401);
+        }
+
+        $q = $request->input('q', '');
+
+        if (Auth::user()->rol->tipo_rol == 1) {
+            $pacientes = paciente::where(function($query) use ($q) {
+                    $query->where('identificacion_paciente', 'LIKE', $q . '%')
+                        ->orWhere('nombre_paciente', 'LIKE', $q . '%')
+                        ->orWhere('apellido_paciente', 'LIKE', $q . '%')
+                        ->orWhere(DB::raw("CONCAT(nombre_paciente,' ',apellido_paciente)"), 'LIKE', $q . '%');
+                })
+                ->orderBy('created_at', 'desc')
+                ->take(50)
+                ->get();
+        } else {
+            $pacientes = paciente::where('estado_paciente', 1)
+                ->where(function($query) use ($q) {
+                    $query->where('identificacion_paciente', 'LIKE', $q . '%')
+                        ->orWhere('nombre_paciente', 'LIKE', $q . '%')
+                        ->orWhere('apellido_paciente', 'LIKE', $q . '%');
+                })
+                ->orderBy('created_at', 'desc')
+                ->take(50)
+                ->get();
+        }
+
+        $data = [];
+        foreach ($pacientes as $fila) {
+            $acciones = view('partials.paciente_acciones', compact('fila'))->render();
+
+            $data[] = [
+                $fila->id,
+                $fila->identificacion_paciente,
+                $fila->nombre_paciente . ' ' . $fila->apellido_paciente,
+                $fila->sexo_paciente == 'm' ? '<span class="label label-primary">Masculino</span>' : '<span class="label label-info">Femenino</span>',
+                $fila->edad(),
+                $fila->telefono_paciente,
+                '<p style="font-size: 90%;">' . e($fila->email_paciente) . '</p>',
+                $acciones
+            ];
+        }
+
+        return response()->json(['data' => $data]);
     }
 }

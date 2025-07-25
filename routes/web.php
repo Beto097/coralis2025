@@ -34,8 +34,10 @@ Route::get("/paciente/delete/{id}", [pacienteController::class, 'eliminar'])->na
 Route::get("/paciente/desbloquear/{id}", [pacienteController::class, 'desbloquear'])->name("paciente.desbloquear");
 Route::get("/paciente/verPassword/{id}", [pacienteController::class, 'verPassword'])->name("paciente.verPassword");
 Route::get("/paciente/historial/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
+Route::get("/paciente/verArchivo/{id}", [pacienteController::class, 'verHistorial'])->name("paciente.verHistorial");
 Route::get("/paciente/buscar", [pacienteController::class, 'buscar'])->name("paciente.buscar");
 Route::post("/paciente/buscar", [pacienteController::class, 'search'])->name("paciente.search");
+Route::get("/paciente/ajax-buscar", [pacienteController::class, 'ajaxBuscar'])->name('paciente.ajaxBuscar');
 
 //MEDICO
 Route::get("/medico", [medicoController::class, 'index'])->name("medico.index");
@@ -73,6 +75,8 @@ Route::get("/receta", [consultaController::class, 'index'])->name("consulta.inde
 Route::Post("/receta/save", [recetaController::class, 'recetaSave'])->name("receta.save");
 Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edit");
 Route::get("/receta/print/{id}", [recetaController::class, 'print'])->name("receta.print");
+Route::get("/receta/printCompleto/{id}", [recetaController::class, 'printCompleto'])->name("receta.printCompleto");
+Route::get("/receta/printOld/{id}", [recetaController::class, 'printOld'])->name("receta.printOld");
 
 /*Certificado*/
 Route::Post("/certificado/insert", [certificadoController::class, 'insert'])->name("certificado.insert");
@@ -90,8 +94,10 @@ Route::get("/constancia/print/{id}", [constanciaController::class, 'print'])->na
 /*Archivo*/
 Route::Post("/archivo/insert", [archivoController::class, 'insert'])->name("archivo.insert");
 Route::get("/archivo/delete/{id}", [archivoController::class, 'delete'])->name("archivo.delete");
+Route::get("/paciente/verArchivo/{id}", [archivoController::class, 'verArchivos'])->name("paciente.verArchivo");
 
 Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("imprimir.select");
+Route::Post("/imprimir/selectToPrint", [consultaController::class, 'selectToPrint'])->name("imprimir.selectToPrint");
 
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -114,9 +120,9 @@ Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("im
 
 
 //NOTIFICACIONES
-Route::get("/notificacion/{id}", [resultadoController::class, 'notificacion'])->name("notificacion.orden");
-Route::get("/notificacion/ordenTerminada/{id}", [resultadoController::class, 'ordenTerminada'])->name("notificacion.ordenTerminada");
-Route::get("/notificacion/borrar/todas", [Controller::class, 'notificacionBorrarTodas'])->name("notificacion.borrarTodas");
+//Route::get("/notificacion/{id}", [resultadoController::class, 'notificacion'])->name("notificacion.orden");
+//Route::get("/notificacion/ordenTerminada/{id}", [resultadoController::class, 'ordenTerminada'])->name("notificacion.ordenTerminada");
+//Route::get("/notificacion/borrar/todas", [Controller::class, 'notificacionBorrarTodas'])->name("notificacion.borrarTodas");
 
 //VALIDACIONES
 Route::get("/consultar/{cedula}", [pacienteController::class, 'consultar'])->name("consultar.cedula");

@@ -9,6 +9,56 @@
     @include('scripts.menorEdad')
 @endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            // Inicializar la tabla primero
+            var table = $('#datable_1').DataTable();
+            
+            // Configurar búsqueda después de que la tabla esté lista
+            $('#datable_1').on('init.dt', function () {
+                // Búsqueda dinámica en tiempo real
+                $('#customSearch').off('keyup').on('keyup', function() {
+                    table.search(this.value).draw();
+                });
+                
+                // Búsqueda al hacer clic en el botón
+                $('#customSearchBtn').off('click').on('click', function() {
+                    var searchValue = $('#customSearch').val();
+                    table.search(searchValue).draw();
+                });
+                
+                // Búsqueda al presionar Enter
+                $('#customSearch').off('keypress').on('keypress', function(e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+            
+            // También configurar los eventos inmediatamente como respaldo
+            setTimeout(function() {
+                $('#customSearch').off('keyup').on('keyup', function() {
+                    table.search(this.value).draw();
+                });
+                
+                $('#customSearchBtn').off('click').on('click', function() {
+                    var searchValue = $('#customSearch').val();
+                    table.search(searchValue).draw();
+                });
+                
+                $('#customSearch').off('keypress').on('keypress', function(e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                        table.search(this.value).draw();
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+@endsection
+
 @section('contenido')
     				
     <div class="row">
@@ -39,6 +89,14 @@
                     <div class="panel-body">
                         <div class="table-wrap">
                             <div class="table-responsive">
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-md-4">
+                                        <input type="text" id="customSearch" class="form-control" placeholder="Buscar paciente...">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="customSearchBtn" class="btn btn-primary">Buscar</button>
+                                    </div>
+                                    </div>
                                 <table id="datable_1" class="table table-hover display  pb-30" cellspacing="0"  style="width:100%">
                                     <thead>
                                         <tr>
@@ -48,7 +106,7 @@
                                             <th>Sexo</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Email</th>
+                                            <!--<th>Email</th>-->
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -64,7 +122,7 @@
                                                 {{$fila->edad()}}
                                             </td>
                                             <td>{{$fila->telefono_paciente}}</td>
-                                            <td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>
+                                            <!--<td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>-->
                                             <td>
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
                                                   
@@ -122,7 +180,7 @@
                                             <th>Sexo</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Email</th>
+                                            <!--<th>Email</th>-->
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -140,7 +198,6 @@
 
     ,"order": [[0,'desc']]
      ,"columns": [
-      null,
       null,
       null,
       null,

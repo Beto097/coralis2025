@@ -14,6 +14,8 @@
                                 @if (Route::is('consulta.index'))
                                     
                                     <x-subir-archivo  :id="$fila->paciente->id"/>
+                                @elseif(Route::is('paciente.verArchivo'))
+                                    <x-subir-archivo  :id="$paciente->id"/>
                                 @else
                                     <x-subir-archivo  :id="$consulta->paciente->id"/>
                                 @endif
