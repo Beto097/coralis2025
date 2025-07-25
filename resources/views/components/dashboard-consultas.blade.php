@@ -45,7 +45,7 @@
                 "use strict";
         
                 // Cargar colores desde el archivo JSON
-                $.getJSON('/js/tonos.json', function (turquesas) {
+                $.getJSON('{{ asset('js/tonos.json') }}', function (turquesas) {
         
                     // Solo si hay el contenedor del gráfico
                     if ($('#flot_pie_chart').length > 0) {
@@ -100,7 +100,7 @@
             $(function() {
                 "use strict";
                 
-                $.getJSON('/js/tonos.json', function (turquesas) {
+                $.getJSON('{{ asset('js/tonos.json') }}', function (turquesas) {
                 /***Pie Chart***/
                     if( $('#flot_pie_chart2').length > 0 ){
                         var pie_data = [
