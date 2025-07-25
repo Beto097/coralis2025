@@ -93,7 +93,7 @@
                 <div>
                     <p id="fila" style="margin-top: 125px; padding-left: 205px;">{{$consulta->diagnostico}} </p>
                 </div>
-                <div style="margin-top: 85px; padding-left: 205px;">
+                <div style="margin-top: 115px; padding-left: 205px;">
                     @foreach ($recetas as $key => $receta)
                         <p  id="fila" style="margin-top: 20px; padding-left:-5px;">{{$key+1}}. {{$receta->medicamento}}  #{{$receta->cantidad}} </p>
                         <p  id="bodyMed" style="margin-top: -20px; padding-left:25px;">{{$receta->dosis}} </p>

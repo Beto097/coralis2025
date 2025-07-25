@@ -84,10 +84,10 @@ function guardarReceta() {
         return;
     }
     
-    console.log('Abriendo PDF completo en nueva ventana...');
+    console.log('Abriendo PDF simple en nueva ventana...');
     
-    // Abrir directamente la URL del PDF completo
-    const url = '/receta/printCompleto/' + consultaId;
+    // Abrir directamente la URL del PDF simple
+    const url = '/receta/print/' + consultaId;
     window.open(url, '_blank');
 }
 
@@ -112,7 +112,7 @@ function imprimirDocumento() {
     let url;
     switch(selectDocumento.value) {
         case 'receta':
-            url = '/receta/print/' + consultaId;
+            url = '/receta/printCompleto/' + consultaId;
             break;
         case 'certificado':
             url = '/certificado/print/' + consultaId;
