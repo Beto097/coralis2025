@@ -28,7 +28,7 @@
                                     <x-lista-medicos/>
                                     <div class="form-group col-md-6">
                                         <label for="">Motivo de visita</label>
-                                        <select class="form-control" name="selectMotivo" id="selectMotivo" required>
+                                        <select class="form-control" name="selectMotivo" id="selectMotivo{{$fila->id}}" required onchange="toggleOtroMotivo({{$fila->id}})">
                                             <option value="Control de Salud">Control de Salud</option>
                                             <option value="Consulta regular">Consulta regular</option>
                                             <option value="Certificado de buena salud">Certificado de buena salud</option>
@@ -37,6 +37,10 @@
                                             <option value="Certificado prenupcial">Certificado prenupcial</option>
                                             <option value="Otro">Otro</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="">Otro motivo</label>
+                                        <input type="text" class="form-control" name="txtOtroMotivo" id="txtOtroMotivo{{$fila->id}}" placeholder="Especifique el motivo de consulta" disabled>
                                     </div>
                                 </div>
                                 <input type="hidden" name="tipo" value='
@@ -62,3 +66,25 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+function toggleOtroMotivo(pacienteId) {
+    const selectMotivo = document.getElementById('selectMotivo' + pacienteId);
+    const txtOtroMotivo = document.getElementById('txtOtroMotivo' + pacienteId);
+    
+    if (selectMotivo.value === 'Otro') {
+        txtOtroMotivo.disabled = false;
+        txtOtroMotivo.required = true;
+        txtOtroMotivo.focus();
+    } else {
+        txtOtroMotivo.disabled = true;
+        txtOtroMotivo.required = false;
+        txtOtroMotivo.value = '';
+    }
+}
+
+function validarSeleccion() {
+    // Función existente - mantener la lógica original si existe
+    return true;
+}
+</script>
