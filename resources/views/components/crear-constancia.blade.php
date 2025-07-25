@@ -10,7 +10,7 @@
     </div> 
     <div class="form-group col-md-4">
         <label for="" name="fecha_constancia">Fecha:</label>
-        <input type="date" class="form-control" name="fecha_constancia" required/>
+        <input type="date" class="form-control" name="fecha_constancia" value="{{ date('Y-m-d') }}" required/>
     </div>
 </div>
 

@@ -1,33 +1,32 @@
 <div class="form-group col-md-12 col-sm-12 col-xs-12">                                        
     <div class="input-group mb-3">
-        <label for="">Seleccione el documento a imprimir</label>                                                                           
+        <label for="">Seleccione el documento a imprimir</label>
         <div class="col-sm-12">
-            <select class="form-control" name="selectDocumento" id="selectDocumento" onchange="console.log('Select changed to:', this.value); toggleButtons(this); if(this.value === 'receta') mostrarBotones();">
+            <select class="form-control" name="selectDocumento" id="selectDocumento{{ $consulta ? $consulta->id : '' }}" onchange="console.log('Select changed to:', this.value); toggleButtons(this); if(this.value === 'receta') mostrarBotones();">
                 
-                @if ($consulta->tieneCertificado())
+                @if ($consulta && $consulta->tieneCertificado())
                     <option value="certificado">Certificado</option>
                 @endif
-                @if ($consulta->tieneConstancia())
+                @if ($consulta && $consulta->tieneConstancia())
                     <option value="constancia">Constancia</option>
                 @endif
-                @if ($consulta->tieneReferencia())
+                @if ($consulta && $consulta->tieneReferencia())
                     <option value="referencia">Referencia</option>
                 @endif
-                @if ($consulta->tieneReceta())
+                @if ($consulta && $consulta->tieneReceta())
                     <option value="receta">Receta</option>
                 @endif
                 
             </select>
         </div>
     </div>
-        
     
 </div>
 <div class="modal-footer">  
-    <input type="hidden" name="txtId" id="txtId" class="form-control form-control-sm" value="{{$consulta->id}}">                                      
-    <button type="button" id="btnImprimirViejo" class="btn btn-warning text-left" style="display: @if($consulta->tieneReceta() && !$consulta->tieneCertificado() && !$consulta->tieneConstancia() && !$consulta->tieneReferencia()) inline-block @else none @endif;" onclick="imprimirRecetaOld()">Imprimir Viejo</button>
-    <button type="button" id="btnCrearModal2" class="btn btn-primary text-left" onclick="imprimirDocumento()">Imprimir</button>
-    <button type="button" id="btnGuardarReceta" class="btn btn-success text-left" style="display: @if($consulta->tieneReceta() && !$consulta->tieneCertificado() && !$consulta->tieneConstancia() && !$consulta->tieneReferencia()) inline-block @else none @endif;" onclick="guardarReceta()">Guardar</button>
+    <input type="hidden" name="txtId" id="txtId{{ $consulta ? $consulta->id : '' }}" class="form-control form-control-sm" value="{{ $consulta ? $consulta->id : '' }}">                                      
+    <button type="button" id="btnImprimirViejo{{ $consulta ? $consulta->id : '' }}" class="btn btn-warning text-left" style="display: @if($consulta && $consulta->tieneReceta() && !$consulta->tieneCertificado() && !$consulta->tieneConstancia() && !$consulta->tieneReferencia()) inline-block @else none @endif;" onclick="imprimirRecetaOld({{ $consulta ? $consulta->id : '' }})">Imprimir Viejo</button>
+    <button type="button" id="btnCrearModal2{{ $consulta ? $consulta->id : '' }}" class="btn btn-primary text-left" onclick="imprimirDocumento({{ $consulta ? $consulta->id : '' }})">Imprimir</button>
+    <button type="button" id="btnGuardarReceta{{ $consulta ? $consulta->id : '' }}" class="btn btn-success text-left" style="display: @if($consulta && $consulta->tieneReceta() && !$consulta->tieneCertificado() && !$consulta->tieneConstancia() && !$consulta->tieneReferencia()) inline-block @else none @endif;" onclick="guardarReceta({{ $consulta ? $consulta->id : '' }})">Guardar</button>
     
 </div>
 
@@ -69,9 +68,8 @@ function mostrarBotones() {
     console.log('Botones mostrados manualmente');
 }
 
-function guardarReceta() {
-    const selectDocumento = document.getElementById('selectDocumento');
-    const consultaId = document.getElementById('txtId').value;
+function guardarReceta(consultaId) {
+    const selectDocumento = document.getElementById('selectDocumento' + consultaId);
     
     if (!selectDocumento || !consultaId) {
         alert('Error: No se pudo encontrar los datos necesarios.');
@@ -91,9 +89,8 @@ function guardarReceta() {
     window.open(url, '_blank');
 }
 
-function imprimirDocumento() {
-    const selectDocumento = document.getElementById('selectDocumento');
-    const consultaId = document.getElementById('txtId').value;
+function imprimirDocumento(consultaId) {
+    const selectDocumento = document.getElementById('selectDocumento' + consultaId);
     
     if (!selectDocumento || !consultaId) {
         alert('Error: No se pudo encontrar los datos necesarios.');
@@ -132,9 +129,7 @@ function imprimirDocumento() {
     window.open(url, '_blank');
 }
 
-function imprimirRecetaOld() {
-    const consultaId = document.getElementById('txtId').value;
-    
+function imprimirRecetaOld(consultaId) {
     if (!consultaId) {
         alert('Error: No se pudo encontrar el ID de la consulta.');
         return;

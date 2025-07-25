@@ -50,23 +50,38 @@
                 <p style="padding-top: 375px; padding-left: 780px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             <div>
-                <p style="margin-top: 10; padding-left: 780px;">{{\Carbon\Carbon::parse($constancia->fecha)->format('d-m-Y')}} </p>
+                <p style="margin-top: 10; padding-left: 780px;">
+                    @if($constancia && $constancia->fecha)
+                        {{\Carbon\Carbon::parse($constancia->fecha)->format('d-m-Y')}}
+                    @else
+                        {{ date('d-m-Y') }}
+                    @endif
+                </p>
             </div>
             <div>
                 <p style="margin-top:30px; padding-left: 450px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> 
             </div>
             @php
-                $hora_inicio24 = $constancia->hora_inicio;
-                $hora_fin24 = $constancia->hora_fin;
-                $hora_inicio12 = \Carbon\Carbon::createFromFormat('H:i', $hora_inicio24)->format('g:i A');
-                $hora_fin12 = \Carbon\Carbon::createFromFormat('H:i', $hora_fin24)->format('g:i A');
+                if($constancia && $constancia->hora_inicio && $constancia->hora_fin) {
+                    $hora_inicio24 = $constancia->hora_inicio;
+                    $hora_fin24 = $constancia->hora_fin;
+                    $hora_inicio12 = \Carbon\Carbon::createFromFormat('H:i', $hora_inicio24)->format('g:i A');
+                    $hora_fin12 = \Carbon\Carbon::createFromFormat('H:i', $hora_fin24)->format('g:i A');
+                } else {
+                    $hora_inicio12 = '8:00 AM';
+                    $hora_fin12 = '5:00 PM';
+                }
             @endphp
             <div>
                 <p style="margin-top: 15; padding-left: 600px;">{{$hora_inicio12}}</p><p style="margin-top: -30; padding-left: 780px;">{{$hora_fin12}}</p>
             </div>
             
             @php
-                [$anio, $mesNum, $dia] = explode('-', $constancia->fecha);
+                if($constancia && $constancia->fecha) {
+                    [$anio, $mesNum, $dia] = explode('-', $constancia->fecha);
+                } else {
+                    [$anio, $mesNum, $dia] = explode('-', date('Y-m-d'));
+                }
                 $meses = [
                     '01' => 'enero', '02' => 'febrero', '03' => 'marzo',
                     '04' => 'abril', '05' => 'mayo', '06' => 'junio',
@@ -74,7 +89,6 @@
                     '10' => 'octubre', '11' => 'noviembre', '12' => 'diciembre'
                 ];
                 $mes = $meses[$mesNum];
-
             @endphp
             <div>
                 <p style="margin-top:-10; padding-left: 260px;">{{$dia}}</p><p style="margin-top: -30; padding-left: 400px;">{{$mes}}</p><p style="margin-top: -30; padding-left: 560px;">{{$anio}}</p>

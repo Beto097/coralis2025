@@ -91,7 +91,15 @@ class constanciaController extends Controller
 
             $consulta = consulta::find($id);
             
+            if (!$consulta) {
+                return redirect()->back()->withErrors(['danger' => "No se encontró la consulta especificada."]);
+            }
+            
             $constancia = constancia::where('consulta_id', $id)->first();
+            
+            if (!$constancia) {
+                return redirect()->back()->withErrors(['danger' => "No se encontró una constancia para esta consulta. Debe crear la constancia primero."]);
+            }
             
             $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
             $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
