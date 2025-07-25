@@ -175,7 +175,7 @@
                                       <td>
                                                                              
                                         @if ($fila->tieneImprimir())
-                                          <button class="btn btn-warning" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
+                                          <button class="btn btn-warning" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                           </button>
                                           @include('modals.ImprimirModals')
