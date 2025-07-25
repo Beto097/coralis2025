@@ -25,32 +25,35 @@
             <div class="panel-heading">
                 <div>
                   <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                       <h6 class="panel-title txt-dark">{{$paciente->nombre_paciente}} {{$paciente->apellido_paciente}}</h6>   
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-10 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
+                        <div class="col-sm-8 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
                         <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
-                            Crear Receta
+                          @if ($consulta->tieneReceta())
+                              Editar Receta
+                          @else
+                              Crear Receta
+                          @endif
                         </button>
                         @if ($consulta->tieneReceta())
                             @include('modals.editarRecetaModals')
-                        @else
-                            @include('modals.RecetaModals') 
-                        @endif
-
+                          @else
+                              @include('modals.RecetaModals') 
+                          @endif
                         @if (!$consulta->tieneReferencia())
                             <button class="btn btn-danger font-weight-bold" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
-                                Crear Referencia
+                                Referencia
                             </button>
                             @include('modals.ReferenciaModals')                            
                         @endif 
 
                         @if (!$consulta->tieneConstancia())
                             <button class="btn btn-warning font-weight-bold" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
-                                Crear Constancia
+                                Constancia
                             </button>
                             @include('modals.ConstanciaModals')
                         @endif   
@@ -63,21 +66,21 @@
 
                     @if (!$consulta->tieneCertificado())
                         <button class="btn btn-info font-weight-bold" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
-                            Crear Certificado
+                            Certificado B. Salud
                         </button>
                         @include('modals.CertificadoModals')                          
                     @endif
 
                     @if ($consulta->tieneImprimir())
-                        <button class="btn btn-warning font-weight-bold" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
-                            Imprimir Documentos
+                        <button class="btn btn-warning font-weight-bold" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$consulta->id}}">
+                            Papelería
                         </button>
                         @include('modals.ImprimirModals2')
                     @endif
 
                     @if ($consulta->estado_consulta != 'TERMINADA')
                         <button class="btn btn-primary font-weight-bold" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">
-                            Registrar Consulta
+                            Atender Consulta
                         </button>
                         @include('modals.RegistroModals')  
                     @endif
@@ -172,7 +175,7 @@
                                       <td>
                                                                              
                                         @if ($fila->tieneImprimir())
-                                          <button class="btn  btn-warning" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$fila->id}}">
+                                          <button class="btn btn-warning" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal">
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                           </button>
                                           @include('modals.ImprimirModals')
@@ -280,18 +283,23 @@
               },
               body: formData
           })
-          .then(response => response.json())
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+          })
           .then(data => {
               if (data.success && data.pdf_url) {
                   $('#addNewConstanciaModal').modal('hide');
                   window.open(data.pdf_url, '_blank');
               } else {
-                  alert('Error al generar constancia');
+                  alert('Error al generar constancia: ' + (data.error || 'Error desconocido'));
               }
           })
           .catch(error => {
-              console.error(error);
-              alert('Error inesperado');
+              console.error('Error completo:', error);
+              alert('Error inesperado: ' + (error.message || error));
           });
       });
   });

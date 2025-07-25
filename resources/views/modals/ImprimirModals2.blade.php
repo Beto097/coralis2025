@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="imprimirModal" aria-hidden="true" style="display: none;">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="imprimirModal{{$consulta->id}}" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form id="formCrearConstancia" action="{{ route('imprimir.select') }}" method="POST" role="form">
+                            <form id="formCrearConstancia{{$consulta->id}}" action="/imprimir/select" method="POST" role="form">
                                 @csrf
                                 <x-imprimir-documento :resultado="$consulta"/> 
                             </form> 

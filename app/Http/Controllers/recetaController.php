@@ -25,17 +25,44 @@ class recetaController extends Controller
 
         if(Auth::user()->accesoRuta('/receta/create')){
 
+            // Validar que todos los arrays tengan datos y la misma longitud
+            $txtTipo = $request->txtTipo ?? [];
+            $txtMedicamento = $request->txtMedicamento ?? [];
+            $txtDosis = $request->txtDosis ?? [];
+            $txtCantidad = $request->txtCantidad ?? [];
+            $txtTratamiento = $request->txtTratamiento ?? [];
+
+            // Verificar que todos los arrays tengan la misma longitud
+            $expectedCount = count($txtCantidad);
+            if (count($txtTipo) !== $expectedCount || 
+                count($txtMedicamento) !== $expectedCount || 
+                count($txtDosis) !== $expectedCount || 
+                count($txtTratamiento) !== $expectedCount) {
+                
+                return back()->with('error', 'Error en los datos del formulario. Todos los campos son requeridos.');
+            }
+
+            // Verificar que no haya campos vacíos
+            for ($i = 0; $i < $expectedCount; $i++) {
+                if (empty($txtTipo[$i]) || empty($txtMedicamento[$i]) || 
+                    empty($txtDosis[$i]) || empty($txtCantidad[$i]) || 
+                    empty($txtTratamiento[$i])) {
+                    
+                    return back()->with('error', 'Todos los campos de la receta son requeridos.');
+                }
+            }
+
             $numeroBase = receta::ultimaReceta();
             // Agrupar datos por tipo de dosis
             $data = [];
-            for ($i = 0; $i < count($request->txtCantidad); $i++) {
-                $tipo= $request->txtTipo[$i];
+            for ($i = 0; $i < $expectedCount; $i++) {
+                $tipo = $txtTipo[$i];
                 $data[$tipo][] = [
-                    'cantidad' => $request->txtCantidad[$i],
-                    'medicamento' => $request->txtMedicamento[$i],
-                    'tipo' =>$tipo,
-                    'dosis' => $request->txtDosis[$i],
-                    'tratamiento' => $request->txtTratamiento[$i],
+                    'cantidad' => $txtCantidad[$i],
+                    'medicamento' => $txtMedicamento[$i],
+                    'tipo' => $tipo,
+                    'dosis' => $txtDosis[$i],
+                    'tratamiento' => $txtTratamiento[$i],
                 ];
             }
             $contadorGlobal = $numeroBase;
@@ -89,28 +116,52 @@ class recetaController extends Controller
 
         if(Auth::user()->accesoRuta('/receta/create')){
             
-                
-                
             receta::where('consulta_id',$request->txtIdConsulta)->delete();
+
+            // Validar que todos los arrays tengan datos y la misma longitud
+            $txtTipo = $request->txtTipo ?? [];
+            $txtMedicamento = $request->txtMedicamento ?? [];
+            $txtDosis = $request->txtDosis ?? [];
+            $txtCantidad = $request->txtCantidad ?? [];
+            $txtTratamiento = $request->txtTratamiento ?? [];
+
+            // Si no hay datos, retornar con éxito (todos los elementos fueron eliminados)
+            if (empty($txtCantidad)) {
+                return redirect()->back()->withErrors(['status' => "Se ha actualizado correctamente la receta"]);
+            }
+
+            // Verificar que todos los arrays tengan la misma longitud
+            $expectedCount = count($txtCantidad);
+            if (count($txtTipo) !== $expectedCount || 
+                count($txtMedicamento) !== $expectedCount || 
+                count($txtDosis) !== $expectedCount || 
+                count($txtTratamiento) !== $expectedCount) {
+                
+                return back()->with('error', 'Error en los datos del formulario. Todos los campos son requeridos.');
+            }
+
+            // Verificar que no haya campos vacíos
+            for ($i = 0; $i < $expectedCount; $i++) {
+                if (empty($txtTipo[$i]) || empty($txtMedicamento[$i]) || 
+                    empty($txtDosis[$i]) || empty($txtCantidad[$i]) || 
+                    empty($txtTratamiento[$i])) {
+                    
+                    return back()->with('error', 'Todos los campos de la receta son requeridos.');
+                }
+            }
 
             $numeroBase = receta::ultimaReceta();
             // Agrupar datos por tipo de dosis
             $data = [];
 
-
-            if(!isset($request->txtCantidad)) {
-                return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
-            }
-          
-
-            for ($i = 0; $i < count($request->txtCantidad); $i++) {
-                $tipo= $request->txtTipo[$i];
+            for ($i = 0; $i < $expectedCount; $i++) {
+                $tipo = $txtTipo[$i];
                 $data[$tipo][] = [
-                    'cantidad' => $request->txtCantidad[$i],
-                    'medicamento' => $request->txtMedicamento[$i],
-                    'tipo' =>$tipo,
-                    'dosis' => $request->txtDosis[$i],
-                    'tratamiento' => $request->txtTratamiento[$i],
+                    'cantidad' => $txtCantidad[$i],
+                    'medicamento' => $txtMedicamento[$i],
+                    'tipo' => $tipo,
+                    'dosis' => $txtDosis[$i],
+                    'tratamiento' => $txtTratamiento[$i],
                 ];
             }
             $contadorGlobal = $numeroBase;
@@ -138,7 +189,7 @@ class recetaController extends Controller
    
            
 
-            return redirect()->back()->withErrors(['status' => "Se ha creado correctamente la receta"]);
+            return redirect()->back()->withErrors(['status' => "Se ha actualizado correctamente la receta"]);
 
             
            
@@ -195,6 +246,41 @@ class recetaController extends Controller
 
 
     }
+
+    public function printCompleto($id){
+        
+        if (!Auth::user()) {
+
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/receta/imprimir')){
+
+            $consulta = consulta::with('recetas')->find($id);
+            
+            $grupos = $consulta->recetas->groupBy('numero');
+            $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
+            $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
+
+            
+            $firmaExiste = File::exists($firmaPath);
+            $selloExiste = File::exists($selloPath);
+
+            $pdf = \PDF::loadView('consulta.pdfCompleto', [
+                'consulta' => $consulta,
+                'grupos' => $grupos,
+                'firma' => $firmaExiste,
+                'sello' => $selloExiste
+            ])->setPaper('letter', 'landscape');
+
+            $nombreArchivo = 'Receta Completa '.$consulta->paciente->identificacion_paciente.'.pdf';
+            return $pdf->stream($nombreArchivo);
+            
+        }
+
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
+    }
     public function buscarMedicamento(Request $request)
     {
         $term = $request->get('term');
@@ -205,6 +291,33 @@ class recetaController extends Controller
             ->pluck('nombre');
 
         return response()->json($medicamentos);
+    }
+
+    public function printOld($id){
+
+        if (!Auth::user()) {
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+
+        if(Auth::user()->accesoRuta('/receta/imprimir')){
+            
+            $consulta = consulta::with('recetas')->find($id);
+            
+            $grupos = $consulta->recetas->groupBy('numero');
+            $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
+            $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");
+
+            $firma = File::exists($firmaPath);
+            $sello = File::exists($selloPath);
+
+            $pdf = \PDF::loadView('consulta.pdfOld', compact('grupos', 'consulta', 'firma', 'sello'));
+            $pdf->setPaper([0, 0, 612, 792], 'landscape'); // 8.5x11 inches landscape
+
+            return $pdf->stream('receta-old-'.$consulta->id.'.pdf');
+        }
+
+        return redirect()->back()->withErrors(['danger' => "No tienes acceso a esta funcion." ]);
     }
 
 

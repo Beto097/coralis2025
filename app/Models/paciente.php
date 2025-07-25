@@ -12,7 +12,7 @@ class paciente extends Model
 
     public function consultas()
     {
-        return $this->hasMany('App\Models\consulta');
+        return $this->hasMany('App\Models\consulta')->orderBy('fecha_consulta', 'desc');
     }
 
 

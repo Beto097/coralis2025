@@ -75,6 +75,8 @@ Route::get("/receta", [consultaController::class, 'index'])->name("consulta.inde
 Route::Post("/receta/save", [recetaController::class, 'recetaSave'])->name("receta.save");
 Route::Post("/receta/edit", [recetaController::class, 'edit'])->name("receta.edit");
 Route::get("/receta/print/{id}", [recetaController::class, 'print'])->name("receta.print");
+Route::get("/receta/printCompleto/{id}", [recetaController::class, 'printCompleto'])->name("receta.printCompleto");
+Route::get("/receta/printOld/{id}", [recetaController::class, 'printOld'])->name("receta.printOld");
 
 /*Certificado*/
 Route::Post("/certificado/insert", [certificadoController::class, 'insert'])->name("certificado.insert");
@@ -95,6 +97,7 @@ Route::get("/archivo/delete/{id}", [archivoController::class, 'delete'])->name("
 Route::get("/paciente/verArchivo/{id}", [archivoController::class, 'verArchivos'])->name("paciente.verArchivo");
 
 Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("imprimir.select");
+Route::Post("/imprimir/selectToPrint", [consultaController::class, 'selectToPrint'])->name("imprimir.selectToPrint");
 
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -117,9 +120,9 @@ Route::Post("/imprimir/select", [consultaController::class, 'select'])->name("im
 
 
 //NOTIFICACIONES
-Route::get("/notificacion/{id}", [resultadoController::class, 'notificacion'])->name("notificacion.orden");
-Route::get("/notificacion/ordenTerminada/{id}", [resultadoController::class, 'ordenTerminada'])->name("notificacion.ordenTerminada");
-Route::get("/notificacion/borrar/todas", [Controller::class, 'notificacionBorrarTodas'])->name("notificacion.borrarTodas");
+//Route::get("/notificacion/{id}", [resultadoController::class, 'notificacion'])->name("notificacion.orden");
+//Route::get("/notificacion/ordenTerminada/{id}", [resultadoController::class, 'ordenTerminada'])->name("notificacion.ordenTerminada");
+//Route::get("/notificacion/borrar/todas", [Controller::class, 'notificacionBorrarTodas'])->name("notificacion.borrarTodas");
 
 //VALIDACIONES
 Route::get("/consultar/{cedula}", [pacienteController::class, 'consultar'])->name("consultar.cedula");

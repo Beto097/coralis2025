@@ -56,7 +56,7 @@
                                             <th>Sexo</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Email</th>
+                                            <!--<th>Email</th>-->
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -72,7 +72,7 @@
                                                 {{$fila->edad()}}
                                             </td>
                                             <td>{{$fila->telefono_paciente}}</td>
-                                            <td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>
+                                            <!--<td><p style="font-size: 90%;">{{$fila->email_paciente}}</p></td>-->
                                             <td>
                                                 @if (Auth::user()->accesoRuta('/consulta/create'))  
                                                   
@@ -130,7 +130,7 @@
                                             <th>Sexo</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Email</th>
+                                            <!--<th>Email</th>-->
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
