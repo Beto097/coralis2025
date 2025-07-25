@@ -77,7 +77,7 @@ class consultaController extends Controller
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$id;
             $obj_consulta->estado_consulta = 'Pendiente';
-            $obj_consulta->motivo_consulta = $request->selectMotivo;
+            $obj_consulta->motivo_consulta = $request->selectMotivo === 'Otro' ? $request->txtOtroMotivo : $request->selectMotivo;
             $obj_consulta->usuario_id = Auth::user()->id;
             $obj_consulta->sucursal_id = Auth::user()->sucursal_id;      
             
@@ -115,7 +115,7 @@ class consultaController extends Controller
             $obj_consulta = new consulta();        
             $obj_consulta->paciente_id=$paciente->id;
             $obj_consulta->estado_consulta = 'Pendiente';
-            $obj_consulta->motivo_consulta = $request->selectMotivo;
+            $obj_consulta->motivo_consulta = $request->selectMotivo === 'Otro' ? $request->txtOtroMotivo : $request->selectMotivo;
             $obj_consulta->usuario_id = Auth::user()->id;
             $obj_consulta->sucursal_id = Auth::user()->sucursal_id;  
 
@@ -144,7 +144,7 @@ class consultaController extends Controller
             $obj_consulta = new consulta();   
             $obj_consulta->paciente_id= $request->paciente_id;
             $obj_consulta->estado_consulta = 'Pendiente';   
-            $obj_consulta->motivo_consulta = $request->selectMotivo;
+            $obj_consulta->motivo_consulta = $request->selectMotivo === 'Otro' ? $request->txtOtroMotivo : $request->selectMotivo;
             $obj_consulta->sucursal_id = Auth::user()->sucursal_id; 
             $obj_consulta->medico_id =  $request->selectMedico;
             
