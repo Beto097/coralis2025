@@ -11,6 +11,8 @@
                         <div class="form-wrap">
                             <form action="{{route('archivo.insert')}}" method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
                                 @csrf
+                                <!-- Campo hidden para ayudar con el límite de tamaño -->
+                                <input type="hidden" name="MAX_FILE_SIZE" value="209715200" />
                                 @if (Route::is('consulta.index'))
                                     
                                     <x-subir-archivo  :id="$fila->paciente->id"/>

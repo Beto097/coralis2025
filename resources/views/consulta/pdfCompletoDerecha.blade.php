@@ -39,9 +39,9 @@
       margin: 0;
       padding: 0;
       background-image: url('{{ public_path('img/MembreteReceta.png') }}');
-      background-size: 50% auto; /* Ajustar imagen a todo el ancho */
+      background-size: 50% auto; /* Ajustar imagen a la mitad derecha */
       background-repeat: no-repeat;
-      background-position: left center; /* Posicionar a la izquierda */
+      background-position: right center; /* Posicionar a la derecha */
     }
 
     .pagina {
@@ -55,10 +55,10 @@
     }
 
     .contenido-derecho {
-      width: 100%; /* Usar todo el ancho */
+      width: 50%; /* Solo la mitad derecha */
       height: 100%;
       position: relative;
-      margin-left: 0%; /* Sin margen izquierdo */
+      margin-left: 50%; /* Empujar hacia la derecha */
     }
   </style>
   <!-- CSS only -->
