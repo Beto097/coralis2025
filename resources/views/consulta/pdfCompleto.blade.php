@@ -91,7 +91,7 @@
                     <p id="head" style="margin-top: 3px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
                 </div>
                 <div>
-                    <p id="fila" style="margin-top: 125px; padding-left: 205px;">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
+                    <p id="fila" style="margin-top: 125px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
                 </div>
                 <div style="margin-top: 115px; padding-left: 200px;max-width: 1200px">
                     @foreach ($recetas as $key => $receta)
