@@ -32,7 +32,7 @@
         font-family: Helvetica, sans-serif;        
         font-size:25px;
         color: black;
-        width: 75%;
+        width: 60%;
     }
 
     body {
