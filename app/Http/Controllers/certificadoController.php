@@ -52,9 +52,15 @@ class certificadoController extends Controller
 
             $consulta = consulta::find($id);
             
-            $numero = certificado::max('numero');
-
-            $fecha_certificado = certificado::where('numero', $numero)->value('fecha_certificado');
+            // CORREGIDO: Obtener el certificado específico de esta consulta
+            $certificadoConsulta = certificado::where('consulta_id', $id)->first();
+            
+            if (!$certificadoConsulta) {
+                return redirect()->back()->withErrors(['danger' => "No existe certificado para esta consulta."]);
+            }
+            
+            $numero = $certificadoConsulta->numero;
+            $fecha_certificado = $certificadoConsulta->fecha_certificado;
 
             $firmaPath = public_path("img/firmas/{$consulta->doctor->nombre_usuario}.PNG");
             $selloPath = public_path("img/sellos/{$consulta->doctor->nombre_usuario}.PNG");

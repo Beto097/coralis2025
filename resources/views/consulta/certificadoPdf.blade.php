@@ -53,7 +53,7 @@
                 <p style="position:absolute; margin-top: 22px; padding-left: 145px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="position:absolute; margin-top: 22px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             
-            <div style="position:absolute; text-align: left width: 10%; margin-top: 115px; margin-left: 130px;">
+            <div style="position:absolute; text-align: left; width: 10%; margin-top: 115px; margin-left: 130px;">
                 @if($firma)
                     <img src="img/firmas/{{$consulta->doctor->nombre_usuario}}.PNG" width="150"/>
                 @endif
