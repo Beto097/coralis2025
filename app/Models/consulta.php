@@ -126,6 +126,24 @@ class consulta extends Model
 
         return false;
     }
+
+    public function tieneOrden(){
+
+        $exite = orden::where('consulta_id',$this->id)->count();
+
+        if ($exite>0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function orden(){
+
+        return orden::where('consulta_id',$this->id)->first();
+
+    
+    }
     
 
 }

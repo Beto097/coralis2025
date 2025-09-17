@@ -68,4 +68,11 @@ class User extends Authenticatable
         }
         return false;
     }
+
+        public function nombreCompleto(){
+        
+        return $this->primer_nombre_usuario.' '.$this->apellido_usuario;
+
+        
+    }
 }

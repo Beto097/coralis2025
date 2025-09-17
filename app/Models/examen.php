@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class examen extends Model
 {
     use HasFactory;
-    protected $table = "examen";
+    protected $table = "examen2";
     protected $primaryKey="id";
     protected $fillable=array("nombre_examen","codigo_examen","detalle_examen","tipo_examen_id");
 
@@ -26,6 +26,12 @@ class examen extends Model
     public function examen_caracteristica_examen()
     {
         return $this->hasMany('App\Models\examen_caracteristica_examen');
+    }
+
+    public function ordenes()
+    {
+        return $this->belongsToMany(Orden::class, 'examen_orden', 'examen_id', 'orden_id')
+                    ->withTimestamps();
     }
 
     

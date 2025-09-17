@@ -75,6 +75,14 @@ class paciente extends Model
         return $segundoNombre;
     }
 
+    public function nombreCompleto(){
+        
+        return $this->nombres(1).' '.$this->apellidos(1);
+
+        
+    }
+
+
     public function archivos(){
         
         return $this->hasMany('App\Models\archivo');

@@ -32,13 +32,13 @@
                       @isset($consulta)
                         <div class="col-sm-8 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
-                        <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
-                          @if ($consulta->tieneReceta())
-                              Editar Receta
-                          @else
-                              Crear Receta
-                          @endif
-                        </button>
+                            <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
+                              @if ($consulta->tieneReceta())
+                                  Editar Receta
+                              @else
+                                  Crear Receta
+                              @endif
+                            </button>
                         @if ($consulta->tieneReceta())
                             @include('modals.editarRecetaModals')
                           @else
@@ -83,9 +83,23 @@
                             Atender Consulta
                         </button>
                         @include('modals.RegistroModals')  
-                    @endif
+                        <button
+                            id="addNewRegistro"
+                            title="Registrar Consulta"
+                            data-toggle="modal"
+                            data-target="#addNewOrdenModal"
+                            class="btn @if($consulta->tieneOrden()) btn-warning @else btn-success @endif font-weight-bold"
+                          >
+                            Crear O. Laboratorio
+                        </button>
+                        @include('modals.OrdenModals')
+                        @if ($consulta->tieneOrden())                        
+                          <a class="btn btn-info btn-sm btnIcono" title="imprimir orden" href="{{route('orden.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fas fa-print"></i></a>
+                          
+                        @endif  
+                      @endif
                         </div>
-                      @endisset
+                  @endisset
                     
                   </div>
                     
@@ -200,9 +214,11 @@
                                           
                                             Ver Historia
                                           </button>
-                                        @include('modals.editarRegistroModals')
+                                          @include('modals.editarRegistroModals')
                                             
                                         @endif
+                                        
+                                        
                                         {{--
                                         
                                         @if (Auth::user()->accesoRuta('/paciente/consulta'))                        
