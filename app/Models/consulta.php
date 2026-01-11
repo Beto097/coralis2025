@@ -120,7 +120,7 @@ class consulta extends Model
 
     
 
-        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia()) {
+        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia() || $this->tieneOrden()) {
             return true;
         }
 

@@ -14,9 +14,18 @@ class CuadroExamenes extends Component
      */
     
     public $examenes;
-    public function __construct()
+    public $examenesSeleccionados;
+    
+    public function __construct($consulta = null)
     {
         $this->examenes = examen::where('estado_examen','<','2')->get();
+        
+        // Si existe una consulta y tiene orden, obtener los exámenes seleccionados
+        $this->examenesSeleccionados = [];
+        if ($consulta && $consulta->tieneOrden()) {
+            $orden = $consulta->orden();
+            $this->examenesSeleccionados = $orden->examenes->pluck('id')->toArray();
+        }
     }
 
     /**

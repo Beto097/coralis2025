@@ -57,7 +57,6 @@
     </div>
 </div>
 
-@section('script')
 <script>
 // Función para manejar el buscador de exámenes
 function initExamenSearch() {
@@ -88,14 +87,32 @@ function initExamenSearch() {
     });
 }
 
+// Función para manejar el envío del formulario de orden
+function initOrdenForm() {
+    $('#addNewOrdenModal form').on('submit', function(e) {
+        var checkboxesSeleccionados = $('#examenesContainer input[type="checkbox"]:checked');
+        
+        if (checkboxesSeleccionados.length === 0) {
+            e.preventDefault();
+            alert('Debe seleccionar al menos un examen para crear la orden de laboratorio.');
+            return false;
+        }
+        
+        // El formulario se enviará normalmente si hay exámenes seleccionados
+        // El mensaje de éxito aparecerá automáticamente gracias al @error('status') en la plantilla
+        return true;
+    });
+}
+
 // Inicializar cuando el DOM esté listo
 $(document).ready(function() {
     initExamenSearch();
+    initOrdenForm();
 });
 
 // Reinicializar cuando se abra el modal (para asegurar que funcione)
 $('#addNewOrdenModal').on('shown.bs.modal', function() {
     initExamenSearch();
+    initOrdenForm();
 });
 </script>
-@endsection

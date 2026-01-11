@@ -149,6 +149,7 @@ Route::get("/cerrar", [loginController::class, 'cerrar'])->name("login.cerrar");
 
 //Orden
 Route::post("/orden/create", [ordenController::class, 'insert'])->name("orden.insert");
-Route::get("/orden/imprimir/{id}", [ordenController::class, 'print'])->name("orden.print");
+Route::put("/orden/update/{id}", [ordenController::class, 'update'])->name("orden.update");
+Route::get("/orden/print/{id}", [ordenController::class, 'print'])->name("orden.print");
 
 Route::get("/pruebaReceta", [consultaController::class, 'prueba']);

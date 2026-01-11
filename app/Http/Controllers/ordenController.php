@@ -34,6 +34,26 @@ class ordenController extends Controller
         return redirect(route('index'));
     }
 
+    public function update(Request $request, $id){
+        
+        if (!Auth::user()) {
+            Session::put('url', url()->current());    
+            return redirect(route('login.index'));
+        }
+        
+        if(true){
+            $orden = orden::find($id);
+            $examenes = $request->input('examenes_id', []);            
+
+            // Sincronizar exámenes (esto eliminará los anteriores y agregará los nuevos)
+            $orden->examenes()->sync($examenes);
+
+            return redirect()->back()->withErrors(['success' => "se actualizó la orden de laboratorio correctamente" ]);
+        }
+        
+        return redirect(route('index'));
+    }
+
     public function print($id){
         $consulta = consulta::find($id);
 

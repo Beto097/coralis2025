@@ -92,11 +92,7 @@
                           >
                             Crear O. Laboratorio
                         </button>
-                        @include('modals.OrdenModals')
-                        @if ($consulta->tieneOrden())                        
-                          <a class="btn btn-info btn-sm btnIcono" title="imprimir orden" href="{{route('orden.print', ['id'=> $consulta->id] )}}" class=""><i id="iconoBoton" class="fas fa-print"></i></a>
-                          
-                        @endif  
+                        @include('modals.OrdenModals')  
                       @endif
                         </div>
                   @endisset

@@ -16,6 +16,9 @@
                 @if ($consulta && $consulta->tieneReceta())
                     <option value="receta">Receta</option>
                 @endif
+                @if ($consulta && $consulta->tieneOrden())
+                    <option value="orden">Orden de Laboratorio</option>
+                @endif
                 
             </select>
         </div>
@@ -123,6 +126,9 @@ function imprimirDocumento(consultaId) {
             break;
         case 'referencia':
             url = '/referencia/print/' + consultaId;
+            break;
+        case 'orden':
+            url = '/orden/print/' + consultaId;
             break;
         default:
             alert('Tipo de documento no válido.');
