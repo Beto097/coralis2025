@@ -21,6 +21,7 @@ class referenciaController extends Controller
             return redirect(route('login.index'));
         }
         
+      
         if(Auth::user()->accesoRuta('/referencia/create')){
                        
             // Obtienes todos los datos
@@ -81,6 +82,7 @@ class referenciaController extends Controller
             
             $firmaExiste = File::exists($firmaPath);
             $selloExiste = File::exists($selloPath);
+            
 
             $pdf = \PDF::loadView('consulta.referenciaPdf', [
                 'consulta' => $consulta,  

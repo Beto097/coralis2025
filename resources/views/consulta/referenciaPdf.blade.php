@@ -111,6 +111,11 @@
                     
                 </div>   
             @endif
+            <div id="fila"  style="position: absolute; left: 140px; top: 392px;   height: 200px; width: 500px; ">
+                <div style="position: absolute; left: 0px; top: 0;">
+                    {{$consulta->referencia->datos['txtAmammensia']}}
+                </div>
+            </div>
 
             <div id="fila" style="position: relative; margin-top: 115px; padding-left: 150px; height: 60px; width: 500px;">
                 
@@ -123,19 +128,37 @@
                 <span style="position: absolute; left: 570px;">{{ $consulta->talla}}</span>  
                 <span style="position: absolute; left: 622px;">{{ $consulta->peso}}</span>                     
             </div>
-            <div id="fila" style="position: relative; margin-top: -30px; padding-left: 150px; height: 60px; width: 500px;">
+            <div id="fila" style="position: absolute; left: 5px; top: 460px; padding-left: 150px; height: 60px; width: 500px;">
                 <div style="position: absolute; left: 140px; top: 0;">
-                    {{$consulta->examen_fisico}}
+                    @if(isset($consulta->referencia->datos['txtExamenFisico']))
+                        {{$consulta->referencia->datos['txtExamenFisico']}}
+                    @endif
+                </div>
+            </div>
+            <div id="fila" style="position: absolute; left: -30px; top: 532px; padding-left: 150px; height: 60px; width: 500px;">
+                <div style="position: absolute; left: 140px; top: 0;">
+                    @if(isset($consulta->referencia->datos['txtResultados']))
+                        {{$consulta->referencia->datos['txtResultados']}}
+                    @endif
                 </div>
             </div>
 
+
             <div id="fila" style="position: absolute; left: 140px; top: 570px; height: 60px; width: 500px;">
                 <div style="position: absolute; left: 0px; top: 0;">
-                    {{$consulta->diagnostico}}
+                    @if(isset($consulta->referencia->datos['txtDiagnostico']))
+                        {{$consulta->referencia->datos['txtDiagnostico']}}
+                    @endif
                 </div>
             </div>
             
-         
+            <div id="fila" style="position: absolute; left: 70px; top: 605px; padding-left: 150px; height: 60px; width: 500px;">
+                <div style="position: absolute; left: 140px; top: 0;">
+                    @if(isset($consulta->referencia->datos['txtTratamientos']))
+                        {{$consulta->referencia->datos['txtTratamientos']}}
+                    @endif
+                </div>
+            </div>
            
 
         </div>
