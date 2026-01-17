@@ -105,7 +105,8 @@ function initEstudioSearch() {
         console.log('Búsqueda:', searchTerm);
         
         if (searchTerm.length >= 2) {
-            let hasResults = false;
+            let hasVisibleResults = false;
+            let hasExactMatch = false;
             const checkboxes = estudiosContainer.querySelectorAll('.form-check-inline');
             
             checkboxes.forEach(function(checkbox) {
@@ -113,23 +114,36 @@ function initEstudioSearch() {
                 if (strongElement) {
                     const estudioName = strongElement.textContent.toLowerCase();
                     
+                    // Verificar coincidencia exacta
+                    if (estudioName === searchTerm) {
+                        hasExactMatch = true;
+                    }
+                    
+                    // Mostrar elementos que contengan el término (para filtrado visual)
                     if (estudioName.indexOf(searchTerm) !== -1) {
                         checkbox.style.display = 'block';
-                        hasResults = true;
+                        hasVisibleResults = true;
                     } else {
                         checkbox.style.display = 'none';
                     }
                 }
             });
             
-            // Mostrar botón agregar si no hay resultados
-            if (!hasResults) {
+            // Mostrar botón agregar solo si NO hay coincidencia exacta
+            if (!hasExactMatch) {
                 agregarBtn.style.display = 'block';
-                if (noResultsMsg) noResultsMsg.style.display = 'block';
-                console.log('Mostrando botón agregar');
+                if (noResultsMsg) {
+                    if (hasVisibleResults) {
+                        noResultsMsg.style.display = 'none';
+                    } else {
+                        noResultsMsg.style.display = 'block';
+                    }
+                }
+                console.log('Mostrando botón agregar - no hay coincidencia exacta');
             } else {
                 agregarBtn.style.display = 'none';
                 if (noResultsMsg) noResultsMsg.style.display = 'none';
+                console.log('Ocultando botón agregar - existe coincidencia exacta');
             }
         } else {
             // Mostrar todos los elementos
@@ -190,11 +204,15 @@ function agregarNuevoEstudio(nombreEstudio) {
                 try {
                     const response = JSON.parse(xhr.responseText);
                     if (response.success) {
-                        alert('Estudio agregado: ' + nombreEstudio);
+                        // Limpiar campo de búsqueda
                         searchInput.value = '';
                         agregarBtn.style.display = 'none';
                         if (noResultsMsg) noResultsMsg.style.display = 'none';
+                        
+                        // Refrescar la lista de estudios dentro del modal
                         refrescarEstudios();
+                        
+                        console.log('Estudio agregado correctamente: ' + nombreEstudio);
                     } else {
                         alert('Error al agregar el estudio.');
                     }

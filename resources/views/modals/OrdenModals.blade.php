@@ -89,30 +89,43 @@ $(document).ready(function() {
 // Función para manejar el buscador de exámenes
 function initExamenSearch() {
     $('#searchExamenes').on('input', function() {
-        var searchTerm = $(this).val().toLowerCase();
-        var $visibleExamenes = $('#examenesContainer .form-check-inline:visible');
+        var searchTerm = $(this).val().toLowerCase().trim();
         
         if (searchTerm.length >= 2) {
-            // Filtrar los checkboxes
-            var hasResults = false;
+            var hasVisibleResults = false;
+            var hasExactMatch = false;
+            
+            // Filtrar los checkboxes y verificar coincidencias
             $('#examenesContainer .form-check-inline').each(function() {
                 var examenName = $(this).find('strong').text().toLowerCase();
                 
+                // Verificar coincidencia exacta
+                if (examenName === searchTerm) {
+                    hasExactMatch = true;
+                }
+                
+                // Mostrar elementos que contengan el término (para filtrado visual)
                 if (examenName.indexOf(searchTerm) !== -1) {
                     $(this).show();
-                    hasResults = true;
+                    hasVisibleResults = true;
                 } else {
                     $(this).hide();
                 }
             });
             
-            // Mostrar el botón de agregar y mensaje solo si no hay resultados y hay texto
-            if (!hasResults && searchTerm.length >= 2) {
+            // Mostrar botón agregar solo si NO hay coincidencia exacta
+            if (!hasExactMatch) {
                 $('#agregarExamenBtn').show();
-                $('#noResultsMessage').show();
+                if (hasVisibleResults) {
+                    $('#noResultsMessage').hide();
+                } else {
+                    $('#noResultsMessage').show();
+                }
+                console.log('Mostrando botón agregar - no hay coincidencia exacta para: ' + searchTerm);
             } else {
                 $('#agregarExamenBtn').hide();
                 $('#noResultsMessage').hide();
+                console.log('Ocultando botón agregar - existe coincidencia exacta para: ' + searchTerm);
             }
         } else {
             // Si hay menos de 2 caracteres o está vacío, mostrar todos y ocultar botón y mensaje
@@ -167,18 +180,25 @@ function agregarNuevoExamen(nombreExamen, tipoExamen) {
         },
         success: function(response) {
             if (response.success) {
-                // Refrescar el contenido correspondiente
+                // Limpiar campo de búsqueda
                 if (tipoExamen === 1) {
                     $('#searchExamenes').val('');
                     $('#agregarExamenBtn').hide();
                     $('#noResultsMessage').hide();
                     refrescarExamenes(1);
                 } else {
-                    // Para estudios, usar la función específica del componente si existe
+                    $('#searchEstudios').val('');
+                    $('#agregarEstudioBtn').hide();
+                    $('#noResultsMessageEstudios').hide();
                     if (typeof refrescarEstudios === 'function') {
                         refrescarEstudios();
                     }
                 }
+                
+                console.log('Examen/Estudio agregado correctamente: ' + nombreExamen);
+            } else {
+                var tipoTexto = tipoExamen === 1 ? 'examen' : 'estudio';
+                alert('Error al agregar el ' + tipoTexto + '.');
             }
         },
         error: function(xhr) {

@@ -94,8 +94,8 @@
             display: flex;
             align-items: center;
             margin-bottom: 3px;
-            font-family: Helvetica, sans-serif;
-            font-size: 18px;
+            font-family: sans-serif;
+            font-size: 20px;
             color: black;
         }
         .checkbox-item input[type="checkbox"] {
@@ -142,10 +142,10 @@
                 </div>
 
                 <!-- Sección de checkboxes ordenada -->
-                <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 700px">
+                <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 1000px">
                     <div class="checkbox-list" >
-                        @foreach ($examenes->take(20) as $examen)
-                            <label class="checkbox-item" id="fila">
+                        @foreach ($examenes->take(15) as $examen)
+                            <label class="checkbox-item">
                                 <input type="checkbox" checked> {{$examen->nombre_examen}}
                             </label>
                         @endforeach
@@ -154,11 +154,11 @@
             </div>
         </div>
 
-        {{-- Si hay más de 22 exámenes, crear páginas adicionales --}}
-        @if($examenes->count() > 22)
+        {{-- Si hay más de 15 exámenes, crear páginas adicionales --}}
+        @if($examenes->count() > 15)
             @php
-                $examenesRestantes = $examenes->skip(22);
-                $paginasAdicionales = $examenesRestantes->chunk(44); // 44 elementos por página adicional (2 columnas x 22 filas)
+                $examenesRestantes = $examenes->skip(15);
+                $paginasAdicionales = $examenesRestantes->chunk(15); // 15 elementos por página adicional
             @endphp
             
             @foreach($paginasAdicionales as $paginaExamenes)
@@ -166,7 +166,7 @@
                 <div class="pagina">
                     <div class="contenido-derecho">
                         <div>    
-                            <p id="nRegistro" style="padding-top: 105px; padding-left: 750px;">.</p>
+                            <p id="nRegistro" style="padding-top: 163px; padding-left: 750px;">.</p>
                         </div>
                         <div>
                             <p id="head" style="margin-top: 201px; padding-left: 226px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
@@ -192,10 +192,10 @@
                         </div>
 
                         <!-- Continuación de la lista de exámenes -->
-                        <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 700px">
+                        <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 1000px">
                             <div class="checkbox-list">
                                 @foreach ($paginaExamenes as $examen)
-                                    <label class="checkbox-item" id="fila">
+                                    <label class="checkbox-item">
                                         <input type="checkbox" checked> {{$examen->nombre_examen}}
                                     </label>
                                 @endforeach

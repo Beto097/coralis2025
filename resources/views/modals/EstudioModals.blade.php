@@ -3,13 +3,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 class="modal-title" id="myLargeModalLabel">Crear Receta</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Crear Orden de estudio médico</h5>
             </div>
             <div class="modal-body">
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form action="{{route('receta.save')}}" method="POST" role="form" >
+                            <form action="{{route('estudio.save')}}" method="POST" role="form" >
                                 @csrf
                                 <x-receta-medica :resultado="$consulta" />
                             </form>
