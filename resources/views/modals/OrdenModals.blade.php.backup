@@ -1,0 +1,118 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addNewOrdenModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            {{-- HEADER --}}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title" id="myLargeModalLabel">
+                    @if($consulta->tieneOrden())
+                        Editar Orden de laboratorio
+                    @else
+                        Crear Orden de laboratorio
+                    @endif
+                </h5>
+            </div>
+
+            {{-- FORM --}}
+            <form action="@if($consulta->tieneOrden()) {{ route('orden.update', $consulta->orden()->id) }} @else {{ route('orden.insert') }} @endif" method="POST" role="form" autocomplete="off">
+                @csrf
+                @if($consulta->tieneOrden())
+                    @method('PUT')
+                @endif
+
+                {{-- BODY --}}
+                <div class="modal-body">
+                    <div class="form-wrap">
+                        {{-- Buscador --}}
+                        <div class="form-group mb-3">
+                            <label for="searchExamenes">Buscar exámenes:</label>
+                            <input type="text" 
+                                   id="searchExamenes" 
+                                   class="form-control" 
+                                   placeholder="Escriba al menos 2 caracteres para buscar..." 
+                                   autocomplete="off">
+                        </div>
+                        
+                        {{-- Checkboxes --}}
+                        <div id="examenesContainer">
+                            <x-cuadro-examenes :consulta="$consulta" />
+                        </div>
+                        <input type="hidden" name="consulta_id" value="{{ $consulta->id }}">
+                    </div>
+                </div>
+
+                {{-- FOOTER (separado y abajo en su propia fila) --}}
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit"  class="btn btn-primary">
+                        @if($consulta->tieneOrden())
+                            Actualizar Orden
+                        @else
+                            Crear Orden
+                        @endif
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Función para manejar el buscador de exámenes
+function initExamenSearch() {
+    $('#searchExamenes').on('input', function() {
+        var searchTerm = $(this).val().toLowerCase();
+        
+        if (searchTerm.length >= 2) {
+            // Filtrar los checkboxes
+            $('#examenesContainer .form-check-inline').each(function() {
+                var examenName = $(this).find('strong').text().toLowerCase();
+                
+                if (examenName.indexOf(searchTerm) !== -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        } else {
+            // Si hay menos de 2 caracteres o está vacío, mostrar todos
+            $('#examenesContainer .form-check-inline').show();
+        }
+    });
+    
+    // Limpiar búsqueda cuando se cierre el modal
+    $('#addNewOrdenModal').on('hidden.bs.modal', function() {
+        $('#searchExamenes').val('');
+        $('#examenesContainer .form-check-inline').show();
+    });
+}
+
+// Función para manejar el envío del formulario de orden
+function initOrdenForm() {
+    $('#addNewOrdenModal form').on('submit', function(e) {
+        var checkboxesSeleccionados = $('#examenesContainer input[type="checkbox"]:checked');
+        
+        if (checkboxesSeleccionados.length === 0) {
+            e.preventDefault();
+            alert('Debe seleccionar al menos un examen para crear la orden de laboratorio.');
+            return false;
+        }
+        
+        // El formulario se enviará normalmente si hay exámenes seleccionados
+        // El mensaje de éxito aparecerá automáticamente gracias al @error('status') en la plantilla
+        return true;
+    });
+}
+
+// Inicializar cuando el DOM esté listo
+$(document).ready(function() {
+    initExamenSearch();
+    initOrdenForm();
+});
+
+// Reinicializar cuando se abra el modal (para asegurar que funcione)
+$('#addNewOrdenModal').on('shown.bs.modal', function() {
+    initExamenSearch();
+    initOrdenForm();
+});
+</script>

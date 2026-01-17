@@ -7436,3 +7436,39 @@ ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus {
     margin-bottom: 20px; } }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Custom styles for button spacing in responsive design */
+@media (max-width: 768px) {
+  /* En pantallas pequeñas (móviles) agregar margen inferior a todos los botones */
+  .d-flex.flex-wrap .btn {
+    margin-bottom: 0.75rem !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  /* Evitar el último botón de cada línea tenga margen derecho innecesario */
+  .d-flex.flex-wrap .btn:last-child {
+    margin-right: 0 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  /* En pantallas medianas y grandes mantener solo margen derecho */
+  .d-flex.flex-wrap .btn {
+    margin-bottom: 0.25rem !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  .d-flex.flex-wrap .btn:last-child {
+    margin-right: 0 !important;
+  }
+}
+
+/* Fallback para compatibilidad con versiones antiguas de Bootstrap */
+.btn-group-responsive .btn {
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.btn-group-responsive .btn:last-child {
+  margin-right: 0;
+}

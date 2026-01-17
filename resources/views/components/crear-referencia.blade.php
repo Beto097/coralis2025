@@ -28,6 +28,26 @@
         <label for="">Otro Motivo:</label>
         <input type="text" class="form-control" name="otroMotivo" placeholder="Especifique el motivo">
     </div>
+    <div class="form-group col-md-12">
+        <label for="">Amammensia:</label>
+        <textarea class="form-control" name="txtAmammensia" id="txtAmammensia" rows="3"></textarea>        
+    </div>
+    <div class="form-group col-md-12">
+        <label for="">Examen Fisico:</label>
+        <textarea class="form-control" name="txtExamenFisico" id="txtExamenFisico" rows="3"></textarea>        
+    </div>
+    <div class="form-group col-md-12">
+        <label for="">Resultado de Examenes:</label>
+        <textarea class="form-control" name="txtResultados" id="txtResultados" rows="3"></textarea>        
+    </div>
+    <div class="form-group col-md-12">
+        <label for="">Diagnostico:</label>
+        <textarea class="form-control" name="txtDiagnostico" id="txtDiagnostico" rows="3"></textarea>        
+    </div>
+    <div class="form-group col-md-12">
+        <label for="">Tratamiento y Complicaciones:</label>
+        <textarea class="form-control" name="txtTratamiento" id="txtTratamiento" rows="3"></textarea>        
+    </div>
     <script>
         document.getElementById('motivoR').addEventListener('change', function() {
             const otroDiv = document.getElementById('otroMotivoDiv');

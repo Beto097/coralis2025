@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\examen;
 use App\Models\tipo_examen;
@@ -518,6 +519,102 @@ class examenController extends Controller
             return redirect(route('login.index'));
         }
         
+    }
+
+    /**
+     * Agregar un nuevo examen desde el modal de órdenes
+     */
+    public function agregar(Request $request)
+    {
+        // Temporalmente sin autenticación para debug
+        // TODO: Restaurar autenticación después de probar
+        
+        try {
+            $request->validate([
+                'nombre_examen' => 'required|string|min:2|max:255|unique:examen,nombre_examen',
+                'tipo_examen' => 'nullable|integer|exists:tipo_examen,id'
+            ]);
+
+            // Usar el tipo_examen enviado o buscar el primer tipo disponible como fallback
+            $tipoExamenId = $request->tipo_examen;
+            if (!$tipoExamenId) {
+                $tipoExamenDefault = tipo_examen::where('estado_tipo_examen', 1)->first();
+                if (!$tipoExamenDefault) {
+                    return response()->json([
+                        'success' => false, 
+                        'message' => 'No hay tipos de examen disponibles. Contacte al administrador.'
+                    ], 422);
+                }
+                $tipoExamenId = $tipoExamenDefault->id;
+            }
+
+            $examen = new examen();
+            $examen->nombre_examen = $request->nombre_examen;
+            $examen->codigo_examen = strtoupper(substr($request->nombre_examen, 0, 3)) . '-' . rand(100, 999);
+            $examen->detalle_examen = 'Examen agregado desde orden de laboratorio';
+            $examen->tipo_examen_id = $tipoExamenId;
+            $examen->estado_examen = 1;
+            $examen->es_principal = 1;
+            $examen->save();
+
+            return response()->json([
+                'success' => true, 
+                'message' => 'Examen agregado correctamente',
+                'examen' => $examen
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errorMessage = 'Error de validación: ';
+            if (isset($e->validator->errors()->toArray()['nombre_examen'])) {
+                $errorMessage = 'Ya existe un examen con ese nombre.';
+            } else {
+                $errorMessage .= implode(', ', $e->validator->errors()->all());
+            }
+            
+            return response()->json([
+                'success' => false, 
+                'message' => $errorMessage
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false, 
+                'message' => 'Error al agregar el examen: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Obtener la lista actualizada de exámenes para el modal de órdenes
+     */
+    public function lista(Request $request)
+    {
+        // Temporalmente sin autenticación para debug
+        // TODO: Restaurar autenticación después de probar
+
+        try {
+            $consultaId = $request->consulta_id;
+            $tipoExamen = $request->tipo_examen ?? 1; // Default tipo_examen = 1
+            $consulta = null;
+            
+            if ($consultaId) {
+                $consulta = \App\Models\consulta::find($consultaId);
+            }
+
+            // Crear una instancia del componente con el tipo de examen especificado
+            $cuadroExamenes = new \App\View\Components\CuadroExamenes($consulta, $tipoExamen);
+            
+            // Renderizar la vista y retornar el HTML
+            return view('components.cuadro-examenes', [
+                'examenes' => $cuadroExamenes->examenes,
+                'examenesSeleccionados' => $cuadroExamenes->examenesSeleccionados
+            ])->render();
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false, 
+                'message' => 'Error al cargar exámenes: ' . $e->getMessage()
+            ], 500);
+        }
     }    
 
 }

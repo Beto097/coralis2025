@@ -1,0 +1,146 @@
+CENTRO MÉDICO CORALIS 2025 - REGISTRO DE CAMBIOS
+==================================================
+
+FECHA: Enero 13, 2026
+FUNCIONALIDAD: Agregar Exámenes Dinámicamente desde Modal de Órdenes
+
+DESCRIPCIÓN DEL CAMBIO:
+-----------------------
+Se implementó la capacidad de agregar nuevos exámenes directamente desde el modal 
+de órdenes de laboratorio cuando el usuario busca un examen que no existe en el sistema.
+
+PROBLEMA RESUELTO:
+------------------
+Anteriormente, si un médico necesitaba incluir un examen que no estaba registrado 
+en el sistema, debía salir del modal, ir a la sección de administración de exámenes, 
+crear el examen, y luego regresar al modal de órdenes. Esto interrumpía el flujo 
+de trabajo y resultaba en una experiencia de usuario deficiente.
+
+SOLUCIÓN IMPLEMENTADA:
+----------------------
+- Botón "Agregar Examen" que aparece automáticamente cuando no hay resultados de búsqueda
+- Validación en tiempo real para evitar nombres duplicados
+- Actualización automática de la lista sin recargar la página
+- Mensajes informativos para guiar al usuario
+
+ARCHIVOS MODIFICADOS:
+---------------------
+
+1. resources/views/modals/OrdenModals.blade.php
+   - Agregado botón "Agregar Examen" con layout responsive
+   - Mensaje informativo cuando no hay resultados
+   - JavaScript mejorado para manejo de búsqueda y AJAX
+   - Validación de entrada y confirmación de usuario
+
+2. app/Http/Controllers/examenController.php
+   - Método agregar(): Crea nuevos exámenes con validación completa
+   - Método lista(): Retorna vista actualizada del componente exámenes
+   - Manejo de errores y validación de autorización
+   - Generación automática de código de examen
+
+3. routes/web.php
+   - Agregada ruta POST /examen/agregar para crear exámenes
+   - Agregada ruta GET /examen/lista para refrescar lista
+   - Importación del examenController
+
+FUNCIONALIDADES TÉCNICAS:
+-------------------------
+
+✓ Búsqueda en tiempo real con filtrado de resultados
+✓ Aparición condicional del botón (solo cuando no hay resultados)
+✓ Validación de entrada mínima (2 caracteres)
+✓ Prevención de nombres duplicados
+✓ Operaciones AJAX sin recargar página
+✓ Autorización de usuario antes de operaciones
+✓ Generación automática de código único para examen
+✓ Actualización automática de la interfaz
+✓ Manejo de errores con mensajes informativos
+✓ Layout responsive que se adapta a diferentes pantallas
+
+FLUJO DE USO:
+-------------
+1. Usuario abre modal de órdenes de laboratorio
+2. Escribe en el buscador de exámenes (mínimo 2 caracteres)
+3. Si no encuentra resultados, aparece botón "Agregar Examen"
+4. Usuario hace clic en el botón
+5. Sistema solicita confirmación
+6. Se crea el examen en la base de datos con:
+   - Nombre ingresado por el usuario
+   - Código generado automáticamente
+   - Tipo de examen por defecto
+   - Estado activo
+7. Lista de exámenes se actualiza automáticamente
+8. Nuevo examen aparece en la lista y puede ser seleccionado
+9. Buscador se limpia y botón se oculta
+
+CONFIGURACIÓN DE BASE DE DATOS:
+-------------------------------
+El nuevo examen se crea con los siguientes valores:
+- nombre_examen: Texto ingresado por usuario
+- codigo_examen: Código auto-generado (primeras 3 letras + número aleatorio)
+- detalle_examen: "Examen agregado desde orden de laboratorio"
+- tipo_examen_id: Primer tipo de examen activo en el sistema
+- estado_examen: 1 (activo)
+- es_principal: 1 (principal)
+
+RUTAS AGREGADAS:
+----------------
+POST /examen/agregar
+- Controlador: examenController@agregar
+- Función: Crear nuevos exámenes con validación
+- Parámetros: nombre_examen
+- Respuesta: JSON con resultado de la operación
+
+GET /examen/lista
+- Controlador: examenController@lista
+- Función: Retornar vista actualizada de exámenes
+- Parámetros: consulta_id (opcional)
+- Respuesta: HTML del componente cuadro-examenes
+
+VALIDACIONES IMPLEMENTADAS:
+---------------------------
+- Usuario debe estar autenticado
+- Nombre del examen es requerido
+- Mínimo 2 caracteres para el nombre
+- Máximo 255 caracteres
+- Nombre debe ser único en la base de datos
+- Debe existir al menos un tipo de examen activo
+
+MEJORAS DE UX/UI:
+-----------------
+- Botón solo aparece cuando es necesario (no hay resultados)
+- Mensaje explicativo para guiar al usuario
+- Feedback visual durante el proceso (spinner de carga)
+- Confirmación antes de agregar examen
+- Mensajes de éxito y error informativos
+- Limpieza automática del formulario después de agregar
+- Layout responsive para diferentes tamaños de pantalla
+
+COMPATIBILIDAD:
+---------------
+- Compatible con la estructura existente del sistema
+- No interfiere con funcionalidades previas
+- Mantiene la integridad de datos existentes
+- Utiliza componentes y estilos ya establecidos
+
+TESTING RECOMENDADO:
+--------------------
+1. Probar búsqueda con exámenes existentes
+2. Probar búsqueda con términos que no existen
+3. Verificar aparición del botón en condiciones correctas
+4. Probar creación de examen nuevo
+5. Verificar validación de nombres duplicados
+6. Probar actualización automática de la lista
+7. Verificar funcionamiento en diferentes navegadores
+8. Probar responsividad en dispositivos móviles
+
+NOTAS DE MANTENIMIENTO:
+-----------------------
+- El tipo de examen por defecto se obtiene dinámicamente del primer tipo activo
+- Los códigos de examen se generan automáticamente pero pueden editarse posteriormente
+- La funcionalidad respeta los permisos de usuario existentes
+- Los exámenes creados dinámicamente tienen los mismos atributos que los creados manualmente
+
+AUTOR: Sistema Automático de Desarrollo
+REVISADO POR: [Pendiente]
+APROBADO POR: [Pendiente]

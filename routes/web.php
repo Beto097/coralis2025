@@ -15,6 +15,8 @@ use App\Http\Controllers\certificadoController;
 use App\Http\Controllers\referenciaController;
 use App\Http\Controllers\constanciaController;
 use App\Http\Controllers\archivoController;
+use App\Http\Controllers\ordenController;
+use App\Http\Controllers\examenController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -146,5 +148,13 @@ Route::get("/login", [loginController::class, 'index'])->name("login.index");
 Route::post("/login", [loginController::class, 'login'])->name("login.login");
 Route::get("/cerrar", [loginController::class, 'cerrar'])->name("login.cerrar");
 
+//Orden
+Route::post("/orden/create", [ordenController::class, 'insert'])->name("orden.insert");
+Route::put("/orden/update/{id}", [ordenController::class, 'update'])->name("orden.update");
+Route::get("/orden/print/{id}", [ordenController::class, 'print'])->name("orden.print");
+
+//Examen - métodos adicionales para modal de órdenes
+Route::post("/examen/agregar", [examenController::class, 'agregar'])->name("examen.agregar");
+Route::get("/examen/lista", [examenController::class, 'lista'])->name("examen.lista");
 
 Route::get("/pruebaReceta", [consultaController::class, 'prueba']);
