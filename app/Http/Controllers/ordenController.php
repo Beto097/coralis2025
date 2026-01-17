@@ -17,7 +17,6 @@ class ordenController extends Controller
             return redirect(route('login.index'));
         }
         if(true){
-
             $consulta = consulta::find($request->consulta_id);
             $examenes = $request->input('examenes_id', []);            
 
@@ -54,17 +53,22 @@ class ordenController extends Controller
         return redirect(route('index'));
     }
 
-    public function print($id){
+    public function print($id, Request $request){
         $consulta = consulta::find($id);
+        $tipo = $request->get('tipo', 'laboratorio'); // Por defecto laboratorio para compatibilidad
+
+        $nombreArchivo = '';
+        if ($tipo === 'estudio') {
+            $nombreArchivo = 'Orden de Estudios '.$consulta->paciente->identificacion_paciente.'.pdf';
+        } else {
+            $nombreArchivo = 'Orden de Laboratorio '.$consulta->paciente->identificacion_paciente.'.pdf';
+        }
 
         $pdf = \PDF::loadView('consulta.pdfOrden', [
-            'consulta' => $consulta
-
+            'consulta' => $consulta,
+            'tipo' => $tipo
         ])->setPaper([0, 0, 595.2756,  419.5276]);
 
-        $nombreArchivo = 'Constancia '.$consulta->paciente->identificacion_paciente.'.pdf';
         return $pdf->stream($nombreArchivo);
-
-
     }
 }

@@ -1,53 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Centro Médico Coralis 2025
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de gestión médica desarrollado en Laravel para el Centro Médico Coralis.
 
-## About Laravel
+## Acerca del Proyecto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Centro Médico Coralis 2025 es un sistema integral de gestión médica que permite:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Gestión de pacientes y consultas
+- Órdenes de laboratorio y exámenes médicos
+- Recetas médicas y certificados
+- Referencias médicas y constancias
+- Control de usuarios y roles
+- Gestión de sucursales
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Características Principales
 
-## Learning Laravel
+- **Gestión de Pacientes**: Registro y administración completa de pacientes
+- **Consultas Médicas**: Sistema de consultas con historial médico
+- **Laboratorio**: Órdenes de laboratorio con exámenes personalizables
+- **Recetas**: Generación de recetas médicas
+- **Certificados**: Emisión de certificados médicos
+- **Referencias**: Sistema de referencias entre médicos
+- **Multi-sucursal**: Soporte para múltiples sucursales
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Funcionalidades Recientes
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Agregar Exámenes Dinámicamente (Enero 2026)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Se implementó la funcionalidad para agregar nuevos exámenes directamente desde el modal de órdenes de laboratorio:
 
-## Laravel Sponsors
+**Características:**
+- **Búsqueda Inteligente**: El sistema muestra un botón "Agregar Examen" solo cuando no encuentra resultados en la búsqueda
+- **Validación Automática**: Previene nombres duplicados y valida entrada mínima (2 caracteres)
+- **Actualización en Tiempo Real**: Refresca automáticamente la lista de exámenes sin recargar la página
+- **Interfaz Intuitiva**: Mensajes informativos y feedback visual para mejor experiencia de usuario
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Archivos Modificados:**
+- `resources/views/modals/OrdenModals.blade.php` - Modal mejorado con botón y JavaScript
+- `app/Http/Controllers/examenController.php` - Nuevos métodos `agregar()` y `lista()`
+- `routes/web.php` - Rutas agregadas: `examen.agregar` y `examen.lista`
 
-### Premium Partners
+**Rutas Agregadas:**
+```php
+POST /examen/agregar - Crear nuevos exámenes desde modal
+GET  /examen/lista   - Refrescar lista de exámenes
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Flujo de Uso:**
+1. Usuario busca un examen en el modal de órdenes
+2. Si no existe, aparece automáticamente el botón "Agregar Examen"
+3. El usuario confirma la creación del nuevo examen
+4. El sistema valida y crea el examen en la base de datos
+5. La lista se actualiza automáticamente mostrando el nuevo examen
+
+## Requisitos del Sistema
+
+- PHP >= 8.0
+- Laravel 8.x
+- MySQL 5.7+
+- Composer
+- Node.js & NPM (para assets)
+
+## Instalación
+
+1. Clonar el repositorio
+2. Ejecutar `composer install`
+3. Configurar archivo `.env` con credenciales de base de datos
+4. Ejecutar `php artisan migrate`
+5. Ejecutar `php artisan serve`
+
+## Estructura del Proyecto
+
+```
+app/
+├── Http/Controllers/     # Controladores del sistema
+├── Models/              # Modelos Eloquent
+├── View/Components/     # Componentes de Blade
+└── ...
+
+resources/
+├── views/               # Vistas Blade
+│   ├── modals/         # Modales del sistema
+│   └── components/     # Componentes reutilizables
+└── ...
+
+routes/
+└── web.php             # Rutas del sistema
+```
+
+## Tecnologías Utilizadas
+
+Este proyecto está construido sobre Laravel y utiliza las siguientes tecnologías:
+
+- **Backend**: Laravel 8.x (PHP Framework)
+- **Frontend**: Blade Templates, Bootstrap, jQuery
+- **Base de Datos**: MySQL
+- **Autenticación**: Laravel Auth personalizada
+- **AJAX**: jQuery para operaciones asíncronas
+
+---
+
+## Acerca de Laravel
+
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects.
 
 ## Contributing
 

@@ -15,10 +15,14 @@ class CuadroExamenes extends Component
     
     public $examenes;
     public $examenesSeleccionados;
+    public $tipoExamen;
     
-    public function __construct($consulta = null)
+    public function __construct($consulta = null, $tipoExamen = 1)
     {
-        $this->examenes = examen::where('estado_examen','<','2')->get();
+        $this->tipoExamen = $tipoExamen;
+        $this->examenes = examen::where('estado_examen','<','2')
+                                ->where('tipo_examen_id', $tipoExamen)
+                                ->get();
         
         // Si existe una consulta y tiene orden, obtener los exámenes seleccionados
         $this->examenesSeleccionados = [];

@@ -30,9 +30,9 @@
                     </div>
                     
                       @isset($consulta)
-                        <div class="col-sm-8 text-end d-flex flex-wrap justify-content-end align-items-center gap-2">
+                        <div class="col-sm-8 text-end d-flex flex-wrap justify-content-end align-items-center" style="gap: 0.5rem;">
                           @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
-                            <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
+                            <button title="Crear Receta" class="btn @if ($consulta->tieneReceta()) btn-success @else btn-primary @endif font-weight-bold mb-2 me-2" id="addNewReceta" data-toggle="modal" data-target="#addNewRecetaModal">
                               @if ($consulta->tieneReceta())
                                   Editar Receta
                               @else
@@ -45,54 +45,64 @@
                               @include('modals.RecetaModals') 
                           @endif
                         @if (!$consulta->tieneReferencia())
-                            <button class="btn btn-danger font-weight-bold" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
+                            <button class="btn btn-danger font-weight-bold mb-2 me-2" id="addNewReferencia" title="Crear Referencia" data-toggle="modal" data-target="#addNewReferenciaModal">
                                 Referencia
                             </button>
                             @include('modals.ReferenciaModals')                            
                         @endif 
 
                         @if (!$consulta->tieneConstancia())
-                            <button class="btn btn-warning font-weight-bold" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                            <button class="btn btn-warning font-weight-bold mb-2 me-2" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
                                 Constancia
                             </button>
                             @include('modals.ConstanciaModals')
                         @endif   
                     @endif
 
-                    <button class="btn btn-success font-weight-bold" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
+                    <button class="btn btn-success font-weight-bold mb-2 me-2" id="addNewFile" title="Cargar Archivo" data-toggle="modal" data-target="#addNewFileModal">
                         Cargar Archivo
                     </button>
                     @include('modals.FileModals2')
 
                     @if (!$consulta->tieneCertificado())
-                        <button class="btn btn-info font-weight-bold" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
+                        <button class="btn btn-info font-weight-bold mb-2 me-2" id="addNewCertificado" title="Crear Certificado" data-toggle="modal" data-target="#addNewCertificadoModal">
                             Certificado B. Salud
                         </button>
                         @include('modals.CertificadoModals')                          
                     @endif
 
                     @if ($consulta->tieneImprimir())
-                        <button class="btn btn-warning font-weight-bold" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$consulta->id}}">
+                        <button class="btn btn-warning font-weight-bold mb-2 me-2" id="addImprimir" title="Imprimir Documentos" data-toggle="modal" data-target="#imprimirModal{{$consulta->id}}">
                             Papelería
                         </button>
                         @include('modals.ImprimirModals2')
                     @endif
 
                     @if ($consulta->estado_consulta != 'TERMINADA')
-                        <button class="btn btn-primary font-weight-bold" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">
+                        <button class="btn btn-primary font-weight-bold mb-2 me-2" id="addNewRegistro" title="Registrar Consulta" data-toggle="modal" data-target="#addNewRegistroModal">
                             Atender Consulta
                         </button>
                         @include('modals.RegistroModals')  
                         <button
                             id="addNewRegistro"
-                            title="Registrar Consulta"
+                            title="Registrar Orden de Laboratorio"
                             data-toggle="modal"
                             data-target="#addNewOrdenModal"
-                            class="btn @if($consulta->tieneOrden()) btn-warning @else btn-success @endif font-weight-bold"
+                            class="btn @if($consulta->tieneOrden()) btn-warning @else btn-success @endif font-weight-bold mb-2 me-2"
                           >
                             Crear O. Laboratorio
                         </button>
                         @include('modals.OrdenModals')  
+                        <button
+                            id="addNewOrdenEstudio"
+                            title="Crear Orden de Estudios"
+                            data-toggle="modal"
+                            data-target="#addNewOrdenEstudioModal"
+                            class="btn btn-primary font-weight-bold mb-2 me-2"
+                          >
+                            Crear O. Estudios
+                        </button>
+                        @include('modals.OrdenEstudiosModals') 
                       @endif
                         </div>
                   @endisset

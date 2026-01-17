@@ -10,7 +10,7 @@ class examen extends Model
     use HasFactory;
     protected $table = "examen";
     protected $primaryKey="id";
-    protected $fillable=array("nombre_examen","codigo_examen","detalle_examen","tipo_examen_id");
+    protected $fillable=array("nombre_examen","codigo_examen","detalle_examen","tipo_examen_id","estado_examen","es_principal");
 
     public function tipo_examen()
     {

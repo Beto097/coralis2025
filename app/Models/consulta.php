@@ -120,7 +120,7 @@ class consulta extends Model
 
     
 
-        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia() || $this->tieneOrden()) {
+        if ($this->tieneCertificado() || $this->tieneConstancia() || $this->tieneReceta() || $this->tieneReferencia() || $this->tieneOrden() || $this->tieneEstudio()) {
             return true;
         }
 
@@ -143,6 +143,28 @@ class consulta extends Model
         return orden::where('consulta_id',$this->id)->first();
 
     
+    }
+
+    public function tieneEstudio(){
+
+        $existe = orden::where('consulta_id',$this->id)
+                      ->whereHas('examenes', function($query) {
+                          $query->where('tipo_examen_id', 2);
+                      })->count();
+
+        if ($existe > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function ordenEstudio(){
+
+        return orden::where('consulta_id',$this->id)
+                   ->whereHas('examenes', function($query) {
+                       $query->where('tipo_examen_id', 2);
+                   })->first();
     }
     
 

@@ -2,6 +2,23 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  @php
+    // Determinar qué exámenes mostrar según el tipo
+    if(isset($tipo) && $tipo === 'estudio') {
+        // Para estudios, obtener la orden de estudios
+        $orden = $consulta->ordenEstudio();
+        $tipoExamen = 2;
+        $tituloDocumento = 'ORDEN DE ESTUDIOS';
+    } else {
+        // Para laboratorio (por defecto)
+        $orden = $consulta->tieneOrden() ? $consulta->orden() : null;
+        $tipoExamen = 1;
+        $tituloDocumento = 'ORDEN DE LABORATORIO';
+    }
+    
+    // Obtener exámenes filtrados por tipo
+    $examenes = $orden ? $orden->examenes->where('tipo_examen_id', $tipoExamen) : collect();
+  @endphp
    <style>
     @page {
         size: 22in 17in; /* Letter size landscape (horizontal) */
@@ -38,7 +55,11 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('{{ public_path('img/MembreteOrdenLab.png') }}');
+      @if(isset($tipo) && $tipo === 'estudio')
+        background-image: url('{{ public_path('img/MembreteOrdenEst.png') }}');
+      @else
+        background-image: url('{{ public_path('img/MembreteOrdenLab.png') }}');
+      @endif
       background-size: 50% auto; /* Ajustar imagen a todo el ancho */
       background-repeat: no-repeat;
       background-position: left center; /* Posicionar a la izquierda */
@@ -95,36 +116,36 @@
         <div class="pagina">
             <div class="contenido-derecho">
                 <div>    
-                    <p id="nRegistro" style="padding-top: 105px; padding-left: 750px;">.</p>
+                    <p id="nRegistro" style="padding-top: 163px; padding-left: 750px;">.</p>
                 </div>
                 <div>
                     <p id="head" style="margin-top: 201px; padding-left: 226px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
                 </div>
                 <div>
-                    <p id="head" style="margin-top: 0px; padding-left: 750px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y') }} </p>
+                    <p id="head" style="margin-top: -45px; padding-left: 750px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y') }} </p>
                 </div>
                 <div>
-                    <p id="head" style="margin-top: -45px; padding-left: 350px;">
+                    <p id="head" style="margin-top: 0px; padding-left: 350px;">
                         {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('d-m-Y') }}
                     </p>
                 </div>
                 <div>
-                    <p id="head" style="margin-top: 2px; padding-left: 750px;">
+                    <p id="head" style="margin-top: -45px; padding-left: 750px;">
                         {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->age }}
                     </p>
                 </div>
                 <div>
-                    <p id="head" style="margin-top: -43px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                    <p id="head" style="margin-top: 8px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
                 </div>
                 <div>
-                    <p id="fila" style="margin-top: 125px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
+                    <p id="fila" style="margin-top: 70px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
                 </div>
 
                 <!-- Sección de checkboxes ordenada -->
-                <div class="section" style="margin-top: 55px; padding-left: 60px;max-width: 700px">
-                    <div class="checkbox-list">
-                        @foreach ($consulta->orden()->examenes->take(20) as $examen)
-                            <label class="checkbox-item">
+                <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 700px">
+                    <div class="checkbox-list" >
+                        @foreach ($examenes->take(20) as $examen)
+                            <label class="checkbox-item" id="fila">
                                 <input type="checkbox" checked> {{$examen->nombre_examen}}
                             </label>
                         @endforeach
@@ -134,9 +155,9 @@
         </div>
 
         {{-- Si hay más de 22 exámenes, crear páginas adicionales --}}
-        @if($consulta->orden()->examenes->count() > 22)
+        @if($examenes->count() > 22)
             @php
-                $examenesRestantes = $consulta->orden()->examenes->skip(22);
+                $examenesRestantes = $examenes->skip(22);
                 $paginasAdicionales = $examenesRestantes->chunk(44); // 44 elementos por página adicional (2 columnas x 22 filas)
             @endphp
             
@@ -151,30 +172,30 @@
                             <p id="head" style="margin-top: 201px; padding-left: 226px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
                         </div>
                         <div>
-                            <p id="head" style="margin-top: 0px; padding-left: 750px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y') }} </p>
+                            <p id="head" style="margin-top: -45px; padding-left: 750px;">{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d-m-Y') }} </p>
                         </div>
                         <div>
-                            <p id="head" style="margin-top: -45px; padding-left: 350px;">
+                            <p id="head" style="margin-top: 0px; padding-left: 350px;">
                                 {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('d-m-Y') }}
                             </p>
                         </div>
                         <div>
-                            <p id="head" style="margin-top: 2px; padding-left: 750px;">
+                            <p id="head" style="margin-top: -45px; padding-left: 750px;">
                                 {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->age }}
                             </p>
                         </div>
                         <div>
-                            <p id="head" style="margin-top: -43px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                            <p id="head" style="margin-top: 8px; padding-left: 205px;">{{$consulta->paciente->identificacion_paciente}} </p>
                         </div>
                         <div>
-                            <p id="fila" style="margin-top: 125px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
+                            <p id="fila" style="margin-top: 70px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
                         </div>
 
                         <!-- Continuación de la lista de exámenes -->
-                        <div class="section" style="margin-top: 85px; padding-left: 60px;max-width: 700px">
+                        <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 700px">
                             <div class="checkbox-list">
                                 @foreach ($paginaExamenes as $examen)
-                                    <label class="checkbox-item">
+                                    <label class="checkbox-item" id="fila">
                                         <input type="checkbox" checked> {{$examen->nombre_examen}}
                                     </label>
                                 @endforeach
