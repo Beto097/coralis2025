@@ -79,6 +79,11 @@
 </div>
 
 <script>
+// Variables globales para manejar event listeners
+let searchHandler = null;
+let agregarHandler = null;
+let isProcessing = false; // Flag para evitar múltiples clicks
+
 // Función para inicializar el buscador de estudios (JavaScript vanilla)
 function initEstudioSearch() {
     console.log('Inicializando búsqueda de estudios...');
@@ -94,13 +99,17 @@ function initEstudioSearch() {
         return;
     }
     
-    // Limpiar eventos previos
-    searchInput.removeEventListener('input', handleSearch);
-    searchInput.removeEventListener('keyup', handleSearch);
-    agregarBtn.removeEventListener('click', handleAgregar);
+    // Limpiar eventos previos COMPLETAMENTE
+    if (searchHandler) {
+        searchInput.removeEventListener('input', searchHandler);
+        searchInput.removeEventListener('keyup', searchHandler);
+    }
+    if (agregarHandler) {
+        agregarBtn.removeEventListener('click', agregarHandler);
+    }
     
-    // Función para manejar la búsqueda
-    function handleSearch() {
+    // Definir handlers como funciones nombradas para poder removerlas
+    searchHandler = function() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         console.log('Búsqueda:', searchTerm);
         
@@ -154,10 +163,14 @@ function initEstudioSearch() {
             agregarBtn.style.display = 'none';
             if (noResultsMsg) noResultsMsg.style.display = 'none';
         }
-    }
+    };
     
-    // Función para manejar el click del botón agregar
-    function handleAgregar() {
+    agregarHandler = function() {
+        if (isProcessing) {
+            console.log('Ya se está procesando una solicitud...');
+            return;
+        }
+        
         const nombreEstudio = searchInput.value.trim();
         
         if (nombreEstudio.length < 2) {
@@ -168,18 +181,24 @@ function initEstudioSearch() {
         if (confirm('¿Desea agregar el estudio "' + nombreEstudio + '"?')) {
             agregarNuevoEstudio(nombreEstudio);
         }
-    }
+    };
     
     // Agregar eventos
-    searchInput.addEventListener('input', handleSearch);
-    searchInput.addEventListener('keyup', handleSearch);
-    agregarBtn.addEventListener('click', handleAgregar);
+    searchInput.addEventListener('input', searchHandler);
+    searchInput.addEventListener('keyup', searchHandler);
+    agregarBtn.addEventListener('click', agregarHandler);
     
     console.log('Eventos agregados correctamente');
 }
 
 // Función para agregar nuevo estudio
 function agregarNuevoEstudio(nombreEstudio) {
+    if (isProcessing) {
+        console.log('Ya se está procesando una solicitud de agregar...');
+        return;
+    }
+    
+    isProcessing = true;
     const agregarBtn = document.getElementById('agregarEstudioBtn');
     const searchInput = document.getElementById('searchEstudios');
     const noResultsMsg = document.getElementById('noResultsMessageEstudios');
@@ -199,29 +218,31 @@ function agregarNuevoEstudio(nombreEstudio) {
             // Rehabilitar botón
             agregarBtn.disabled = false;
             agregarBtn.innerHTML = '<i class="fa fa-plus"></i> Agregar Estudio';
+            isProcessing = false;
             
             if (xhr.status === 200) {
                 try {
                     const response = JSON.parse(xhr.responseText);
                     if (response.success) {
+                        console.log('Estudio agregado correctamente: ' + nombreEstudio);
+                        
                         // Limpiar campo de búsqueda
                         searchInput.value = '';
                         agregarBtn.style.display = 'none';
                         if (noResultsMsg) noResultsMsg.style.display = 'none';
                         
-                        // Refrescar la lista de estudios dentro del modal
-                        refrescarEstudios();
-                        
-                        console.log('Estudio agregado correctamente: ' + nombreEstudio);
+                        // Refrescar la lista de estudios dentro del modal SIN reinicializar eventos
+                        refrescarEstudiosSinReinit();
                     } else {
-                        alert('Error al agregar el estudio.');
+                        alert('Error al agregar el estudio: ' + (response.message || 'Error desconocido'));
                     }
                 } catch (e) {
                     alert('Error al procesar la respuesta.');
+                    console.error('Error parsing response:', e);
                 }
             } else {
                 alert('Error al agregar el estudio.');
-                console.error('Error:', xhr.responseText);
+                console.error('HTTP Error:', xhr.status, xhr.responseText);
             }
         }
     };
@@ -231,8 +252,8 @@ function agregarNuevoEstudio(nombreEstudio) {
     xhr.send(data);
 }
 
-// Función para refrescar estudios
-function refrescarEstudios() {
+// Nueva función para refrescar SIN reinicializar eventos
+function refrescarEstudiosSinReinit() {
     const estudiosContainer = document.getElementById('estudiosContainer');
     const consultaInput = document.querySelector('input[name="consulta_id"]');
     
@@ -247,13 +268,16 @@ function refrescarEstudios() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             estudiosContainer.innerHTML = xhr.responseText;
-            setTimeout(function() {
-                initEstudioSearch();
-            }, 100);
+            console.log('Lista de estudios actualizada sin reinicializar eventos');
         }
     };
     
     xhr.send();
+}
+
+// Función para refrescar estudios (mantener para compatibilidad)
+function refrescarEstudios() {
+    refrescarEstudiosSinReinit();
 }
 
 // Inicializar cuando el DOM esté listo
@@ -284,6 +308,9 @@ document.addEventListener('DOMContentLoaded', function() {
             checkboxes.forEach(function(checkbox) {
                 checkbox.style.display = 'block';
             });
+            
+            // Reset processing flag
+            isProcessing = false;
         });
     }
 });
