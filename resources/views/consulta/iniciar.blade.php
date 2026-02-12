@@ -49,6 +49,11 @@
                                 Referencia
                             </button>
                             @include('modals.ReferenciaModals')                            
+                        @else
+                            <button class="btn btn-warning font-weight-bold mb-2 me-2" id="editarReferencia" title="Editar Referencia" data-toggle="modal" data-target="#editarReferenciaModal">
+                                Editar Referencia
+                            </button>
+                            @include('modals.EditarReferenciaModals')
                         @endif 
 
                         @if (!$consulta->tieneConstancia())

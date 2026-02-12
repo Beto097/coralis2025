@@ -55,6 +55,12 @@
                                         <input type="text" class="form-control form-control-sm" id="inputtelefono" placeholder="Ejemplo:66666666" name="txttelefono" 
                                             value="{{$fila->telefono_paciente}}"  >
                                     </div>
+                                    
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="control-label mb-10 text-left">Direccion</label>
+                                        <input type="text" class="form-control form-control-sm" id="inputdireccion" placeholder="Ejemplo: Carrasquilla" name="txtDireccion" 
+                                            value="{{$fila->direccion_paciente}}" >
+                                    </div>
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label class="control-label mb-10 text-left" for="example-email">Correo</label>
                                         <div class="input-group mb-15"> <span class="input-group-addon">@</span>

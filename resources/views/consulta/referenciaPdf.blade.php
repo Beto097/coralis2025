@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
    <style>
     @page {
-      size:  297mm 210mm; /* A5 */
+      size: 279.4mm 215.9mm; /* Letter exacto: 8.5x11 pulgadas */
       margin: 0;
     }
 
@@ -24,15 +24,19 @@
     body {
       margin: 0;
       padding: 0;      
-      background-image: url('img/Referencia.png'); 
-      background-size:95%; /* O "contain", depende de lo que quieras */
+      background-image: url('img/ReferenciaV2.1.png'); 
+      background-size: 279.4mm 215.9mm; /* Tamaño exacto sin escalado */
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: 0 0; /* Posición exacta sin centrar */
+      image-rendering: auto;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      background-attachment: fixed; /* Evita redimensionamiento */
     }
 
     .pagina {
-      width: 297mm;
-      height: 210mm;
+      width: 279.4mm;
+      height: 215.9mm;
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -53,35 +57,37 @@
             </div>  
                
             <div id='fila'  style="position: absolute; left: 65px; top: 140px;">
-                <span style="position: absolute; ">{{ $fecha['dia'] }}</span>
-                <span style="position: absolute; left: 25px;">{{ $fecha['mes'] }}</span>
-                <span style="position: absolute; left: 65px;">{{ $fecha['anio'] }}</span>
-                <span style="position: absolute; left: 105px;">{{ $fecha['hora'] }}</span>
-                <span style="position: absolute; left: 130px;">{{ $fecha['minuto'] }}</span>
+                <span style="position: absolute; left: -25px; ">{{ $fecha['dia'] }}</span>
+                <span style="position: absolute; ">{{ $fecha['mes'] }}</span>
+                <span style="position: absolute; left: 35px;">{{ $fecha['anio'] }}</span>
+                <span style="position: absolute; left: 75px;">{{ $fecha['hora'] }}</span>
+                <span style="position: absolute; left: 100px;">{{ $fecha['minuto'] }}</span>
             </div>             
-            <div id='fila'  style="position: absolute; left: @if($consulta->referencia->datos['tipoR']==1) 335px @else 460px @endif; top: 155px; height: 30px;">
+            <div id='fila'  style="position: absolute; left: @if($consulta->referencia->datos['tipoR']==1) 308px @else 433px @endif; top: 155px; height: 30px;">
                 <span style="position: absolute; width: 300px;  ">X</span>
                 
             </div>  
             
             <div id="fila" style="position: relative; margin-top: 228px; padding-left: 100px; height: 30px;">
-                <span style="position: absolute; left: 65; top: 0;">{{$consulta->paciente->nombres(1)}}</span>
+                <span style="position: absolute; left: 55; top: 0;">{{$consulta->paciente->nombres(1)}}</span>
                 <span style="position: absolute; left: 230px; top: 0;">{{$consulta->paciente->nombres(2)}}</span>
-                <span style="position: absolute; left: 370px; top: 0;">{{$consulta->paciente->apellidos(1)}}</span>
-                <span style="position: absolute; left: 530px; top: 0;">{{$consulta->paciente->apellidos(2)}}</span>
+                <span style="position: absolute; left: 350px; top: 0;">{{$consulta->paciente->apellidos(1)}}</span>
+                <span style="position: absolute; left: 500px; top: 0;">{{$consulta->paciente->apellidos(2)}}</span>
             </div> 
             
             <div id="fila" style="position: relative; margin-top: 8px; padding-left: 120px; height: 30px;">
                 <span style="position: absolute; left: 95px; top: 0;">{{$consulta->paciente->telefono_paciente}}</span>
-                <span style="position: absolute; left: 255px; top: 0;">{{$consulta->paciente->identificacion_paciente}}</span>
-                <span style="position: absolute; left: 370px; top: 0;">{{$consulta->paciente->edad()}}</span>
+                <span style="position: absolute; left: 235px; top: 0;">{{$consulta->paciente->identificacion_paciente}}</span>
+                <span style="position: absolute; left: 350px; top: 0;">{{$consulta->paciente->edad()}}</span>
                 @if ($consulta->paciente->sexo_paciente=='f')
-                    <span style="position: absolute; left: 442px; top: 0;">X</span>
+                    <span style="position: absolute; left: 417px; top: 0;">X</span>
                 @else
-                    <span style="position: absolute; left: 467px; top: 0;">X</span>
+                    <span style="position: absolute; left: 437px; top: 0;">X</span>
                 @endif
                 
-                <span style="position: absolute; left: 530px; top: 0;">{{\Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('d/m/Y')}}</span>
+                <span style="position: absolute; left: 450px; top: 0;">{{\Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('d')}}</span>
+                <span style="position: absolute; left: 480px; top: 0;">{{\Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('m')}}</span>
+                <span style="position: absolute; left: 540px; top: 0;">{{\Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento_paciente)->format('Y')}}</span>
             </div>
             
             <div id="fila" style="position: relative; margin-top: -12px; padding-left: 120px; height: 30px;">
@@ -89,17 +95,17 @@
                
             </div> 
             <div id='fila'  style="position: absolute;  @if($consulta->referencia->datos['motivoR']==6)
-                                                            left: 440px; top: 356px; 
+                                                            left: 415px; top: 356px; 
                                                         @elseif($consulta->referencia->datos['motivoR']==5) 
-                                                            left: 335px; top: 356px;                                                         
+                                                            left: 310px; top: 356px;                                                         
                                                         @elseif($consulta->referencia->datos['motivoR']==4) 
-                                                            left: 195px; top: 356px; 
+                                                            left: 170px; top: 356px; 
                                                         @elseif($consulta->referencia->datos['motivoR']==3) 
-                                                            left: 440px; top: 338px;
+                                                            left: 415px; top: 338px;
                                                         @elseif($consulta->referencia->datos['motivoR']==2) 
-                                                            left: 335px; top: 338px;
+                                                            left: 310px; top: 338px;
                                                         @else
-                                                            left: 195px; top: 338px;   
+                                                            left: 170px; top: 338px;   
                                                         @endif 
                                                         height: 30px;">
                 <span style="position: absolute; width: 300px;  ">X</span>
@@ -111,13 +117,21 @@
                     
                 </div>   
             @endif
-            <div id="fila"  style="position: absolute; left: 140px; top: 392px;   height: 200px; width: 500px; ">
-                <div style="position: absolute; left: 0px; top: 0;">
+            <div id="fila"  style="position: absolute; left: 40px; top: 405px; height: 200px; width: 580px;">
+                <div style="position: absolute; left: 0px; top: 0; 
+                           word-wrap: break-word; 
+                           word-break: break-word; 
+                           hyphens: auto; 
+                           -webkit-hyphens: auto; 
+                           -ms-hyphens: auto; 
+                           text-align: justify; 
+                           line-height: 1.2;
+                           overflow: hidden;">
                     {{$consulta->referencia->datos['txtAmammensia']}}
                 </div>
             </div>
 
-            <div id="fila" style="position: relative; margin-top: 115px; padding-left: 150px; height: 60px; width: 500px;">
+            <div id="fila" style="position: relative; margin-top: 315px; padding-left: 150px; height: 60px; width: 500px;">
                 
                 <span style="position: absolute; left: 100px;">{{ \Carbon\Carbon::parse($consulta->updated_at)->format('h:m') }}</span>       
                 <span style="position: absolute; left: 200px;">{{ $consulta->presion_arterial }}</span>  
@@ -128,15 +142,21 @@
                 <span style="position: absolute; left: 570px;">{{ $consulta->talla}}</span>  
                 <span style="position: absolute; left: 622px;">{{ $consulta->peso}}</span>                     
             </div>
-            <div id="fila" style="position: absolute; left: 5px; top: 460px; padding-left: 150px; height: 60px; width: 500px;">
-                <div style="position: absolute; left: 140px; top: 0;">
-                    @if(isset($consulta->referencia->datos['txtExamenFisico']))
+            <div id="fila" style="position: absolute; left: 40px; top: 510px; height: 200px; width: 580px;">
+                <div style="position: absolute; left: 0px; top: 0; 
+                           word-wrap: break-word; 
+                           word-break: break-word; 
+                           hyphens: auto; 
+                           -webkit-hyphens: auto; 
+                           -ms-hyphens: auto; 
+                           text-align: justify; 
+                           line-height: 1.2;
+                           overflow: hidden;">
                         {{$consulta->referencia->datos['txtExamenFisico']}}
-                    @endif
                 </div>
             </div>
-            <div id="fila" style="position: absolute; left: -30px; top: 532px; padding-left: 150px; height: 60px; width: 500px;">
-                <div style="position: absolute; left: 140px; top: 0;">
+            <div id="fila" style="position: absolute; left: -30px; top: 632px; padding-left: 150px; height: 60px; width: 500px;">
+                <div style="position: absolute; left: 0px; top: 0;">
                     @if(isset($consulta->referencia->datos['txtResultados']))
                         {{$consulta->referencia->datos['txtResultados']}}
                     @endif
@@ -144,7 +164,7 @@
             </div>
 
 
-            <div id="fila" style="position: absolute; left: 140px; top: 570px; height: 60px; width: 500px;">
+            <div id="fila" style="position: absolute; left: 120px; top: 605px; height: 60px; width: 500px;">
                 <div style="position: absolute; left: 0px; top: 0;">
                     @if(isset($consulta->referencia->datos['txtDiagnostico']))
                         {{$consulta->referencia->datos['txtDiagnostico']}}
@@ -152,7 +172,7 @@
                 </div>
             </div>
             
-            <div id="fila" style="position: absolute; left: 70px; top: 605px; padding-left: 150px; height: 60px; width: 500px;">
+            <div id="fila" style="position: absolute; left: 70px; top: 705px; padding-left: 150px; height: 60px; width: 500px;">
                 <div style="position: absolute; left: 140px; top: 0;">
                     @if(isset($consulta->referencia->datos['txtTratamientos']))
                         {{$consulta->referencia->datos['txtTratamientos']}}

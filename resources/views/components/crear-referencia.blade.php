@@ -1,12 +1,12 @@
 
 <div class="row" style="padding-top: 15px">      
     <div class="form-group col-md-6">
-        <label for="">Servicio Medico al que Refiere:</label>
-        <input type="text" class="form-control" id="" placeholder="Ejemplo: CSS"  value="{{old('RefiereA')}}" name="RefiereA" required>
+        <label for="">Servicio Medico al que Refiere: <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="refiereACrear" placeholder="Ejemplo: CSS"  value="{{old('RefiereA')}}" name="RefiereA" required>
     </div>
     <div class="form-group col-md-6">
         <label for="">Tipo de Referencia:</label>
-        <select class="form-control" name="tipoR" id="">
+        <select class="form-control" name="tipoR" id="tipoRCrear">
             <option value="1" selected>Consulta Externa</option>
             <option value="2" >Urgencia</option>          
         
@@ -25,28 +25,28 @@
     </div>
     <!-- Input oculto al inicio -->
     <div class="form-group col-md-6" id="otroMotivoDiv" style="display: none;">
-        <label for="">Otro Motivo:</label>
-        <input type="text" class="form-control" name="otroMotivo" placeholder="Especifique el motivo">
+        <label for="">Otro Motivo: <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="otroMotivoCrear" name="otroMotivo" placeholder="Especifique el motivo">
     </div>
     <div class="form-group col-md-12">
-        <label for="">Amammensia:</label>
-        <textarea class="form-control" name="txtAmammensia" id="txtAmammensia" rows="3"></textarea>        
+        <label for="">Amammensia: <span class="text-danger">*</span></label>
+        <textarea class="form-control" name="txtAmammensia" id="txtAnamnesiaCrear" rows="3" required></textarea>        
     </div>
     <div class="form-group col-md-12">
-        <label for="">Examen Fisico:</label>
-        <textarea class="form-control" name="txtExamenFisico" id="txtExamenFisico" rows="3"></textarea>        
+        <label for="">Examen Fisico: <span class="text-danger">*</span></label>
+        <textarea class="form-control" name="txtExamenFisico" id="txtExamenFisicoCrear" rows="3" required></textarea>        
     </div>
     <div class="form-group col-md-12">
         <label for="">Resultado de Examenes:</label>
-        <textarea class="form-control" name="txtResultados" id="txtResultados" rows="3"></textarea>        
+        <textarea class="form-control" name="txtResultados" id="txtResultadosCrear" rows="3"></textarea>        
     </div>
     <div class="form-group col-md-12">
-        <label for="">Diagnostico:</label>
-        <textarea class="form-control" name="txtDiagnostico" id="txtDiagnostico" rows="3"></textarea>        
+        <label for="">Diagnostico: <span class="text-danger">*</span></label>
+        <textarea class="form-control" name="txtDiagnostico" id="txtDiagnosticoCrear" rows="3" required></textarea>        
     </div>
     <div class="form-group col-md-12">
-        <label for="">Tratamiento y Complicaciones:</label>
-        <textarea class="form-control" name="txtTratamiento" id="txtTratamiento" rows="3"></textarea>        
+        <label for="">Tratamiento y Complicaciones: <span class="text-danger">*</span></label>
+        <textarea class="form-control" name="txtTratamiento" id="txtTratamientoCrear" rows="3" required></textarea>        
     </div>
     <script>
         document.getElementById('motivoR').addEventListener('change', function() {
@@ -55,6 +55,58 @@
                 otroDiv.style.display = 'block';
             } else {
                 otroDiv.style.display = 'none';
+            }
+        });
+
+        function validarFormularioCrear() {
+            const refiereA = document.getElementById('refiereACrear').value.trim();
+            const anamnesia = document.getElementById('txtAnamnesiaCrear').value.trim();
+            const examenFisico = document.getElementById('txtExamenFisicoCrear').value.trim();
+            const diagnostico = document.getElementById('txtDiagnosticoCrear').value.trim();
+            const tratamiento = document.getElementById('txtTratamientoCrear').value.trim();
+            const motivoR = document.getElementById('motivoR').value;
+            
+            let errores = [];
+            
+            if (!refiereA) {
+                errores.push('Servicio Médico al que Refiere');
+            }
+            
+            if (!anamnesia) {
+                errores.push('Anamnesia');
+            }
+            
+            if (!examenFisico) {
+                errores.push('Examen Físico');
+            }
+            
+            if (!diagnostico) {
+                errores.push('Diagnóstico');
+            }
+            
+            if (!tratamiento) {
+                errores.push('Tratamiento y Complicaciones');
+            }
+            
+            if (motivoR === '6') {
+                const otroMotivo = document.getElementById('otroMotivoCrear').value.trim();
+                if (!otroMotivo) {
+                    errores.push('Otro Motivo (especificación)');
+                }
+            }
+            
+            if (errores.length > 0) {
+                alert('Los siguientes campos son obligatorios:\n\n• ' + errores.join('\n• '));
+                return false;
+            }
+            
+            return true;
+        }
+
+        document.getElementById('btnCrearModal2').addEventListener('click', function(e) {
+            if (!validarFormularioCrear()) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>
