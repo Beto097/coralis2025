@@ -50,7 +50,7 @@
 
             <div id='fila'  style="position: absolute; top: 230px; left: 500px;">
                 <span style="position: absolute; width: 300px;  ">Clinica Coralis</span>
-                <span style="position: absolute; left: 480px; width: 300px;">{{$consulta->referencia->datos['RefiereA']}}</span>
+                <span style="position: absolute; left: 400px; width: 300px;">{{$consulta->referencia->datos['RefiereA']}}</span>
             </div>  
                
             <div id='fila'  style="position: relative; left: 80px; top: 265px;">
@@ -122,7 +122,14 @@
                 </div>
             </div>
 
-            <div id="fila" style="position: relative; left: 5px; top: 498px; height: 20px; width: 650px;">
+            <div id="fila"  style="position: absolute; left: 60px; top: 1030px; height: 80px; ">
+                <div style="position: absolute;text-align: justify; width: 1190px;
+                           line-height: 1.1;
+                           overflow: hidden;">
+                        {{$consulta->referencia->datos['txtExamenFisico']}}
+                </div>
+            </div>
+            <div id="fila" style="position: absolute; left: 5px; top: 1185px; height: 20px; width: 650px;">
                 <span style="position: absolute; left: 100px;">{{ \Carbon\Carbon::parse($consulta->updated_at)->format('h:m') }}</span>       
                 <span style="position: absolute; left: 200px;">{{ $consulta->referencia->datos['presionArterial'] ?? $consulta->presion_arterial ?? '---' }}</span>  
                 <span style="position: absolute; left: 340px;">{{ $consulta->referencia->datos['frecuenciaCardiaca'] ?? $consulta->frecuencia_cardiaca ?? '---' }}</span>
@@ -132,14 +139,7 @@
                 <span style="position: absolute; left: 1130px;">{{ $consulta->referencia->datos['talla'] ?? $consulta->talla ?? '---' }}</span>  
                 <span style="position: absolute; left: 870px;">{{ $consulta->referencia->datos['peso'] ?? $consulta->peso ?? '---' }}</span>                     
             </div>
-            <div id="fila"  style="position: absolute; left: 60px; top: 1030px; height: 80px; ">
-                <div style="position: absolute;text-align: justify; width: 1190px;
-                           line-height: 1.1;
-                           overflow: hidden;">
-                        {{$consulta->referencia->datos['txtExamenFisico']}}
-                </div>
-            </div>
-            <div id="fila" style="position: relative; left: 30px; top: 240px; height: 40px; width: 580px;">
+            <div id="fila" style="position: absolute; left: 30px; top: 240px; height: 40px; width: 580px;">
                 <div style="position: absolute; left: 0px; top: 0;
                            word-wrap: break-word;
                            font-size: 12px;
@@ -151,8 +151,8 @@
             </div>
 
 
-            <div id="fila" style="position: relative; left: 200px; top: 470px; height: 40px; width: 1060px;">
-                <div style="position: relative; left: 0px; top: 0;
+            <div id="fila" style="position: absolute; left: 200px; top: 1215px; height: 40px; width: 1060px;">
+                <div style="position: absolute; left: 0px; top: 0;
                             text-align: justify;
                            word-wrap: break-word;
                            line-height: 1.8;">
@@ -162,8 +162,8 @@
                 </div>
             </div>
             
-            <div id="fila" style="position: relative; left: 350px; top: 500px; height: 60px; width: 930px;">
-                <div style="position: relative; left: 0px; top: 0;text-align: justify;
+            <div id="fila" style="position: absolute; left: 350px; top: 1285px; height: 60px; width: 930px;">
+                <div style="position: absolute; left: 0px; top: 0;text-align: justify;
                            word-wrap: break-word;
                            line-height: 1.8;">
                     @if(isset($consulta->referencia->datos['txtTratamiento']))
