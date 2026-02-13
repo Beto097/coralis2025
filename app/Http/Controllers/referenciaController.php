@@ -89,7 +89,7 @@ class referenciaController extends Controller
                 'fecha'=>$fechaDividida,             
                 'firma' => $firmaExiste,
                 'sello' => $selloExiste
-            ])->setPaper([0, 0, 595.28,841.89]);
+            ])->setPaper([0, 0, 612, 792]); // Letter: 8.5"x11" = 612x792 puntos
 
             $nombreArchivo = $consulta->paciente->identificacion_paciente.'.pdf';
             return $pdf->stream($nombreArchivo);
