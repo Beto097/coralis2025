@@ -1,12 +1,6 @@
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addNewOrdenEstudioModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addNewOrdenEstudioModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl" style="max-width: 90%; width: 90%;">
         <div class="modal-content">
-        <form id="ordenEstudioForm" action="@if($consulta->tieneEstudio()) {{ route('orden.update', $consulta->ordenEstudio()->id) }} @else {{ route('orden.insert') }} @endif" method="POST" role="form" autocomplete="off">
-                        @csrf
-                        @if($consulta->tieneEstudio())
-                            @method('PUT')
-                        @endif
-            {{-- HEADER --}}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h5 class="modal-title" id="myLargeModalLabel">
@@ -16,302 +10,328 @@
                         Crear Orden de estudios
                     @endif
                 </h5>
-                <div class=text-right>
-                    <button type="submit"  class="btn btn-primary">
-                        @if($consulta->tieneEstudio())
-                            Actualizar Orden
-                        @else
-                            Crear Orden
-                        @endif
-                    </button>
-                </div>
             </div>
-
-            {{-- BODY --}}
             <div class="modal-body">
-                <div class="form-wrap">
-                    {{-- Buscador --}}
-                    <div class="form-group mb-3">
-                        <label for="searchEstudios">Buscar estudios:</label><br>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <input type="text" 
-                                       id="searchEstudios" 
-                                       class="form-control" 
-                                       placeholder="Escriba al menos 2 caracteres para buscar..." 
-                                       autocomplete="off">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" 
-                                        id="agregarEstudioBtn" 
-                                        class="btn btn-success btn-sm"
-                                        style="display: none; width: 100%;">
-                                    <i class="fa fa-plus"></i> Agregar Estudio
-                                </button>
-                            </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="form-wrap">
+                            <form id="ordenEstudioForm" action="@if($consulta->tieneEstudio()) {{ route('orden.update', $consulta->ordenEstudio()->id) }} @else {{ route('orden.insert') }} @endif" method="POST" role="form" autocomplete="off">
+                                @csrf
+                                @if($consulta->tieneEstudio())
+                                    @method('PUT')
+                                @endif
+                                
+                                <div id="contenedorEstudio">
+                                    <div class="row filaEstudio" id="filaEstudio" style="padding-top: 15px">      
+                                        <div class="form-group col-md-3">            
+                                            <label for="">Tipo de Estudio</label> 
+                                            <div class="tipo-container" style="position: relative;">
+                                                <select class="form-control tipoEstudioSelect" name="txtTipoEstudio[]" required>
+                                                    <option value="">Seleccione un tipo</option>
+                                                    <option value="imagenologia">Imagenología</option>
+                                                    <option value="cardiologia">Cardiología</option>
+                                                    <option value="neurologia">Neurología</option>
+                                                    <option value="endoscopia">Endoscopia</option>
+                                                    <option value="biopsia">Biopsia</option>
+                                                    <option value="patologia">Patología</option>
+                                                    <option value="otro">Otro (escribir)</option> 
+                                                </select>
+                                                <div class="tipo-custom-display" style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: white; border: 1px solid #ccc; border-radius: 4px; padding: 6px 12px; pointer-events: none; z-index: 1;">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control mt-2 tipoOtroInput" placeholder="Especifique el tipo de estudio" style="display:none;">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Estudio</label>
+                                            <input type="text" class="form-control" autocomplete="off" placeholder="Ej: Hemograma completo, Radiografía de tórax" name="txtEstudio[]" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Informe Clínico</label>
+                                            <textarea class="form-control" placeholder="Indique las observaciones clínicas o motivo del estudio" name="txtInformeClinico[]" rows="2" required></textarea>
+                                        </div>
+                                        <div class="form-group col-md-1" style="padding-top: 1.5rem; margin-left: -10px">
+                                            <button type="button" class="btn btn-danger eliminarFilaEstudio" style="display: none;"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-11" style="margin-left: -10px">
+                                        
+                                    </div>
+                                    <div class="form-group col-md-1 ">
+                                        <button type="button" id="sumarFilaEstudio" class="btn btn-primary text-left" onclick="agregarFilaEstudio()"><i id="iconoBotonEstudio" class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">      
+                                    <input type="hidden" name="consulta_id" value="{{ $consulta->id }}">                               
+                                    <button type="submit" title="Guarda Orden de Estudio" id="btnCrearModalEstudio" name="accion" value="guardar" class="btn btn-primary text-left">
+                                        @if($consulta->tieneEstudio())
+                                            Actualizar Orden
+                                        @else
+                                            Guardar Orden
+                                        @endif
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div id="noResultsMessageEstudios" style="display: none;" class="text-muted mt-2">
-                            <small>No se encontraron estudios. Use el botón "Agregar Estudio" para crear uno nuevo.</small>
-                        </div>
-                    </div><br>
-                    <hr>
-                    
-                    {{-- Checkboxes --}}
-                    <div id="estudiosContainer">
-                        <x-cuadro-examenes :consulta="$consulta" :tipo-examen="2" />
                     </div>
-                    <input type="hidden" name="consulta_id" value="{{ $consulta->id }}">
                 </div>
             </div>
-
-            {{-- FOOTER --}}
-            <div class="modal-footer d-flex justify-content-center">
-                
-            </div>
-
-                {{-- FOOTER (separado y abajo en su propia fila) --}}
-                <div class="modal-footer d-flex justify-content-center">
-                    
-                </div>
-            </form>
         </div>
     </div>
 </div>
 
 <script>
-// Variables globales para manejar event listeners
-let searchHandler = null;
-let agregarHandler = null;
-let isProcessing = false; // Flag para evitar múltiples clicks
-
-// Función para inicializar el buscador de estudios (JavaScript vanilla)
-function initEstudioSearch() {
-    console.log('Inicializando búsqueda de estudios...');
-    
-    const searchInput = document.getElementById('searchEstudios');
-    const agregarBtn = document.getElementById('agregarEstudioBtn');
-    const noResultsMsg = document.getElementById('noResultsMessageEstudios');
-    const estudiosContainer = document.getElementById('estudiosContainer');
-    
-    if (!searchInput || !agregarBtn || !estudiosContainer) {
-        console.log('Elementos no encontrados, reintentando...');
-        setTimeout(initEstudioSearch, 500);
-        return;
-    }
-    
-    // Limpiar eventos previos COMPLETAMENTE
-    if (searchHandler) {
-        searchInput.removeEventListener('input', searchHandler);
-        searchInput.removeEventListener('keyup', searchHandler);
-    }
-    if (agregarHandler) {
-        agregarBtn.removeEventListener('click', agregarHandler);
-    }
-    
-    // Definir handlers como funciones nombradas para poder removerlas
-    searchHandler = function() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        console.log('Búsqueda:', searchTerm);
-        
-        if (searchTerm.length >= 2) {
-            let hasVisibleResults = false;
-            let hasExactMatch = false;
-            const checkboxes = estudiosContainer.querySelectorAll('.form-check-inline');
-            
-            checkboxes.forEach(function(checkbox) {
-                const strongElement = checkbox.querySelector('strong');
-                if (strongElement) {
-                    const estudioName = strongElement.textContent.toLowerCase();
-                    
-                    // Verificar coincidencia exacta
-                    if (estudioName === searchTerm) {
-                        hasExactMatch = true;
-                    }
-                    
-                    // Mostrar elementos que contengan el término (para filtrado visual)
-                    if (estudioName.indexOf(searchTerm) !== -1) {
-                        checkbox.style.display = 'block';
-                        hasVisibleResults = true;
-                    } else {
-                        checkbox.style.display = 'none';
-                    }
-                }
-            });
-            
-            // Mostrar botón agregar solo si NO hay coincidencia exacta
-            if (!hasExactMatch) {
-                agregarBtn.style.display = 'block';
-                if (noResultsMsg) {
-                    if (hasVisibleResults) {
-                        noResultsMsg.style.display = 'none';
-                    } else {
-                        noResultsMsg.style.display = 'block';
-                    }
-                }
-                console.log('Mostrando botón agregar - no hay coincidencia exacta');
-            } else {
-                agregarBtn.style.display = 'none';
-                if (noResultsMsg) noResultsMsg.style.display = 'none';
-                console.log('Ocultando botón agregar - existe coincidencia exacta');
-            }
-        } else {
-            // Mostrar todos los elementos
-            const checkboxes = estudiosContainer.querySelectorAll('.form-check-inline');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.style.display = 'block';
-            });
-            agregarBtn.style.display = 'none';
-            if (noResultsMsg) noResultsMsg.style.display = 'none';
-        }
-    };
-    
-    agregarHandler = function() {
-        if (isProcessing) {
-            console.log('Ya se está procesando una solicitud...');
-            return;
-        }
-        
-        const nombreEstudio = searchInput.value.trim();
-        
-        if (nombreEstudio.length < 2) {
-            alert('Por favor escriba al menos 2 caracteres para el nombre del estudio.');
-            return;
-        }
-        
-        if (confirm('¿Desea agregar el estudio "' + nombreEstudio + '"?')) {
-            agregarNuevoEstudio(nombreEstudio);
-        }
-    };
-    
-    // Agregar eventos
-    searchInput.addEventListener('input', searchHandler);
-    searchInput.addEventListener('keyup', searchHandler);
-    agregarBtn.addEventListener('click', agregarHandler);
-    
-    console.log('Eventos agregados correctamente');
-}
-
-// Función para agregar nuevo estudio
-function agregarNuevoEstudio(nombreEstudio) {
-    if (isProcessing) {
-        console.log('Ya se está procesando una solicitud de agregar...');
-        return;
-    }
-    
-    isProcessing = true;
-    const agregarBtn = document.getElementById('agregarEstudioBtn');
-    const searchInput = document.getElementById('searchEstudios');
-    const noResultsMsg = document.getElementById('noResultsMessageEstudios');
-    
-    // Crear XMLHttpRequest
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '{{ route("examen.agregar") }}', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-    
-    // Deshabilitar botón
-    agregarBtn.disabled = true;
-    agregarBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Agregando...';
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            // Rehabilitar botón
-            agregarBtn.disabled = false;
-            agregarBtn.innerHTML = '<i class="fa fa-plus"></i> Agregar Estudio';
-            isProcessing = false;
-            
-            if (xhr.status === 200) {
-                try {
-                    const response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        console.log('Estudio agregado correctamente: ' + nombreEstudio);
-                        
-                        // Limpiar campo de búsqueda
-                        searchInput.value = '';
-                        agregarBtn.style.display = 'none';
-                        if (noResultsMsg) noResultsMsg.style.display = 'none';
-                        
-                        // Refrescar la lista de estudios dentro del modal SIN reinicializar eventos
-                        refrescarEstudiosSinReinit();
-                    } else {
-                        alert('Error al agregar el estudio: ' + (response.message || 'Error desconocido'));
-                    }
-                } catch (e) {
-                    alert('Error al procesar la respuesta.');
-                    console.error('Error parsing response:', e);
-                }
-            } else {
-                alert('Error al agregar el estudio.');
-                console.error('HTTP Error:', xhr.status, xhr.responseText);
-            }
-        }
-    };
-    
-    // Enviar datos
-    const data = 'nombre_examen=' + encodeURIComponent(nombreEstudio) + '&tipo_examen=2&_token=' + encodeURIComponent('{{ csrf_token() }}');
-    xhr.send(data);
-}
-
-// Nueva función para refrescar SIN reinicializar eventos
-function refrescarEstudiosSinReinit() {
-    const estudiosContainer = document.getElementById('estudiosContainer');
-    const consultaInput = document.querySelector('input[name="consulta_id"]');
-    
-    if (!estudiosContainer || !consultaInput) {
-        console.error('Elementos no encontrados para refrescar');
-        return;
-    }
-    
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ route("examen.lista") }}?consulta_id=' + consultaInput.value + '&tipo_examen=2', true);
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            estudiosContainer.innerHTML = xhr.responseText;
-            console.log('Lista de estudios actualizada sin reinicializar eventos');
-        }
-    };
-    
-    xhr.send();
-}
-
-// Función para refrescar estudios (mantener para compatibilidad)
-function refrescarEstudios() {
-    refrescarEstudiosSinReinit();
-}
-
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM cargado, inicializando...');
-    setTimeout(initEstudioSearch, 500);
+    // Función para manejar el cambio en el select de tipo de estudio
+    function handleTipoEstudioChange(selectElement) {
+        const container = selectElement.closest('.tipo-container') || selectElement.parentElement;
+        const filaEstudio = selectElement.closest('.filaEstudio');
+        const tipoOtroInput = filaEstudio.querySelector('.tipoOtroInput');
+        const customDisplay = container.querySelector('.tipo-custom-display');
+        
+        if (selectElement.value === 'otro') {
+            // Mostrar el campo "Otro"
+            tipoOtroInput.style.display = 'block';
+            tipoOtroInput.required = true;
+        } else {
+            // Ocultar el campo "Otro" y el display personalizado
+            tipoOtroInput.style.display = 'none';
+            tipoOtroInput.value = ''; // Limpiar el campo
+            tipoOtroInput.required = false;
+            
+            if (customDisplay) {
+                customDisplay.style.display = 'none';
+            }
+        }
+    }
+    
+    // Función para actualizar el valor del select con el texto personalizado
+    function updateTipoEstudioValue(input) {
+        const filaEstudio = input.closest('.filaEstudio');
+        const tipoSelect = filaEstudio.querySelector('.tipoEstudioSelect');
+        const container = tipoSelect.closest('.tipo-container') || tipoSelect.parentElement;
+        const customDisplay = container.querySelector('.tipo-custom-display');
+        
+        // Solo proceder si el select está en modo "otro"
+        if (tipoSelect.value === 'otro' || tipoSelect.querySelector('option[data-custom="true"]:checked')) {
+            if (input.value.trim() !== '') {
+                // Crear o actualizar una opción hidden con el valor personalizado
+                let customOption = tipoSelect.querySelector('option[data-custom="true"]');
+                if (!customOption) {
+                    customOption = document.createElement('option');
+                    customOption.setAttribute('data-custom', 'true');
+                    tipoSelect.appendChild(customOption);
+                }
+                
+                // Asignar el valor personalizado y seleccionarlo
+                customOption.value = input.value.trim();
+                customOption.textContent = input.value.trim();
+                customOption.selected = true;
+                
+                // Deseleccionar la opción "otro"
+                const otroOption = tipoSelect.querySelector('option[value="otro"]');
+                if (otroOption) {
+                    otroOption.selected = false;
+                }
+                
+                // Mostrar el texto personalizado sobre el select
+                if (customDisplay) {
+                    customDisplay.textContent = input.value.trim();
+                    customDisplay.style.display = 'block';
+                }
+            } else {
+                // Si el campo está vacío, volver a seleccionar "otro"
+                const otroOption = tipoSelect.querySelector('option[value="otro"]');
+                if (otroOption) {
+                    otroOption.selected = true;
+                }
+                
+                // Ocultar el display personalizado
+                if (customDisplay) {
+                    customDisplay.style.display = 'none';
+                }
+                
+                // Remover la opción personalizada si existe
+                const customOption = tipoSelect.querySelector('option[data-custom="true"]');
+                if (customOption) {
+                    customOption.remove();
+                }
+            }
+        }
+    }
+    
+    // Inicializar estados al cargar la página
+    document.querySelectorAll('.filaEstudio').forEach(function(fila) {
+        const tipoSelect = fila.querySelector('.tipoEstudioSelect');
+        const tipoOtroInput = fila.querySelector('.tipoOtroInput');
+        
+        if (tipoSelect && tipoOtroInput) {
+            // Si el input tiene valor y está visible, actualizar el select
+            if (tipoOtroInput.style.display === 'block' && tipoOtroInput.value.trim() !== '') {
+                updateTipoEstudioValue(tipoOtroInput);
+            }
+        }
+    });
+    
+    // Agregar event listener a todos los selects de tipo existentes
+    document.querySelectorAll('.tipoEstudioSelect').forEach(function(select) {
+        select.addEventListener('change', function() {
+            handleTipoEstudioChange(this);
+        });
+    });
+    
+    // Agregar event listener a todos los inputs de tipo personalizado
+    document.querySelectorAll('.tipoOtroInput').forEach(function(input) {
+        input.addEventListener('input', function() {
+            updateTipoEstudioValue(this);
+        });
+        input.addEventListener('keyup', function() {
+            updateTipoEstudioValue(this);
+        });
+        input.addEventListener('blur', function() {
+            updateTipoEstudioValue(this);
+        });
+    });
+    
+    // Para futuras filas que se agreguen dinámicamente
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('tipoEstudioSelect')) {
+            handleTipoEstudioChange(e.target);
+        }
+    });
+    
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('tipoOtroInput')) {
+            updateTipoEstudioValue(e.target);
+        }
+    });
+    
+    document.addEventListener('keyup', function(e) {
+        if (e.target.classList.contains('tipoOtroInput')) {
+            updateTipoEstudioValue(e.target);
+        }
+    });
+    
+    // Asegurar que antes del envío del formulario se actualicen los valores
+    const form = document.getElementById('ordenEstudioForm');
+    if (form) {
+        form.addEventListener('submit', function() {
+            document.querySelectorAll('.tipoOtroInput').forEach(function(input) {
+                if (input.style.display !== 'none' && input.value.trim() !== '') {
+                    updateTipoEstudioValue(input);
+                }
+            });
+        });
+    }
 });
 
-// También inicializar cuando se abra el modal (si Bootstrap está disponible)
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('addNewOrdenEstudioModal');
-    if (modal) {
-        modal.addEventListener('shown.bs.modal', function() {
-            console.log('Modal abierto, inicializando búsqueda...');
-            setTimeout(initEstudioSearch, 100);
-        });
+// Función para agregar nueva fila de estudio
+function agregarFilaEstudio() {
+    const contenedor = document.getElementById('contenedorEstudio');
+    const nuevaFila = document.querySelector('.filaEstudio').cloneNode(true);
+    
+    // Limpiar los valores de la nueva fila
+    nuevaFila.querySelectorAll('input, select, textarea').forEach(function(element) {
+        if (element.type === 'checkbox' || element.type === 'radio') {
+            element.checked = false;
+        } else {
+            element.value = '';
+        }
         
-        modal.addEventListener('hidden.bs.modal', function() {
-            const searchInput = document.getElementById('searchEstudios');
-            const agregarBtn = document.getElementById('agregarEstudioBtn');
-            const noResultsMsg = document.getElementById('noResultsMessageEstudios');
-            const checkboxes = document.querySelectorAll('#estudiosContainer .form-check-inline');
-            
-            if (searchInput) searchInput.value = '';
-            if (agregarBtn) agregarBtn.style.display = 'none';
-            if (noResultsMsg) noResultsMsg.style.display = 'none';
-            
-            checkboxes.forEach(function(checkbox) {
-                checkbox.style.display = 'block';
-            });
-            
-            // Reset processing flag
-            isProcessing = false;
-        });
+        // Restablecer estados para campos de tipo personalizado
+        if (element.classList.contains('tipoOtroInput')) {
+            element.style.display = 'none';
+            element.required = false;
+        }
+    });
+    
+    // Ocultar display personalizado en la nueva fila
+    const customDisplay = nuevaFila.querySelector('.tipo-custom-display');
+    if (customDisplay) {
+        customDisplay.style.display = 'none';
     }
+    
+    // Remover opciones personalizadas del select clonado
+    const tipoSelect = nuevaFila.querySelector('.tipoEstudioSelect');
+    if (tipoSelect) {
+        const customOptions = tipoSelect.querySelectorAll('option[data-custom="true"]');
+        customOptions.forEach(option => option.remove());
+    }
+    
+    contenedor.appendChild(nuevaFila);
+    actualizarBotonesEliminar();
+}
+
+// Función para actualizar la visibilidad de los botones eliminar
+function actualizarBotonesEliminar() {
+    const filas = document.querySelectorAll('.filaEstudio');
+    filas.forEach(function(fila, index) {
+        const btnEliminar = fila.querySelector('.eliminarFilaEstudio');
+        if (btnEliminar) {
+            btnEliminar.style.display = filas.length > 1 ? 'block' : 'none';
+        }
+    });
+}
+
+// Event listener para botones eliminar
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('eliminarFilaEstudio') || e.target.closest('.eliminarFilaEstudio')) {
+        const fila = e.target.closest('.filaEstudio');
+        if (fila && document.querySelectorAll('.filaEstudio').length > 1) {
+            fila.remove();
+            actualizarBotonesEliminar();
+        }
+    }
+});
+
+// Inicializar botones al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(actualizarBotonesEliminar, 100);
 });
 </script>
+
+<style>
+/* Mejorar la visualización de selects con texto largo */
+.tipoEstudioSelect {
+    width: 100% !important;
+    min-width: 120px;
+    overflow: visible;
+}
+
+.tipoEstudioSelect option {
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    padding: 5px;
+}
+
+/* Ajustar el ancho específicamente del campo tipo */
+.form-group:has(.tipoEstudioSelect) {
+    min-width: 180px;
+}
+
+/* Estilos para las filas de estudios */
+.filaEstudio {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.filaEstudio:last-child {
+    border-bottom: none;
+}
+
+/* Mejorar el área de texto */
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Botón eliminar */
+.eliminarFilaEstudio {
+    margin-top: 8px;
+}
+</style>
