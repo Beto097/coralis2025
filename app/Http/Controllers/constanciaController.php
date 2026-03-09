@@ -49,13 +49,19 @@ class constanciaController extends Controller
             \Log::info('Guardando constancia:', $constancia->toArray());
             $constancia->save();
 
-            // Generar la URL del PDF
-            $pdf_url = route('constancia.print', ['id' => $request->txtId]);
+            // Preparar la URL de redirección a la vista de iniciar consulta
+            $redirectUrl = route('consulta.iniciar', ['id' => $request->txtId]) . '?msg=' . urlencode('Guardado con éxito');
 
-            return response()->json([
-                'success' => true,
-                'pdf_url' => $pdf_url
-            ]);
+            // Si la petición espera JSON (AJAX/fetch), devolver JSON con la URL de redirección
+            if ($request->wantsJson() || $request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                return response()->json([
+                    'success' => true,
+                    'redirect' => $redirectUrl
+                ]);
+            }
+
+            // Si es una petición normal (form submit), redirigir a iniciar consulta con mensaje de éxito
+            return redirect($redirectUrl)->withErrors(['success' => 'Guardado con éxito']);
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Error de validación:', $e->errors());
             return response()->json([

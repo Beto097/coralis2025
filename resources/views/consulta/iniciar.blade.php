@@ -61,6 +61,11 @@
                                 Constancia
                             </button>
                             @include('modals.ConstanciaModals')
+                            @else
+                            <button class="btn btn-warning font-weight-bold mb-2 me-2" id="addNewConstancia" title="Crear Constancia" data-toggle="modal" data-target="#addNewConstanciaModal">
+                                Editar Constancia
+                            </button>
+                            @include('modals.ConstanciaModals')
                         @endif   
                     @endif
 
@@ -88,6 +93,8 @@
                             Atender Consulta
                         </button>
                         @include('modals.RegistroModals')  
+                    @endif
+                    @if ($consulta->estado_consulta == 'EN CURSO' || ($consulta->estado_consulta == 'TERMINADO' && $consulta->created_at>\Carbon\Carbon::now()->subHours(24)))
                         <button
                             id="addNewRegistro"
                             title="Registrar Orden de Laboratorio"
@@ -108,7 +115,7 @@
                             Crear O. Estudios
                         </button>
                         @include('modals.OrdenEstudiosModals') 
-                      @endif
+                    @endif
                         </div>
                   @endisset
                     
@@ -316,20 +323,42 @@
               }
               return response.json();
           })
-          .then(data => {
-              if (data.success && data.pdf_url) {
-                  $('#addNewConstanciaModal').modal('hide');
-                  window.open(data.pdf_url, '_blank');
+            .then(data => {
+              if (data.success) {
+                $('#addNewConstanciaModal').modal('hide');
+                if (data.redirect) {
+                  window.location.href = data.redirect;
+                } else {
+                  // Fallback: recargar la página
+                  window.location.reload();
+                }
               } else {
-                  alert('Error al generar constancia: ' + (data.error || 'Error desconocido'));
+                alert('Error al guardar constancia: ' + (data.error || 'Error desconocido'));
               }
-          })
+            })
           .catch(error => {
               console.error('Error completo:', error);
               alert('Error inesperado: ' + (error.message || error));
           });
       });
   });
+  // Si la URL contiene ?msg=..., mostrar alerta de éxito
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('msg')) {
+      const msg = params.get('msg');
+      const target = document.querySelector('.col-sm-4.col-sm-offset-8');
+      const container = target || document.body;
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'alert alert-success alert-dismissable';
+      alertDiv.style.cssText = 'width: 120%; margin-left:-25%; min-height: 50px; display: flex; align-items: center;';
+      alertDiv.innerHTML = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+                           '<i class="zmdi zmdi-check" style="margin-right: 15px; font-size: 18px;"></i>' +
+                           '<p style="margin: 0; flex: 1; padding-right: 40px;">' + msg + '</p>';
+      container.insertAdjacentElement('afterbegin', alertDiv);
+      setTimeout(function(){ $('.alert-success').fadeOut('slow'); }, 4000);
+    }
+  })();
 </script>
 
 @endsection

@@ -11,7 +11,7 @@
                         <div class="form-wrap">
                             <form action="{{route('estudio.save')}}" method="POST" role="form" >
                                 @csrf
-                                <x-receta-medica :resultado="$consulta" />
+                                <!--<x-receta-medica :resultado="$consulta" />-->
                             </form>
                         </div>
                     </div>
