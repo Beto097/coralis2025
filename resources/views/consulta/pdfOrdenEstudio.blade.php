@@ -25,6 +25,7 @@
         font-size:25px;
         color: black;
         width: 60%;
+        align-text: justify;
     }
 
     #head{
@@ -86,6 +87,7 @@
             -webkit-column-break-inside: avoid;
             page-break-inside: avoid;
             font-size:25px;
+            position: absolute;
         }
         .section {
             position: relative;
@@ -135,7 +137,7 @@
                                 </ul>
                             </div>
                             <div>
-                                <p id="fila" style="margin-top: 200px; padding-left: 205px;max-width: 700px">{{$estudio->informe_clinico}}</p>
+                                <p id="fila" style="margin-top: 230px; padding-left: 205px;max-width: 700px">{{$estudio->informe_clinico}}</p>
                             </div>
                             </div>
                         </div>
