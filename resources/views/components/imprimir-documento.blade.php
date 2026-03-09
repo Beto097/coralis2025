@@ -17,7 +17,7 @@
                     <option value="receta">Receta</option>
                 @endif
                 @if ($consulta && $consulta->tieneOrden())
-                    <option value="orden">Orden de Laboratorio</option>
+                    <option value="laboratorio">Orden de Laboratorio</option>
                 @endif
                 @if ($consulta && $consulta->tieneEstudio())
                     <option value="estudio">Orden de Estudios</option>
@@ -130,13 +130,11 @@ function imprimirDocumento(consultaId) {
         case 'referencia':
             url = '/referencia/print/' + consultaId;
             break;
-        case 'orden':
+        case 'laboratorio':
             url = '/orden/print/' + consultaId;
             break;
         case 'estudio':
-            // Para órdenes de estudios, necesitamos encontrar el ID de la orden de estudios específica
-            // Por ahora usamos la misma URL pero el backend deberá filtrar por tipo
-            url = '/orden/print/' + consultaId + '?tipo=estudio';
+            url = '/estudio/print/' + consultaId;
             break;
         default:
             alert('Tipo de documento no válido.');

@@ -3,17 +3,10 @@
 <head>
   <meta charset="UTF-8">
   @php
-    // Determinar qué exámenes mostrar según el tipo
-    if(isset($tipo) && $tipo === 'estudio') {
-        // Para estudios, obtener los estudios directamente
-        $estudios = $consulta->estudios;
-        $tituloDocumento = 'ORDEN DE ESTUDIOS';
-    } else {
-        // Para laboratorio (por defecto)
-        $orden = $consulta->tieneOrden() ? $consulta->orden() : null;
-        $examenes = $orden ? $orden->examenes->where('tipo_examen_id', 1) : collect();
-        $tituloDocumento = 'ORDEN DE LABORATORIO';
-    }
+    // Para laboratorio
+    $orden = $consulta->tieneOrden() ? $consulta->orden() : null;
+    $examenes = $orden ? $orden->examenes->where('tipo_examen_id', 1) : collect();
+    $tituloDocumento = 'ORDEN DE LABORATORIO';
   @endphp
    <style>
     @page {
@@ -29,20 +22,20 @@
     }
 
     #fila{
-        font-family: Arial, Helvetica, sans-serif;        
+        font-family: Arial, Helvetica, sans-serif;
         font-size:25px;
         color: black;
         width: 60%;
     }
 
     #head{
-        font-family: Helvetica, sans-serif;        
+        font-family: Helvetica, sans-serif;
         font-size:20px;
         color: black;
     }
 
     #bodyMed{
-        font-family: Helvetica, sans-serif;        
+        font-family: Helvetica, sans-serif;
         font-size:25px;
         color: black;
         width: 60%;
@@ -51,11 +44,7 @@
     body {
       margin: 0;
       padding: 0;
-      @if(isset($tipo) && $tipo === 'estudio')
-        background-image: url('{{ public_path('img/MembreteOrdenEst.png') }}');
-      @else
-        background-image: url('{{ public_path('img/MembreteOrdenLab.png') }}');
-      @endif
+      background-image: url('{{ public_path('img/MembreteOrdenLab.png') }}');
       background-size: 50% auto; /* Ajustar imagen a todo el ancho */
       background-repeat: no-repeat;
       background-position: left center; /* Posicionar a la izquierda */
@@ -78,27 +67,24 @@
       margin-left: 0%; /* Sin margen izquierdo */
     }
 
-    .checkbox-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+        .bullet-list {
+            list-style-type: disc;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+            column-count: 2;
+            column-gap: 40px;
             margin-top: 20px;
-            padding-left: 205px;
+            padding-left: 225px;
             max-width: 700px;
         }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 3px;
+        .bullet-item {
             font-family: sans-serif;
             font-size: 20px;
             color: black;
-        }
-        .checkbox-item input[type="checkbox"] {
-            margin-right: 8px;
-            transform: scale(1.0);
-            width: 14px;
-            height: 14px;
+            margin-bottom: 6px;
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
         }
         .section {
             position: relative;
@@ -111,7 +97,7 @@
 <body>
         <div class="pagina">
             <div class="contenido-derecho">
-                <div>    
+                <div>
                     <p id="nRegistro" style="padding-top: 163px; padding-left: 750px;">.</p>
                 </div>
                 <div>
@@ -139,32 +125,19 @@
 
                 <!-- Sección de checkboxes ordenada -->
                 <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 1000px">
-                    <div class="checkbox-list" >
-                        @if(isset($tipo) && $tipo === 'estudio')
-                            @foreach ($estudios->take(15) as $estudio)
-                                <label class="checkbox-item">
-                                    <input type="checkbox" checked> {{$estudio->tipo}}: {{$estudio->estudio}}
-                                </label>
-                            @endforeach
-                        @else
-                            @foreach ($examenes->take(15) as $examen)
-                                <label class="checkbox-item">
-                                    <input type="checkbox" checked> {{$examen->nombre_examen}}
-                                </label>
-                            @endforeach
-                        @endif
-                    </div>
+                    <ul class="bullet-list">
+                        @foreach ($examenes->take(15) as $examen)
+                            <li class="bullet-item">{{$examen->nombre_examen}}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
 
-        {{-- Si hay más de 15 exámenes/estudios, crear páginas adicionales --}}
-        @php
-            $elementosTotales = (isset($tipo) && $tipo === 'estudio') ? $estudios : $examenes;
-        @endphp
-        @if($elementosTotales->count() > 15)
+        {{-- Si hay más de 15 exámenes, crear páginas adicionales --}}
+        @if($examenes->count() > 15)
             @php
-                $elementosRestantes = $elementosTotales->skip(15);
+                $elementosRestantes = $examenes->skip(15);
                 $paginasAdicionales = $elementosRestantes->chunk(15); // 15 elementos por página adicional
             @endphp
 
@@ -198,23 +171,13 @@
                             <p id="fila" style="margin-top: 70px; padding-left: 205px;max-width: 700px">{!! $consulta->diagnostico ? e($consulta->diagnostico) : '&nbsp;' !!}</p>
                         </div>
 
-                        <!-- Continuación de la lista de exámenes/estudios -->
+                        <!-- Continuación de la lista de exámenes -->
                         <div class="section" style="margin-top: 135px; padding-left: 60px;max-width: 1000px">
-                            <div class="checkbox-list">
-                                @if(isset($tipo) && $tipo === 'estudio')
-                                    @foreach ($paginaElementos as $estudio)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" checked> {{$estudio->tipo}}: {{$estudio->estudio}}
-                                        </label>
-                                    @endforeach
-                                @else
+                            <ul class="bullet-list">
                                     @foreach ($paginaElementos as $examen)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" checked> {{$examen->nombre_examen}}
-                                        </label>
+                                        <li class="bullet-item">{{$examen->nombre_examen}}</li>
                                     @endforeach
-                                @endif
-                            </div>
+                                </ul>
                         </div>
                     </div>
                 </div>
