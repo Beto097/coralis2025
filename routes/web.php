@@ -17,13 +17,23 @@ use App\Http\Controllers\constanciaController;
 use App\Http\Controllers\archivoController;
 use App\Http\Controllers\ordenController;
 use App\Http\Controllers\examenController;
+use App\Http\Controllers\AgendaController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
 
 
+Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
 
+Route::get('/agenda/eventos', [AgendaController::class, 'events'])
+    ->name('agenda.events');
 
+Route::post('/agenda/store', [AgendaController::class, 'guardar'])
+    ->name('agenda.store');
+
+Route::put('/agenda/update/{id}', [AgendaController::class, 'update']);
+Route::put('/agenda/update-horario/{id}', [AgendaController::class, 'updateHorario']);
+Route::delete('/agenda/delete/{id}', [AgendaController::class, 'destroy']);
 
 
 //Pacientes
