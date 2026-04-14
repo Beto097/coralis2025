@@ -15,12 +15,12 @@
                 <div class="panel-wrapper collapse in">
                     <div class="panel-body">
                         <div class="form-wrap">
-                            <form id="ordenEstudioForm" action="@if($consulta->tieneEstudio()) {{ route('orden.update', $consulta->ordenEstudio()->id) }} @else {{ route('orden.insert') }} @endif" method="POST" role="form" autocomplete="off">
+                            <form id="ordenEstudioForm" action="@if($consulta->tieneEstudio()) {{ route('estudio.update', $consulta->id) }} @else {{ route('estudio.insert') }} @endif" method="POST" role="form" autocomplete="off">
                                 @csrf
                                 @if($consulta->tieneEstudio())
                                     @method('PUT')
                                 @endif
-                                
+
                                 <div id="contenedorEstudio">
                                     <div class="row filaEstudio" id="filaEstudio" style="padding-top: 15px">      
                                         <div class="form-group col-md-3">            
@@ -43,11 +43,11 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Estudio</label>
-                                            <input type="text" class="form-control" autocomplete="off" placeholder="Ej: Hemograma completo, Radiografía de tórax" name="txtEstudio[]" required>
+                                            <input type="text" class="form-control" autocomplete="off" placeholder="Ej: Hemograma completo, Radiografía de tórax" name="txtEstudio[]" required maxlength="300">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Informe Clínico</label>
-                                            <textarea class="form-control" placeholder="Indique las observaciones clínicas o motivo del estudio" name="txtInformeClinico[]" rows="2" required></textarea>
+                                            <textarea class="form-control" placeholder="Indique las observaciones clínicas o motivo del estudio" name="txtInformeClinico[]" rows="2" required maxlength="500"></textarea>
                                         </div>
                                         <div class="form-group col-md-1" style="padding-top: 1.5rem; margin-left: -10px">
                                             <button type="button" class="btn btn-danger eliminarFilaEstudio" style="display: none;"><i class="fa fa-trash"></i></button>
@@ -226,45 +226,119 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Función para agregar una nueva fila de estudio (expuesta globalmente)
+    function agregarFilaEstudioInternal() {
+        const contenedor = document.getElementById('contenedorEstudio');
+        const plantilla = contenedor.querySelector('.filaEstudio');
+        if (!plantilla) return null;
+
+        const nuevaFila = plantilla.cloneNode(true);
+
+        // Limpiar los valores de la nueva fila
+        nuevaFila.querySelectorAll('input, select, textarea').forEach(function(element) {
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = false;
+            } else {
+                element.value = '';
+            }
+
+            if (element.classList && element.classList.contains('tipoOtroInput')) {
+                element.style.display = 'none';
+                element.required = false;
+            }
+        });
+
+        // Ocultar display personalizado en la nueva fila
+        const customDisplay = nuevaFila.querySelector('.tipo-custom-display');
+        if (customDisplay) {
+            customDisplay.style.display = 'none';
+        }
+
+        // Remover opciones personalizadas del select clonado
+        const tipoSelect = nuevaFila.querySelector('.tipoEstudioSelect');
+        if (tipoSelect) {
+            const customOptions = tipoSelect.querySelectorAll('option[data-custom="true"]');
+            customOptions.forEach(option => option.remove());
+
+            // Agregar evento al select clonado
+            tipoSelect.addEventListener('change', function() {
+                handleTipoEstudioChange(this);
+            });
+        }
+
+        // Agregar eventos al input tipoOtro clonado
+        const tipoOtroInput = nuevaFila.querySelector('.tipoOtroInput');
+        if (tipoOtroInput) {
+            tipoOtroInput.addEventListener('input', function() { updateTipoEstudioValue(this); });
+            tipoOtroInput.addEventListener('keyup', function() { updateTipoEstudioValue(this); });
+            tipoOtroInput.addEventListener('blur', function() { updateTipoEstudioValue(this); });
+        }
+
+        contenedor.appendChild(nuevaFila);
+        actualizarBotonesEliminar();
+        return nuevaFila;
+    }
+
+    // Exponer función global para el onclick del botón
+    window.agregarFilaEstudio = function() { return agregarFilaEstudioInternal(); };
 });
 
-// Función para agregar nueva fila de estudio
-function agregarFilaEstudio() {
-    const contenedor = document.getElementById('contenedorEstudio');
-    const nuevaFila = document.querySelector('.filaEstudio').cloneNode(true);
+// Función para cargar datos existentes cuando se edita
+@if($consulta->tieneEstudio())
+document.addEventListener('DOMContentLoaded', function() {
+    const estudios = @json($consulta->estudios);
     
-    // Limpiar los valores de la nueva fila
-    nuevaFila.querySelectorAll('input, select, textarea').forEach(function(element) {
-        if (element.type === 'checkbox' || element.type === 'radio') {
-            element.checked = false;
-        } else {
-            element.value = '';
-        }
+    if (estudios && estudios.length > 0) {
+        // Limpiar el contenedor primero
+        const contenedor = document.getElementById('contenedorEstudio');
+        const primeraFila = contenedor.querySelector('.filaEstudio');
         
-        // Restablecer estados para campos de tipo personalizado
-        if (element.classList.contains('tipoOtroInput')) {
-            element.style.display = 'none';
-            element.required = false;
-        }
-    });
-    
-    // Ocultar display personalizado en la nueva fila
-    const customDisplay = nuevaFila.querySelector('.tipo-custom-display');
-    if (customDisplay) {
-        customDisplay.style.display = 'none';
+        // Mantener solo la primera fila y limpiar sus valores
+        contenedor.innerHTML = '';
+        contenedor.appendChild(primeraFila);
+        
+        // Limpiar la primera fila
+        primeraFila.querySelectorAll('input, select, textarea').forEach(function(element) {
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = false;
+            } else {
+                element.value = '';
+            }
+        });
+        
+        // Cargar los estudios existentes
+        estudios.forEach(function(estudio, index) {
+            let fila;
+            if (index === 0) {
+                fila = primeraFila;
+            } else {
+                fila = agregarFilaEstudio();
+            }
+            
+            // Establecer los valores
+            const tipoSelect = fila.querySelector('.tipoEstudioSelect');
+            const estudioInput = fila.querySelector('input[name="txtEstudio[]"]');
+            const informeTextarea = fila.querySelector('textarea[name="txtInformeClinico[]"]');
+            
+            if (tipoSelect) tipoSelect.value = estudio.tipo;
+            if (estudioInput) estudioInput.value = estudio.estudio;
+            if (informeTextarea) informeTextarea.value = estudio.informe_clinico;
+            
+            // Manejar el caso de "otro" si es necesario
+            if (tipoSelect && tipoSelect.value === 'otro') {
+                const otroInput = fila.querySelector('.tipoOtroInput');
+                if (otroInput) {
+                    otroInput.style.display = 'block';
+                    otroInput.required = true;
+                    otroInput.value = estudio.tipo_estudio;
+                }
+            }
+        });
     }
-    
-    // Remover opciones personalizadas del select clonado
-    const tipoSelect = nuevaFila.querySelector('.tipoEstudioSelect');
-    if (tipoSelect) {
-        const customOptions = tipoSelect.querySelectorAll('option[data-custom="true"]');
-        customOptions.forEach(option => option.remove());
-    }
-    
-    contenedor.appendChild(nuevaFila);
-    actualizarBotonesEliminar();
-}
-
+});
+@endif
+ 
 // Función para actualizar la visibilidad de los botones eliminar
 function actualizarBotonesEliminar() {
     const filas = document.querySelectorAll('.filaEstudio');

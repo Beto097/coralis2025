@@ -147,10 +147,7 @@ class consulta extends Model
 
     public function tieneEstudio(){
 
-        $existe = orden::where('consulta_id',$this->id)
-                      ->whereHas('examenes', function($query) {
-                          $query->where('tipo_examen_id', 2);
-                      })->count();
+        $existe = estudio::where('consulta_id',$this->id)->count();
 
         if ($existe > 0) {
             return true;
@@ -159,12 +156,9 @@ class consulta extends Model
         return false;
     }
 
-    public function ordenEstudio(){
-
-        return orden::where('consulta_id',$this->id)
-                   ->whereHas('examenes', function($query) {
-                       $query->where('tipo_examen_id', 2);
-                   })->first();
+    public function estudios()
+    {
+        return $this->hasMany('App\Models\estudio');
     }
     
 

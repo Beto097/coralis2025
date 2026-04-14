@@ -18,6 +18,7 @@ use App\Http\Controllers\archivoController;
 use App\Http\Controllers\ordenController;
 use App\Http\Controllers\examenController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\EstudioController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
@@ -162,6 +163,11 @@ Route::get("/cerrar", [loginController::class, 'cerrar'])->name("login.cerrar");
 Route::post("/orden/create", [ordenController::class, 'insert'])->name("orden.insert");
 Route::put("/orden/update/{id}", [ordenController::class, 'update'])->name("orden.update");
 Route::get("/orden/print/{id}", [ordenController::class, 'print'])->name("orden.print");
+
+// Estudio (separado de ordenController)
+Route::post("/estudio/create", [EstudioController::class, 'insert'])->name("estudio.insert");
+Route::put("/estudio/update/{id}", [EstudioController::class, 'update'])->name("estudio.update");
+Route::get("/estudio/print/{id}", [EstudioController::class, 'print'])->name("estudio.print");
 
 //Examen - métodos adicionales para modal de órdenes
 Route::post("/examen/agregar", [examenController::class, 'agregar'])->name("examen.agregar");
