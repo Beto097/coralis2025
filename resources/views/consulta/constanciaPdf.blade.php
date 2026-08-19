@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
    <style>
     @page {
-        size: 266.7mm 215.9mm;
+        size: 22in 17in;
         margin: 0;
     }
 
     #nRegistro{
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
-        font-size:18px;
+        font-size:38px;
         color: red;
     }
 
     #fila{
         font-family: Arial, Helvetica, sans-serif;        
-        font-size:18px;
+        font-size:35px;
         color: black;
     }
 
@@ -25,18 +25,14 @@
       margin: 0;
       padding: 0;
       background-image: url('img/constancia.png');
-      background-size:98%; /* O "contain", depende de lo que quieras */
+      background-size:100%; 
       background-repeat: no-repeat;
       background-position: center center;
     }
 
-    .pagina {
-        width: 266.7mm;  
-        height: 215.9mm;  
+    .pagina { 
         box-sizing: border-box;
         display: flex;
-        align-items: center;
-        justify-content: center;
         font-family: sans-serif;
     }
   </style>
@@ -47,10 +43,10 @@
     
         <div class="pagina">
             <div>    
-                <p style="padding-top: 375px; padding-left: 780px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p id="fila" style="padding-top: 710px; padding-left: 1550px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             <div>
-                <p style="margin-top: 10; padding-left: 780px;">
+                <p id="fila" style="margin-top: 45px; padding-left: 1550px;">
                     @if($constancia && $constancia->fecha)
                         {{\Carbon\Carbon::parse($constancia->fecha)->format('d-m-Y')}}
                     @else
@@ -59,7 +55,7 @@
                 </p>
             </div>
             <div>
-                <p style="margin-top:30px; padding-left: 450px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> 
+                <p id="fila" style="margin-top:65px; padding-left: 750px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> 
             </div>
             @php
                 if($constancia && $constancia->hora_inicio && $constancia->hora_fin) {
@@ -73,7 +69,7 @@
                 }
             @endphp
             <div>
-                <p style="margin-top: 15; padding-left: 600px;">{{$hora_inicio12}}</p><p style="margin-top: -30; padding-left: 780px;">{{$hora_fin12}}</p>
+                <p id="fila" style="margin-top: 15; padding-left: 1270px;">{{$hora_inicio12}}</p><p id="fila" style="margin-top: -60; padding-left: 1600px;">{{$hora_fin12}}</p>
             </div>
             
             @php
@@ -91,11 +87,11 @@
                 $mes = $meses[$mesNum];
             @endphp
             <div>
-                <p style="margin-top:-10; padding-left: 260px;">{{$dia}}</p><p style="margin-top: -30; padding-left: 400px;">{{$mes}}</p><p style="margin-top: -30; padding-left: 560px;">{{$anio}}</p>
+                <p id="fila" style="margin-top:5; padding-left: 460px;">{{$dia}}</p><p id= "fila" style="margin-top: -50; padding-left: 680px;">{{$mes}}</p><p id="fila" style="margin-top: -50; padding-left: 1010px;">{{$anio}}</p>
             </div>
-            <div style="position:absolute; text-align: left width: 10%; margin-top: -10px; margin-left: 160px;">
+            <div style="position:absolute; text-align: left width: 30%; margin-top: -10px; margin-left: 300px;">
                 @if($sello)
-                    <img src="img/sellos/{{$consulta->doctor->nombre_usuario}}.PNG" width="150"/>
+                    <img src="img/sellos/{{$consulta->doctor->nombre_usuario}}.PNG" width="300"/>
                 @endif
             </div>
             <div style=" position:absolute; margin-top: -10px; margin-left: 580px;" >
@@ -104,8 +100,15 @@
                 @endif
             </div>
             <div>
-                <p style="position:absolute; margin-top: 55px; padding-left: 400px;">{{$consulta->doctor->primer_nombre_usuario}} {{$consulta->doctor->apellido_usuario}}</p>
+                <p id="fila" style="margin-top: 15px; padding-left: 1380px;">
+                    @if($consulta && $consulta->responsable_menor)
+                        {{$consulta->responsable_menor}} ({{$consulta->parentesco_menor}})
+                    @endif
+                </p>
             </div>
+            <!--<div>
+                <p id="fila" style="position:absolute; margin-top: 90px; padding-left: 800px;">{{$consulta->doctor->primer_nombre_usuario}} {{$consulta->doctor->apellido_usuario}}</p>
+            </div>-- SE PIDIO CAMBIO EN CONSTANCIA POR LO QUE YA NO SE MUESTRA NOMBRE DOCTOR, ESTARA SELLADO MANUALMENTE> 
             
                     
            
