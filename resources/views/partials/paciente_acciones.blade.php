@@ -14,6 +14,8 @@
     <a class="btn btn-info btn-sm btnIcono" title="ver Historial" href="{{route('paciente.verHistorial', ['id'=> $fila->id] )}}" class=""><i id="iconoBoton" class="fa fa-files-o"></i></a>
 @endif  
 
+    <a class="btn btn-primary btn-sm btnIcono" title="Agendar cita" href="{{ route('agenda.index', ['paciente_id' => $fila->id]) }}"><i class="fa fa-calendar"></i></a>
+
 @if (Auth::user()->accesoRuta('/paciente/update')) 
     <button type="button" class="btn btn-success btn-sm btnIcono " id="editPaciente"                
         data-toggle="modal" data-target="#editarPacienteModal{{$fila->id}}">

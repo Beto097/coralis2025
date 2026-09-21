@@ -5,18 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\medico;
 use App\Models\Agenda;
+use App\Models\consulta;
 use App\Models\paciente;
 use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $usuario = auth()->user();
-        
+
         if($usuario->rol_id != 5){$doctors = medico::all();}else{$doctors = medico::where('id', $usuario->id)->get();}
-        
-        return view('agenda.index', compact('doctors'));
+
+        $paciente = null;
+        if ($request->has('paciente_id')) {
+            $paciente = paciente::find($request->get('paciente_id'));
+        }
+
+        return view('agenda.index', compact('doctors', 'paciente'));
     }
 
     public function obtenerDisponibilidad(Request $request)
@@ -115,13 +121,23 @@ class AgendaController extends Controller
         if (!$paciente) {
             return response()->json(['error' => 'Paciente no encontrado'], 404);
         }
-        Agenda::create([
+
+        $agenda = Agenda::create([
             'medico_id' => $request->doctor_id,
-            'paciente_id' => $paciente->id  ,
+            'paciente_id' => $paciente->id,
             'fecha_inicio' => $request->start,
             'fecha_fin' => $request->end,
             'estado' => 'agendada'
         ]);
+
+        $consulta = new consulta();
+        $consulta->paciente_id = $paciente->id;
+        $consulta->medico_id = $request->doctor_id;
+        $consulta->usuario_id = auth()->id();
+        $consulta->sucursal_id = auth()->user()?->sucursal_id;
+        $consulta->estado_consulta = 'Pendiente';
+        $consulta->motivo_consulta = 'Cita agendada';
+        $consulta->save();
 
         return redirect()->back()->with('success', 'Cita agendada correctamente.');
     }

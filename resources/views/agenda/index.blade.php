@@ -149,6 +149,7 @@
 
 
 <script>
+var pacientePrefillIdentificacion = @json(isset($paciente) && $paciente ? $paciente->identificacion_paciente : null);
 $(document).ready(function() {
     moment.locale('es');
     $('#calendar').fullCalendar({
@@ -241,6 +242,10 @@ $(document).ready(function() {
             $('#modal_start').val(start.format());
             $('#modal_end').val(end.format());
             $('#modal_doctor_id').val($('#doctorFilter').val());
+
+            if (pacientePrefillIdentificacion) {
+                $('input[name="identificacion"]').val(pacientePrefillIdentificacion);
+            }
 
             $('#preview_start').val(start.format('YYYY-MM-DD HH:mm'));
             $('#preview_end').val(end.format('YYYY-MM-DD HH:mm'));
