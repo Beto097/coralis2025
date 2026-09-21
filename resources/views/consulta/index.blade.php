@@ -77,7 +77,7 @@
                     <div class="pull-left">
                         <h6 class="panel-title txt-dark">
                         @if(Auth::user()->accesoRuta('/consulta/create'))
-                          Listado de consultas del día PRUEBA UPDATE
+                          Listado de consultas del día PRUEBA UPDATE 1
                         @else
                           Consultas para el Médico {{Auth::user()->primer_nombre_usuario}} {{Auth::user()->apellido_usuario}}</h6>
                         @endif
