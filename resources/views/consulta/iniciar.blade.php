@@ -159,7 +159,7 @@
                             <b>Direccion</b> : {{$paciente->direccion_paciente}}
                         </li>
                         @if (\Carbon\Carbon::parse($paciente->fecha_nacimiento_paciente)->age<18)
-                                      <li class="" style="font-size: 130%"><i><
+                                      <li class="" style="font-size: 130%"><i
                                         class="zmdi zmdi-accounts-alt text-success font-size-18 mt-2 me-2"></i>
                                     <b>Responsable</b> : {{$consulta->responsable_menor}}
                                 </li>
@@ -168,16 +168,21 @@
                               <b>Parentesco</b> : {{$consulta->parentesco_menor}}
                           </li>
                         @endif
-                        
                       </ul>
-                      <div class="row" style="margin-top: 30px;">
-                        
+                            @php
+                          $archivosHoy = $paciente->archivos()
+                              ->whereDate('created_at', \Carbon\Carbon::today())
+                              ->count();
+                            @endphp
+                            @if ($archivosHoy > 0)
+                            <div class="alert alert-warning text-center" style="margin-top: 15px; margin-bottom: 0; background-color: rgba(255, 193, 7, 0.15); border-color: rgba(255, 193, 7, 0.6); color: #856404;">
+                              <strong> Para esta consulta se han cargado {{ $archivosHoy }} {{ $archivosHoy === 1 ? 'archivo' : 'archivos' }}.</strong>
+                            </div>
+                            @endif
+                      <div class="row text-center" style="margin-top: 30px;">
                           <div class="col-md-6 col-md-offset-3">
-                            <a class="btn btn-lg btn-primary text-center" target="_blank" title="Ver Archivo" href="{{route('paciente.verArchivo', ['id'=> $paciente->id] )}}" class="">Ver Archivos</a>
-
+                            <a class="btn btn-lg btn-primary text-center" target="_blank" title="Ver Archivo" href="{{route('paciente.verArchivo', ['id'=> $paciente->id] )}}" class="">Ver Archivos</a>                
                           </div>
-                       
-                        
                       </div>  
                     </div>
                     <div class="col-md-9">
