@@ -119,7 +119,7 @@ class constanciaController extends Controller
                 'constancia' => $constancia,
                 'firma' => $firmaExiste,
                 'sello' => $selloExiste
-            ])->setPaper([0, 0, 595.2756,  419.5276]);
+            ])->setPaper([0, 0, 1224, 1584]);
 
             $nombreArchivo = 'Constancia '.$consulta->paciente->identificacion_paciente.'.pdf';
             return $pdf->stream($nombreArchivo);

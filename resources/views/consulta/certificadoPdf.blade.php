@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
    <style>
     @page {
-      size:  210mm 148.5mm; /* A5 */
-      margin: 0;
+        size: 17in 22in;
+        margin: 1mm;
     }
 
     #nRegistro{
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
-        font-size:18px;
+        font-size:35px;
         color: red;
     }
 
     #fila{
         font-family: Arial, Helvetica, sans-serif;        
-        font-size:18px;
+        font-size:25px;
         color: black;
     }
 
@@ -27,17 +27,15 @@
       background-image: url('img/Certificado.png');
       background-size:98%; /* O "contain", depende de lo que quieras */
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: bottom center;
     }
 
     .pagina {
-      width: 210mm;
-      height: 148.5mm;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        position: relative;
     }
   </style>
   <!-- CSS only -->
@@ -47,10 +45,10 @@
     
         <div class="pagina">
             <div>    
-                <p id="nRegistro" style="padding-top: 175px; padding-left: 520px;">N° {{$numero}}</p>
+                <p id="nRegistro" style="padding-top: 1330px; padding-left: 1050px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p style="position:absolute; margin-top: 22px; padding-left: 145px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p style="position:absolute; margin-top: 22px; padding-left: 525px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p id="fila" style="position:absolute; margin-top: 60px; padding-left: 325px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p id="fila" style="position:absolute; margin-top: 60px; padding-left: 1080px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             
             <div style="position:absolute; text-align: left; width: 10%; margin-top: 115px; margin-left: 130px;">

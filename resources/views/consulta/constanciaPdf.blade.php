@@ -4,36 +4,91 @@
   <meta charset="UTF-8">
    <style>
     @page {
-        size: 22in 17in;
-        margin: 0;
+        size: 17in 22in;
+        margin: 1mm;
     }
 
     #nRegistro{
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
-        font-size:38px;
+        font-size:35px;
         color: red;
     }
 
     #fila{
         font-family: Arial, Helvetica, sans-serif;        
-        font-size:35px;
+        font-size:25px;
+        color: black;
+        width: 60%;
+    }
+
+    #head{
+        font-family: Helvetica, sans-serif;
+        font-size:20px;
         color: black;
     }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background-image: url('img/constancia.png');
-      background-size:100%; 
-      background-repeat: no-repeat;
-      background-position: center center;
+    #bodyMed{
+        font-family: Helvetica, sans-serif;
+        font-size:25px;
+        color: black;
+        width: 60%;
     }
 
-    .pagina { 
-        box-sizing: border-box;
-        display: flex;
-        font-family: sans-serif;
+        body {
+            margin: 0;
+            padding: 0;
+    }
+
+    .pagina {
+            width: 100%;
+            height: 100%;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      position: relative;
+    }
+
+    .contenido-derecho {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 12.02in;
+            background-image: url('{{ public_path('img/constancia.png') }}');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .contenido-derecho p#fila {
+            position: absolute;
+            width: auto;
+            margin: 0;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        .campo-identificacion { left: 70%; top: 43.8%; }
+        .campo-fecha { left: 70%; top: 50.5%; }
+        .campo-paciente { left: 37%; top: 58.3%; }
+        .campo-hora-inicio { left: 58%; top: 63.8%; }
+        .campo-hora-fin { left: 73%; top: 63.8%; }
+        .campo-dia { left: 24%; top: 68%; }
+        .campo-mes { left: 34%; top: 68%; }
+        .campo-anio { left: 47%; top: 68%; }
+        .campo-responsable { left: 63.5%; top: 73.3%; max-width: 44%; white-space: normal !important; }
+
+        .sello-medico {
+            position: absolute;
+            left: 21%;
+            top: 83%;
+            width: 18%;
+        }
+
+        .firma-medico {
+            position: absolute;
+            left: 39%;
+            top: 85%;
+            width: 9%;
     }
   </style>
   <!-- CSS only -->
@@ -42,11 +97,12 @@
 <body>
     
         <div class="pagina">
+          <div class="contenido-derecho">
             <div>    
-                <p id="fila" style="padding-top: 710px; padding-left: 1550px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p id="fila" class="campo-identificacion">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             <div>
-                <p id="fila" style="margin-top: 45px; padding-left: 1550px;">
+                <p id="fila" class="campo-fecha">
                     @if($constancia && $constancia->fecha)
                         {{\Carbon\Carbon::parse($constancia->fecha)->format('d-m-Y')}}
                     @else
@@ -55,7 +111,7 @@
                 </p>
             </div>
             <div>
-                <p id="fila" style="margin-top:65px; padding-left: 750px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> 
+                <p id="fila" class="campo-paciente">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p>
             </div>
             @php
                 if($constancia && $constancia->hora_inicio && $constancia->hora_fin) {
@@ -69,7 +125,7 @@
                 }
             @endphp
             <div>
-                <p id="fila" style="margin-top: 15; padding-left: 1270px;">{{$hora_inicio12}}</p><p id="fila" style="margin-top: -60; padding-left: 1600px;">{{$hora_fin12}}</p>
+                <p id="fila" class="campo-hora-inicio">{{$hora_inicio12}}</p><p id="fila" class="campo-hora-fin">{{$hora_fin12}}</p>
             </div>
             
             @php
@@ -87,20 +143,20 @@
                 $mes = $meses[$mesNum];
             @endphp
             <div>
-                <p id="fila" style="margin-top:5; padding-left: 460px;">{{$dia}}</p><p id= "fila" style="margin-top: -50; padding-left: 680px;">{{$mes}}</p><p id="fila" style="margin-top: -50; padding-left: 1010px;">{{$anio}}</p>
+                <p id="fila" class="campo-dia">{{$dia}}</p><p id="fila" class="campo-mes">{{$mes}}</p><p id="fila" class="campo-anio">{{$anio}}</p>
             </div>
-            <div style="position:absolute; text-align: left width: 30%; margin-top: -10px; margin-left: 300px;">
+            <div>
                 @if($sello)
-                    <img src="img/sellos/{{$consulta->doctor->nombre_usuario}}.PNG" width="300"/>
-                @endif
-            </div>
-            <div style=" position:absolute; margin-top: -10px; margin-left: 580px;" >
-                @if($firma)
-                    <img src="img/firmas/{{$consulta->doctor->nombre_usuario}}.PNG" width="150"/>
+                    <img class="sello-medico" src="img/sellos/{{$consulta->doctor->nombre_usuario}}.PNG"/>
                 @endif
             </div>
             <div>
-                <p id="fila" style="margin-top: 15px; padding-left: 1380px;">
+                @if($firma)
+                    <img class="firma-medico" src="img/firmas/{{$consulta->doctor->nombre_usuario}}.PNG"/>
+                @endif
+            </div>
+            <div>
+                <p id="fila" class="campo-responsable">
                     @if($consulta && $consulta->responsable_menor)
                         {{$consulta->responsable_menor}} ({{$consulta->parentesco_menor}})
                     @endif
@@ -113,6 +169,7 @@
                     
            
 
+                    </div>
         </div>
    
 </body>
