@@ -51,7 +51,7 @@
     .contenido-derecho {
             position: absolute;
             left: 0;
-            bottom: 0;
+            top: 0;
             width: 100%;
             height: 12.02in;
             background-image: url('{{ public_path('img/constancia.png') }}');
