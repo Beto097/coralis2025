@@ -27,7 +27,7 @@
       background-image: url('img/Certificado.png');
       background-size:98%; /* O "contain", depende de lo que quieras */
       background-repeat: no-repeat;
-      background-position: bottom center;
+      background-position: top center;
     }
 
     .pagina {
@@ -45,10 +45,10 @@
     
         <div class="pagina">
             <div>    
-                <p id="nRegistro" style="padding-top: 1330px; padding-left: 1050px;">N° {{$numero}}</p>
+                <p id="nRegistro" style="padding-top: 215px; padding-left: 1280px;">N° {{$numero}}</p>
             </div>
             <div>
-                <p id="fila" style="position:absolute; margin-top: 60px; padding-left: 325px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p id="fila" style="position:absolute; margin-top: 60px; padding-left: 1080px;">{{$consulta->paciente->identificacion_paciente}} </p>
+                <p id="fila" style="position:absolute; margin-top: 300px; padding-left: 260px;">{{$consulta->paciente->nombre_paciente}} {{$consulta->paciente->apellido_paciente}}</p> <p id="fila" style="position:absolute; margin-top: 300px; padding-left: 1080px;">{{$consulta->paciente->identificacion_paciente}} </p>
             </div>
             
             <div style="position:absolute; text-align: left; width: 10%; margin-top: 115px; margin-left: 130px;">
@@ -62,7 +62,7 @@
                 @endif
             </div>
             <div>
-                <p style="position:absolute ; margin-top: 200px; padding-left: 530px;">{{\Carbon\Carbon::parse($fecha)->format('d-m-Y')}} </p>
+                <p style="position:absolute ; margin-top: 670px; padding-left: 1130px;" id="fila">{{\Carbon\Carbon::parse($fecha)->format('d-m-Y')}} </p>
             </div>
                     
            
