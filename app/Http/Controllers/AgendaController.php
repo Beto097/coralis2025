@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\medico;
+use App\Models\User;
 use App\Models\Agenda;
 use App\Models\consulta;
 use App\Models\paciente;
@@ -15,7 +16,12 @@ class AgendaController extends Controller
     {
         $usuario = auth()->user();
 
-        if($usuario->rol_id != 5){$doctors = medico::all();}else{$doctors = medico::where('id', $usuario->id)->get();}
+        // Los médicos son usuarios con rol 5 (consulta.medico_id referencia usuario.id)
+        $doctors = User::where('rol_id', 5)->where('estado_usuario', 1);
+        if ($usuario->rol_id == 5) {
+            $doctors->where('id', $usuario->id);
+        }
+        $doctors = $doctors->orderBy('primer_nombre_usuario')->get();
 
         $paciente = null;
         if ($request->has('paciente_id')) {
@@ -23,6 +29,28 @@ class AgendaController extends Controller
         }
 
         return view('agenda.index', compact('doctors', 'paciente'));
+    }
+
+    public function buscarPacientes(Request $request)
+    {
+        $q = trim($request->input('q', ''));
+
+        if (strlen($q) < 2) {
+            return response()->json([]);
+        }
+
+        $pacientes = paciente::where('estado_paciente', 1)
+            ->where(function ($query) use ($q) {
+                $query->where('identificacion_paciente', 'LIKE', $q . '%')
+                    ->orWhere('nombre_paciente', 'LIKE', $q . '%')
+                    ->orWhere('apellido_paciente', 'LIKE', $q . '%')
+                    ->orWhereRaw("CONCAT(nombre_paciente,' ',apellido_paciente) LIKE ?", [$q . '%']);
+            })
+            ->orderBy('nombre_paciente')
+            ->take(15)
+            ->get(['id', 'identificacion_paciente', 'nombre_paciente', 'apellido_paciente']);
+
+        return response()->json($pacientes);
     }
 
     public function obtenerDisponibilidad(Request $request)
@@ -67,9 +95,10 @@ class AgendaController extends Controller
             $color = match($agenda->estado) {
                 'agendada'   => '#F8BD4B',
                 'confirmada' => '#9BCB64',
+                'llego'      => '#E43E9E',
                 'cancelada'  => '#F45643',
                 'completada' => '#3c8dbc',
-                default      => '#E43E9E'
+                default      => '#F8BD4B'
             };
 
             // 🧠 Lógica del título
@@ -114,12 +143,27 @@ class AgendaController extends Controller
        
         $request->validate([            
             'identificacion' => 'required|exists:paciente,identificacion_paciente',
-            'start' => 'required',
-            'end' => 'required',
+            'doctor_id' => 'required|exists:usuario,id',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
         ]);
         $paciente = paciente::where('identificacion_paciente',$request->identificacion)->first();
         if (!$paciente) {
             return response()->json(['error' => 'Paciente no encontrado'], 404);
+        }
+
+        $ocupado = Agenda::where('medico_id', $request->doctor_id)
+            ->where('estado', '!=', 'cancelada')
+            ->where('fecha_inicio', '<', $request->end)
+            ->where('fecha_fin', '>', $request->start)
+            ->exists();
+
+        if ($ocupado) {
+            $mensaje = 'El médico ya tiene una cita en ese horario.';
+            if ($request->expectsJson()) {
+                return response()->json(['message' => $mensaje], 422);
+            }
+            return redirect()->back()->withErrors(['danger' => $mensaje]);
         }
 
         $agenda = Agenda::create([
@@ -127,28 +171,26 @@ class AgendaController extends Controller
             'paciente_id' => $paciente->id,
             'fecha_inicio' => $request->start,
             'fecha_fin' => $request->end,
-            'estado' => 'agendada'
+            'estado' => 'agendada',
+            'usuario_id' => auth()->id(),
         ]);
 
-        $consulta = new consulta();
-        $consulta->paciente_id = $paciente->id;
-        $consulta->medico_id = $request->doctor_id;
-        $consulta->usuario_id = auth()->id();
-        $consulta->sucursal_id = auth()->user()?->sucursal_id;
-        $consulta->estado_consulta = 'Pendiente';
-        $consulta->motivo_consulta = 'Cita agendada';
-        $consulta->save();
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'id' => $agenda->id]);
+        }
 
         return redirect()->back()->with('success', 'Cita agendada correctamente.');
     }
 
     public function update(Request $request, $id)
     {
-        $agenda = Agenda::findOrFail($id);        
-        $agenda->update([
-            'medico_id' => $request->medico_id,
-            'estado' => $request->estado
+        $request->validate([
+            'medico_id' => 'required|exists:usuario,id',
+            'estado' => 'required|in:' . implode(',', Agenda::ESTADOS),
         ]);
+
+        $agenda = Agenda::findOrFail($id);
+        $agenda->actualizarEstado($request->medico_id, $request->estado, auth()->user());
 
         return response()->json(['success' => true]);
     }

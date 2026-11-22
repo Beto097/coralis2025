@@ -9,8 +9,13 @@
                     <div class="pull-left">
                         <h6 class="panel-title txt-dark">Agenda Médica</h6>
                     </div>
+                    <div style="float: right;">
+                        <button type="button" id="btnCrearAgenda" class="btn btn-success font-weight-bold mb-2 me-2" title="Crear agenda">
+                            Crear agenda
+                        </button>
+                    </div>
 
-                    <div class="pull-right" @if (auth()->user()->rol_id == 5) hidden @endif>
+                    <div class="pull-right" style="margin-right: 10px;" @if (auth()->user()->rol_id == 5) hidden @endif>
                         <select id="doctorFilter" class="form-control">
                             @if (auth()->user()->rol_id != 5)
                                 <option value="">Todos los doctores</option>
@@ -47,33 +52,61 @@
         <div class="modal-dialog">
             <div class="modal-content">
 
-                <form id="formCrearCita">
+                <form id="formCrearCita" autocomplete="off">
                     @csrf
 
                     <div class="modal-header">
-                        <h4 class="modal-title">Nueva Cita Médica</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nueva Cita Médica</h4>
                     </div>
 
                     <div class="modal-body">
 
-                        <div class="form-group">
-                            <label>Identificación del Paciente</label>
-                            <input type="text" name="identificacion" class="form-control" required>
+                        <div class="form-group" style="position: relative;">
+                            <label>Paciente</label>
+                            <input type="text" id="buscarPaciente" class="form-control"
+                                placeholder="Buscar por identificación o nombre (mínimo 2 caracteres)">
+                            <input type="hidden" name="identificacion" id="modal_identificacion">
+                            <div id="resultadosPaciente" class="list-group"
+                                style="position: absolute; z-index: 1060; left: 0; right: 0; max-height: 200px; overflow-y: auto; display: none; margin-bottom: 0;">
+                            </div>
+                            <p id="pacienteSeleccionado" class="help-block"></p>
                         </div>
 
-                        <input type="hidden" name="doctor_id" id="modal_doctor_id">
+                        <div class="form-group">
+                            <label>Médico</label>
+                            <select name="doctor_id" id="modal_doctor_id" class="form-control" required>
+                                <option value="">Seleccione un médico</option>
+                                @foreach ($doctors as $doctor)
+                                    <option value="{{ $doctor->id }}">
+                                        {{ $doctor->primer_nombre_usuario }} {{ $doctor->apellido_usuario }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <input type="hidden" name="start" id="modal_start">
                         <input type="hidden" name="end" id="modal_end">
 
-                        <div class="form-group">
-                            <label>Fecha Inicio</label>
-                            <input type="text" id="preview_start" class="form-control" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Fecha Fin</label>
-                            <input type="text" id="preview_end" class="form-control" readonly>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Fecha</label>
+                                    <input type="date" id="modal_fecha" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Hora inicio</label>
+                                    <input type="time" id="modal_hora_inicio" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Hora fin</label>
+                                    <input type="time" id="modal_hora_fin" class="form-control" required>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -120,6 +153,7 @@
                             <select id="edit_estado" class="form-control">
                                 <option value="agendada">Agendada</option>
                                 <option value="confirmada">Confirmada</option>
+                                <option value="llego">Paciente llegó</option>
                                 <option value="cancelada">Cancelada</option>
                                 <option value="completada">Completada</option>
                             </select>
@@ -146,15 +180,43 @@
 
 @section('javaScript')
 
-
+<script src="{{ asset('vendors/bower_components/fullcalendar/dist/lang/es.js') }}"></script>
 
 <script>
-var pacientePrefillIdentificacion = @json(isset($paciente) && $paciente ? $paciente->identificacion_paciente : null);
+var pacientePrefill = @json(isset($paciente) && $paciente ? ['identificacion' => $paciente->identificacion_paciente, 'nombre' => $paciente->nombre_paciente.' '.$paciente->apellido_paciente] : null);
+
+function seleccionarPaciente(identificacion, nombre) {
+    $('#modal_identificacion').val(identificacion);
+    $('#buscarPaciente').val('');
+    $('#resultadosPaciente').hide().empty();
+    $('#pacienteSeleccionado').html('<strong>' + $('<div>').text(nombre + ' (' + identificacion + ')').html() + '</strong>');
+}
+
+function abrirModalCrear(fecha, horaInicio, horaFin) {
+    $('#formCrearCita')[0].reset();
+    $('#modal_identificacion').val('');
+    $('#pacienteSeleccionado').empty();
+    $('#resultadosPaciente').hide().empty();
+
+    $('#modal_doctor_id').val($('#doctorFilter').val() || '');
+    $('#modal_fecha').val(fecha);
+    $('#modal_hora_inicio').val(horaInicio);
+    $('#modal_hora_fin').val(horaFin);
+
+    if (pacientePrefill) {
+        seleccionarPaciente(pacientePrefill.identificacion, pacientePrefill.nombre);
+    }
+
+    $('#crearCitaModal').modal('show');
+}
+
 $(document).ready(function() {
-    moment.locale('es');
+    // fullcalendar-data.js ya inicializa #calendar con datos de demostración
+    $('#calendar').fullCalendar('destroy');
+
     $('#calendar').fullCalendar({
 
-        locale: 'es',
+        lang: 'es',
 
         monthNames: [
         'Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -232,25 +294,20 @@ $(document).ready(function() {
         /* ==========================================
            SELECCIONAR PARA CREAR
         ========================================== */
-        select: function(start, end) {
+        select: function(start, end, jsEvent, view) {
 
-            if (!$('#doctorFilter').val()) {
-                alert("Debe seleccionar un doctor antes de agendar.");
+            // En vista mensual, el clic en un día abre el detalle de ese día
+            if (view.name === 'month') {
+                $('#calendar').fullCalendar('unselect');
+                $('#calendar').fullCalendar('changeView', 'agendaDay', start.format('YYYY-MM-DD'));
                 return;
             }
 
-            $('#modal_start').val(start.format());
-            $('#modal_end').val(end.format());
-            $('#modal_doctor_id').val($('#doctorFilter').val());
-
-            if (pacientePrefillIdentificacion) {
-                $('input[name="identificacion"]').val(pacientePrefillIdentificacion);
-            }
-
-            $('#preview_start').val(start.format('YYYY-MM-DD HH:mm'));
-            $('#preview_end').val(end.format('YYYY-MM-DD HH:mm'));
-
-            $('#crearCitaModal').modal('show');
+            abrirModalCrear(
+                start.format('YYYY-MM-DD'),
+                start.format('HH:mm'),
+                end.format('HH:mm')
+            );
         },
 
         /* ==========================================
@@ -280,6 +337,44 @@ $(document).ready(function() {
         $('#calendar').fullCalendar('refetchEvents');
     });
 
+    $('#btnCrearAgenda').click(function() {
+        var fecha = $('#calendar').fullCalendar('getDate').format('YYYY-MM-DD');
+        abrirModalCrear(fecha, '08:00', '08:30');
+    });
+
+    var temporizadorBusqueda;
+    $('#buscarPaciente').on('input', function() {
+        var q = $.trim($(this).val());
+        clearTimeout(temporizadorBusqueda);
+
+        if (q.length < 2) {
+            $('#resultadosPaciente').hide().empty();
+            return;
+        }
+
+        temporizadorBusqueda = setTimeout(function() {
+            $.getJSON("{{ route('agenda.pacientes') }}", { q: q }, function(pacientes) {
+                var lista = $('#resultadosPaciente').empty();
+
+                if (!pacientes.length) {
+                    lista.append('<span class="list-group-item">Sin resultados</span>');
+                }
+
+                pacientes.forEach(function(p) {
+                    var nombre = p.nombre_paciente + ' ' + p.apellido_paciente;
+                    $('<a href="javascript:void(0);" class="list-group-item"></a>')
+                        .text(p.identificacion_paciente + ' - ' + nombre)
+                        .on('click', function() {
+                            seleccionarPaciente(p.identificacion_paciente, nombre);
+                        })
+                        .appendTo(lista);
+                });
+
+                lista.show();
+            });
+        }, 300);
+    });
+
 });
 
 
@@ -290,21 +385,31 @@ $('#formCrearCita').submit(function(e) {
 
     e.preventDefault();
 
+    if (!$('#modal_identificacion').val()) {
+        alert("Debe buscar y seleccionar un paciente.");
+        return;
+    }
+
+    var fecha = $('#modal_fecha').val();
+    $('#modal_start').val(fecha + ' ' + $('#modal_hora_inicio').val() + ':00');
+    $('#modal_end').val(fecha + ' ' + $('#modal_hora_fin').val() + ':00');
+
     $.ajax({
         url: "{{ route('agenda.store') }}",
         type: "POST",
+        dataType: "json",
         data: $(this).serialize(),
         success: function() {
 
             $('#crearCitaModal').modal('hide');
             $('#calendar').fullCalendar('refetchEvents');
-            $('#formCrearCita')[0].reset();
 
             alert("Cita creada correctamente");
         },
         error: function(xhr) {
-            console.log(xhr.responseText);
-            alert("Error al crear la cita");
+            var json = xhr.responseJSON || {};
+            var errores = json.errors ? Object.values(json.errors).join('\n') : null;
+            alert(errores || json.message || "Error al crear la cita");
         }
     });
 
