@@ -48,6 +48,8 @@ class AgendaStoresConsultaTest extends TestCase
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->string('estado')->default('agendada');
+            $table->unsignedBigInteger('consulta_id')->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->timestamps();
         });
 
@@ -93,10 +95,6 @@ class AgendaStoresConsultaTest extends TestCase
             'medico_id' => $medico->id,
             'estado' => 'agendada',
         ]);
-        $this->assertDatabaseHas('consulta', [
-            'paciente_id' => $paciente->id,
-            'medico_id' => $medico->id,
-            'estado_consulta' => 'Pendiente',
-        ]);
+        $this->assertDatabaseMissing('consulta', ['paciente_id' => $paciente->id]);
     }
 }

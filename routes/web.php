@@ -18,9 +18,19 @@ use App\Http\Controllers\archivoController;
 use App\Http\Controllers\ordenController;
 use App\Http\Controllers\examenController;
 use App\Http\Controllers\EstudioController;
+use App\Http\Controllers\AgendaController;
 
 
 Route::get('/', [loginController::class, 'dashboard'])->name('index');
+
+//Agenda
+Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+Route::get('/agenda/eventos', [AgendaController::class, 'events'])->name('agenda.events');
+Route::get('/agenda/pacientes', [AgendaController::class, 'buscarPacientes'])->name('agenda.pacientes');
+Route::post('/agenda/store', [AgendaController::class, 'guardar'])->name('agenda.store');
+Route::put('/agenda/update/{id}', [AgendaController::class, 'update']);
+Route::put('/agenda/update-horario/{id}', [AgendaController::class, 'updateHorario']);
+Route::delete('/agenda/delete/{id}', [AgendaController::class, 'destroy']);
 
 
 
